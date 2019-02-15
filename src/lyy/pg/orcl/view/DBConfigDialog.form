@@ -3,6 +3,9 @@
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
+    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+      <Dimension value="[255, 260]"/>
+    </Property>
     <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>
@@ -28,15 +31,15 @@
               <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <Component id="lblType" min="-2" pref="82" max="-2" attributes="0"/>
+                      <Component id="lblType" min="-2" pref="50" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                       <Component id="cbbType" max="32767" attributes="0"/>
                   </Group>
-                  <Component id="lblPwd" alignment="0" min="-2" pref="82" max="-2" attributes="0"/>
-                  <Component id="lblUser" alignment="0" min="-2" pref="82" max="-2" attributes="0"/>
-                  <Component id="lblDB" alignment="0" min="-2" pref="82" max="-2" attributes="0"/>
+                  <Component id="lblPwd" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
+                  <Component id="lblUser" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
+                  <Component id="lblDB" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+                      <EmptySpace pref="36" max="32767" attributes="0"/>
                       <Component id="btnOK" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="btnCancle" min="-2" max="-2" attributes="0"/>
@@ -45,19 +48,22 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="lblHost" min="-2" pref="80" max="-2" attributes="0"/>
-                          <Component id="lblPort" min="-2" pref="82" max="-2" attributes="0"/>
+                          <Component id="lblHost" min="-2" pref="50" max="-2" attributes="0"/>
+                          <Component id="lblPort" min="-2" pref="50" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="tfUser" alignment="1" max="32767" attributes="0"/>
-                          <Component id="tfDB" alignment="1" max="32767" attributes="0"/>
                           <Component id="tfHost" max="32767" attributes="0"/>
-                          <Group type="102" attributes="0">
-                              <Component id="tfPort" min="-2" pref="66" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          </Group>
                           <Component id="tfPwd" max="32767" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="cbbArgType" max="32767" attributes="0"/>
+                                  <Component id="tfPort" pref="66" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                              <Component id="tfArg" max="32767" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
               </Group>
@@ -86,7 +92,8 @@
               <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="lblDB" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="tfDB" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="tfArg" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cbbArgType" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -140,11 +147,11 @@
     <Component class="javax.swing.JLabel" name="lblDB">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="constBundle.getString(&quot;db&quot;)" type="code"/>
+          <Connection code="constBundle.getString(&quot;arg&quot;)" type="code"/>
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="tfDB">
+    <Component class="javax.swing.JTextField" name="tfArg">
     </Component>
     <Component class="javax.swing.JLabel" name="lblUser">
       <Properties>
@@ -184,6 +191,8 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JPasswordField" name="tfPwd">
+    </Component>
+    <Component class="javax.swing.JComboBox" name="cbbArgType">
     </Component>
   </SubComponents>
 </Form>

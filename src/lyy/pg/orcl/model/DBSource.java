@@ -5,7 +5,7 @@
  */
 package lyy.pg.orcl.model;
 
-import lyy.pg.orcl.util.DB;
+import lyy.pg.orcl.util.Enum;
 
 /**
  *
@@ -13,10 +13,11 @@ import lyy.pg.orcl.util.DB;
  */
 public class DBSource
 {
-    private DB type;
+    private Enum type;
     private String host;
     private int port;
-    private String db;
+    private Enum.ArgType argType;
+    private String arg;
     private String user;
     private String pwd;
 
@@ -50,15 +51,15 @@ public class DBSource
     @Override
     public String toString()
     {
-        return user + "@" + host + ":" + port + "/" + db;
+        return user + "@" + host + ":" + port + "/" + arg;
     }
 
-    public DB getType()
+    public Enum getType()
     {
         return type;
     }
 
-    public void setType(DB type)
+    public void setType(Enum type)
     {
         this.type = type;
     }
@@ -83,14 +84,24 @@ public class DBSource
         this.port = port;
     }
 
-    public String getDb()
+    public Enum.ArgType getArgType()
     {
-        return db;
+        return argType;
     }
 
-    public void setDb(String db)
+    public void setArgType(Enum.ArgType argType)
     {
-        this.db = db;
+        this.argType = argType;
+    }
+    
+    public String getArg()
+    {
+        return arg;
+    }
+
+    public void setArg(String db)
+    {
+        this.arg = db;
     }
 
     public String getUser()
