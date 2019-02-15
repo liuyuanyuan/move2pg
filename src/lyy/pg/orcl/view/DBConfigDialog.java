@@ -6,6 +6,7 @@
 package lyy.pg.orcl.view;
 
 import java.awt.Frame;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ResourceBundle;
@@ -42,6 +43,7 @@ public class DBConfigDialog extends javax.swing.JDialog
         
         //config
         setTitle(constBundle.getString("configDB"));
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/lyy/pg/orcl/image/db_48px.png")));
         cbbType.setModel(new DefaultComboBoxModel(new Object[]
         {
             type
