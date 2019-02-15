@@ -39,10 +39,23 @@ public class MainView extends JFrame
     {
         logger.debug("Enter");
         initComponents();
-        setTitle("orcl2pg");
+        setTitle(constBundle.getString("title"));
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/lyy/pg/orcl/image/orcl2pg.png")));
         tbMain.removeAll();
+        taWelcome.setText(constBundle.getString("welcomeText"));
+        tbMain.add(constBundle.getString("welcomeTitle"), pnlWelcome);
 
+        
+        //welcome
+        btnOpenWelcome.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                btnOpenWelcomeActionPerformed(e);
+            }
+        });
+                
         //db source
         cbSourceDB.setModel(new DefaultComboBoxModel(new String[]
         {
@@ -193,12 +206,16 @@ public class MainView extends JFrame
 
         btngChooseObj = new javax.swing.ButtonGroup();
         toolBar = new javax.swing.JToolBar();
-        btnOpenMigrate = new javax.swing.JButton();
-        btnOpenConvert = new javax.swing.JButton();
-        btnOpenDatatype = new javax.swing.JButton();
+        btnOpenWelcome = new javax.swing.JButton();
         cbSourceDB = new javax.swing.JComboBox();
         cbTargetDB = new javax.swing.JComboBox();
+        btnOpenDatatype = new javax.swing.JButton();
+        btnOpenMigrate = new javax.swing.JButton();
+        btnOpenConvert = new javax.swing.JButton();
         tbMain = new javax.swing.JTabbedPane();
+        pnlWelcome = new javax.swing.JPanel();
+        spWelcome = new javax.swing.JScrollPane();
+        taWelcome = new javax.swing.JTextArea();
         pnlDatatype = new javax.swing.JPanel();
         spDatatype = new javax.swing.JScrollPane();
         tbDatatype = new javax.swing.JTable();
@@ -215,9 +232,22 @@ public class MainView extends JFrame
         pnlConvert = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(700, 500));
 
         toolBar.setRollover(true);
+
+        btnOpenWelcome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lyy/pg/orcl/image/orcl2pg.png"))); // NOI18N
+        btnOpenWelcome.setFocusable(false);
+        btnOpenWelcome.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnOpenWelcome.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        toolBar.add(btnOpenWelcome);
+        toolBar.add(cbSourceDB);
+        toolBar.add(cbTargetDB);
+
+        btnOpenDatatype.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lyy/pg/orcl/image/datatype_48px.png"))); // NOI18N
+        btnOpenDatatype.setFocusable(false);
+        btnOpenDatatype.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnOpenDatatype.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        toolBar.add(btnOpenDatatype);
 
         btnOpenMigrate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lyy/pg/orcl/image/migrator_48px.png"))); // NOI18N
         btnOpenMigrate.setFocusable(false);
@@ -231,13 +261,25 @@ public class MainView extends JFrame
         btnOpenConvert.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         toolBar.add(btnOpenConvert);
 
-        btnOpenDatatype.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lyy/pg/orcl/image/datatype_48px.png"))); // NOI18N
-        btnOpenDatatype.setFocusable(false);
-        btnOpenDatatype.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnOpenDatatype.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        toolBar.add(btnOpenDatatype);
-        toolBar.add(cbSourceDB);
-        toolBar.add(cbTargetDB);
+        pnlWelcome.setBackground(new java.awt.Color(255, 255, 255));
+
+        taWelcome.setColumns(20);
+        taWelcome.setRows(5);
+        taWelcome.setText("\n\t欢迎使用oracl2pg ^-^\n        \n\t我们推荐你按照如下步骤使用本工具：\n        step 1: 配置源端、目标端数据源；\n        step 2: 配置源端、目标端数据类型映射；\n\tstep 3: 进行数据表的迁移、比对、映射；\n        step 4: 进行对象定义的SQL和PSQL转换。\n\n        欢迎报告异常或者提交代码给我们\n        \n");
+        spWelcome.setViewportView(taWelcome);
+
+        javax.swing.GroupLayout pnlWelcomeLayout = new javax.swing.GroupLayout(pnlWelcome);
+        pnlWelcome.setLayout(pnlWelcomeLayout);
+        pnlWelcomeLayout.setHorizontalGroup(
+            pnlWelcomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(spWelcome, javax.swing.GroupLayout.DEFAULT_SIZE, 695, Short.MAX_VALUE)
+        );
+        pnlWelcomeLayout.setVerticalGroup(
+            pnlWelcomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(spWelcome, javax.swing.GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE)
+        );
+
+        tbMain.addTab(constBundle.getString("welcomeTitle"), pnlWelcome);
 
         tbDatatype.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][]
@@ -379,6 +421,8 @@ public class MainView extends JFrame
                 .addComponent(tbMain))
         );
 
+        tbMain.getAccessibleContext().setAccessibleName(constBundle.getString("welcomeTitle"));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -393,6 +437,13 @@ public class MainView extends JFrame
                 (DBSource)cbTargetDB.getSelectedItem() : null;                
     }
     
+    //welcome
+    private void btnOpenWelcomeActionPerformed(ActionEvent e)
+    {
+        logger.debug(e.getActionCommand());
+        tbMain.removeAll();
+        tbMain.add(constBundle.getString("welcomeTitle"), pnlWelcome);
+    }
     
     //db source
     private void dbActionPerformed(ActionEvent e)
@@ -565,6 +616,7 @@ public class MainView extends JFrame
     private javax.swing.JButton btnOpenConvert;
     private javax.swing.JButton btnOpenDatatype;
     private javax.swing.JButton btnOpenMigrate;
+    private javax.swing.JButton btnOpenWelcome;
     private javax.swing.JButton btnResport;
     private javax.swing.JButton btnSync;
     private javax.swing.ButtonGroup btngChooseObj;
@@ -573,11 +625,14 @@ public class MainView extends JFrame
     private javax.swing.JPanel pnlConvert;
     private javax.swing.JPanel pnlDatatype;
     private javax.swing.JPanel pnlMigrate;
+    private javax.swing.JPanel pnlWelcome;
     private javax.swing.JRadioButton rbtnAll;
     private javax.swing.JRadioButton rbtnNone;
     private javax.swing.JRadioButton rbtnReverse;
     private javax.swing.JScrollPane spDatatype;
     private javax.swing.JScrollPane spObject;
+    private javax.swing.JScrollPane spWelcome;
+    private javax.swing.JTextArea taWelcome;
     private javax.swing.JTable tbDatatype;
     private javax.swing.JTabbedPane tbMain;
     private javax.swing.JTable tbObject;

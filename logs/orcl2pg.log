@@ -66,3 +66,314 @@
 2019-02-14 16:07:39.652 DEBUG [MainView.dbItemActionPerformed:131] <源端Oracle数据库>
 2019-02-14 16:07:41.890 DEBUG [MainView.dbItemActionPerformed:123] comboBoxChanged
 2019-02-14 16:07:41.891 DEBUG [MainView.dbItemActionPerformed:131] <目标端PG数据库>
+2019-02-15 14:15:48.842 DEBUG [MainView.<init>:37] Enter
+2019-02-15 14:31:22.406 DEBUG [MainView.<init>:37] Enter
+2019-02-15 14:31:24.380 DEBUG [MainView.dbItemActionPerformed:123] comboBoxChanged
+2019-02-15 14:31:24.380 DEBUG [MainView.dbItemActionPerformed:131] <源端Oracle数据库>
+2019-02-15 14:41:12.870 DEBUG [MainView.<init>:37] Enter
+2019-02-15 14:41:14.266 DEBUG [MainView.dbActionPerformed:163] comboBoxChanged
+2019-02-15 15:01:53.860 DEBUG [MainView.<init>:37] Enter
+2019-02-15 15:26:26.265 DEBUG [MainView.<init>:45] Enter
+2019-02-15 15:26:28.558 DEBUG [MainView.dbActionPerformed:342] comboBoxChanged
+2019-02-15 15:26:28.559 DEBUG [MainView.dbActionPerformed:355] <源端Oracle数据库>
+2019-02-15 15:26:31.925 DEBUG [DBConfigDialog.btnOKActionPerformed:239] 确定
+2019-02-15 15:26:31.925 ERROR [DBConfigDialog.btnOKActionPerformed:257] 不允许为空值！
+2019-02-15 15:26:39.204 DEBUG [DBConfigDialog.btnCancleActionPerformed:266] 取消
+2019-02-15 15:26:41.204 DEBUG [MainView.dbActionPerformed:342] comboBoxChanged
+2019-02-15 15:26:41.204 DEBUG [MainView.dbActionPerformed:355] <目标端PG数据库>
+2019-02-15 15:26:44.868 DEBUG [DBConfigDialog.btnOKActionPerformed:239] 确定
+2019-02-15 15:26:44.869 ERROR [DBConfigDialog.btnOKActionPerformed:257] 不允许为空值！
+2019-02-15 15:26:46.493 DEBUG [DBConfigDialog.btnCancleActionPerformed:266] 取消
+2019-02-15 15:26:48.973 DEBUG [MainView.dbActionPerformed:342] comboBoxChanged
+2019-02-15 15:26:48.973 DEBUG [MainView.dbActionPerformed:355] <目标端PG数据库>
+2019-02-15 15:26:51.180 DEBUG [DBConfigDialog.btnResetActionPerformed:273] 重置
+2019-02-15 15:27:10.424 DEBUG [MainView.<init>:45] Enter
+2019-02-15 15:27:17.358 DEBUG [MainView.dbActionPerformed:342] comboBoxChanged
+2019-02-15 15:27:17.358 DEBUG [MainView.dbActionPerformed:355] <源端Oracle数据库>
+2019-02-15 15:29:13.870 DEBUG [MainView.<init>:45] Enter
+2019-02-15 15:29:16.406 DEBUG [MainView.dbActionPerformed:342] comboBoxChanged
+2019-02-15 15:29:16.406 DEBUG [MainView.dbActionPerformed:355] <源端Oracle数据库>
+2019-02-15 15:29:39.181 DEBUG [MainView.<init>:45] Enter
+2019-02-15 15:29:40.805 DEBUG [MainView.dbActionPerformed:342] comboBoxChanged
+2019-02-15 15:29:40.805 DEBUG [MainView.dbActionPerformed:355] <源端Oracle数据库>
+2019-02-15 15:29:59.817 DEBUG [MainView.<init>:45] Enter
+2019-02-15 15:30:01.046 DEBUG [MainView.dbActionPerformed:342] comboBoxChanged
+2019-02-15 15:30:01.046 DEBUG [MainView.dbActionPerformed:355] <源端Oracle数据库>
+2019-02-15 15:30:11.061 DEBUG [MainView.dbActionPerformed:342] comboBoxChanged
+2019-02-15 15:30:11.061 DEBUG [MainView.dbActionPerformed:355] <目标端PG数据库>
+2019-02-15 15:30:13.379 DEBUG [MainView.btnOpenMigrateActionPerformed:407] Enter:
+2019-02-15 15:30:13.381  INFO [MainView.fillTbObject:414] Enter
+2019-02-15 15:30:13.381 ERROR [MainView.fillTbObject:444] 请先配置数据源！
+2019-02-15 15:30:19.324 DEBUG [MainView.btnOpenConvertActionPerformed:455] Enter:
+2019-02-15 15:30:20.900 DEBUG [MainView.btnOpenDatatypeActionPerformed:372] Enter:
+2019-02-15 15:30:20.902  INFO [MainView.fillTbDatatype:379] Enter
+2019-02-15 15:30:20.912 DEBUG [DatatypeFactory.getDefaultDatatypeCasts:222] Enter: sourceDB=Oracle
+2019-02-15 15:30:20.913  INFO [MainView.fillTbDatatype:393] datatypeList.size = 21
+2019-02-15 15:30:29.619 DEBUG [MainView.btnOpenDatatypeActionPerformed:372] Enter:
+2019-02-15 15:30:29.622  INFO [MainView.fillTbDatatype:379] Enter
+2019-02-15 15:30:29.622 DEBUG [DatatypeFactory.getDefaultDatatypeCasts:222] Enter: sourceDB=Oracle
+2019-02-15 15:30:29.623  INFO [MainView.fillTbDatatype:393] datatypeList.size = 21
+2019-02-15 15:31:04.468 DEBUG [MainView.<init>:45] Enter
+2019-02-15 15:31:06.828 DEBUG [MainView.dbActionPerformed:342] comboBoxChanged
+2019-02-15 15:31:06.829 DEBUG [MainView.dbActionPerformed:355] <源端Oracle数据库>
+2019-02-15 15:31:20.955 DEBUG [DBConfigDialog.btnOKActionPerformed:239] 确定
+2019-02-15 15:31:20.955 ERROR [DBConfigDialog.btnOKActionPerformed:257] 不允许为空值！
+2019-02-15 15:31:23.916 DEBUG [DBConfigDialog.btnCancleActionPerformed:266] 取消
+2019-02-15 15:31:24.875 DEBUG [MainView.btnOpenDatatypeActionPerformed:372] Enter:
+2019-02-15 15:31:24.876  INFO [MainView.fillTbDatatype:379] Enter
+2019-02-15 15:31:24.886 DEBUG [DatatypeFactory.getDefaultDatatypeCasts:222] Enter: sourceDB=Oracle
+2019-02-15 15:31:24.887  INFO [MainView.fillTbDatatype:393] datatypeList.size = 21
+2019-02-15 15:31:33.651 DEBUG [MainView.btnOpenMigrateActionPerformed:407] Enter:
+2019-02-15 15:31:33.653  INFO [MainView.fillTbObject:414] Enter
+2019-02-15 15:31:33.653 ERROR [MainView.fillTbObject:444] 请先配置数据源！
+2019-02-15 15:35:57.752 DEBUG [MainView.<init>:41] Enter
+2019-02-15 15:35:59.427 DEBUG [MainView.btnOpenDatatypeActionPerformed:402] Enter:
+2019-02-15 15:35:59.428  INFO [MainView.fillTbDatatype:409] Enter
+2019-02-15 15:35:59.438 DEBUG [DatatypeFactory.getDefaultDatatypeCasts:222] Enter: sourceDB=Oracle
+2019-02-15 15:35:59.439  INFO [MainView.fillTbDatatype:423] datatypeList.size = 21
+2019-02-15 15:36:00.698 DEBUG [MainView.btnOpenMigrateActionPerformed:437] Enter:
+2019-02-15 15:36:00.700  INFO [MainView.fillTbObject:444] Enter
+2019-02-15 15:36:00.700 ERROR [MainView.fillTbObject:474] 请先配置数据源！
+2019-02-15 15:36:06.434 DEBUG [MainView.btnOpenConvertActionPerformed:485] Enter:
+2019-02-15 15:36:07.570 DEBUG [MainView.btnOpenConvertActionPerformed:485] Enter:
+2019-02-15 15:36:08.034 DEBUG [MainView.btnOpenDatatypeActionPerformed:402] Enter:
+2019-02-15 15:36:08.035  INFO [MainView.fillTbDatatype:409] Enter
+2019-02-15 15:36:08.035 DEBUG [MainView.fillTbDatatype:418] Remain and return.
+2019-02-15 15:36:09.732 DEBUG [MainView.dbActionPerformed:372] comboBoxChanged
+2019-02-15 15:36:09.733 DEBUG [MainView.dbActionPerformed:385] <源端Oracle数据库>
+2019-02-15 15:37:06.426 DEBUG [DBConfigDialog.btnOKActionPerformed:239] 确定
+2019-02-15 15:37:40.721 DEBUG [DBConfigDialog.btnOKActionPerformed:239] 确定
+2019-02-15 15:38:39.302 DEBUG [MainView.<init>:41] Enter
+2019-02-15 15:38:42.092 DEBUG [MainView.dbActionPerformed:372] comboBoxChanged
+2019-02-15 15:38:42.093 DEBUG [MainView.dbActionPerformed:385] <源端Oracle数据库>
+2019-02-15 15:38:49.809 DEBUG [DBConfigDialog.btnOKActionPerformed:239] 确定
+2019-02-15 15:38:49.811 DEBUG [JdbcUtil.getConnection:76] oracle.jdbc.driver.OracleDriver
+2019-02-15 15:38:49.811 DEBUG [JdbcUtil.getConnection:77] jdbc:oracle:thin:@192.168.136.128:1521:orcl
+2019-02-15 15:43:30.710 DEBUG [JdbcUtil.getConnection:85] oracle.jdbc.driver.OracleDriver
+2019-02-15 15:43:30.712 DEBUG [JdbcUtil.getConnection:86] jdbc:oracle:thin:@192.168.136.128:1521/orcl
+2019-02-15 15:43:31.047 DEBUG [JdbcUtil.main:56] Connected
+2019-02-15 15:43:39.530 DEBUG [MainView.<init>:41] Enter
+2019-02-15 15:43:41.114 DEBUG [MainView.dbActionPerformed:372] comboBoxChanged
+2019-02-15 15:43:41.115 DEBUG [MainView.dbActionPerformed:385] <源端Oracle数据库>
+2019-02-15 15:43:57.640 DEBUG [DBConfigDialog.btnOKActionPerformed:239] 确定
+2019-02-15 15:43:57.642 DEBUG [JdbcUtil.getConnection:85] oracle.jdbc.driver.OracleDriver
+2019-02-15 15:43:57.642 DEBUG [JdbcUtil.getConnection:86] jdbc:oracle:thin:@192.168.136.128:1521/orcl
+2019-02-15 15:44:29.544 DEBUG [DBConfigDialog.btnCancleActionPerformed:266] 取消
+2019-02-15 15:44:29.552 DEBUG [MainView.dbActionPerformed:390] response=0
+2019-02-15 15:44:58.741 DEBUG [MainView.<init>:41] Enter
+2019-02-15 15:45:13.369 DEBUG [MainView.dbActionPerformed:372] comboBoxChanged
+2019-02-15 15:45:13.370 DEBUG [MainView.dbActionPerformed:385] <源端Oracle数据库>
+2019-02-15 15:45:17.862 DEBUG [MainView.dbActionPerformed:390] response=-1
+2019-02-15 15:45:29.379 DEBUG [MainView.<init>:41] Enter
+2019-02-15 15:45:30.874 DEBUG [MainView.dbActionPerformed:372] comboBoxChanged
+2019-02-15 15:45:30.875 DEBUG [MainView.dbActionPerformed:385] <源端Oracle数据库>
+2019-02-15 15:45:37.080 DEBUG [DBConfigDialog.btnOKActionPerformed:239] 确定
+2019-02-15 15:45:37.081 DEBUG [JdbcUtil.getConnection:85] oracle.jdbc.driver.OracleDriver
+2019-02-15 15:45:37.081 DEBUG [JdbcUtil.getConnection:86] jdbc:oracle:thin:@192.168.136.128:1521/orcl
+2019-02-15 15:45:37.399 DEBUG [DBConfigDialog.btnOKActionPerformed:253] Connected
+2019-02-15 15:45:37.407 DEBUG [MainView.dbActionPerformed:390] response=0
+2019-02-15 15:45:40.072 DEBUG [MainView.dbActionPerformed:372] comboBoxChanged
+2019-02-15 15:45:40.072  WARN [MainView.dbActionPerformed:381] Changed db source
+2019-02-15 15:45:41.128 DEBUG [MainView.dbActionPerformed:372] comboBoxChanged
+2019-02-15 15:45:41.129 DEBUG [MainView.dbActionPerformed:385] <源端Oracle数据库>
+2019-02-15 15:45:43.207 DEBUG [DBConfigDialog.btnCancleActionPerformed:268] 取消
+2019-02-15 15:45:43.215 DEBUG [MainView.dbActionPerformed:390] response=-1
+2019-02-15 15:45:44.889 DEBUG [MainView.dbActionPerformed:372] comboBoxChanged
+2019-02-15 15:45:44.890  WARN [MainView.dbActionPerformed:381] Changed db source
+2019-02-15 15:45:48.008 DEBUG [MainView.btnOpenMigrateActionPerformed:438] Enter:
+2019-02-15 15:45:48.010  INFO [MainView.fillTbObject:445] Enter
+2019-02-15 15:45:48.011 DEBUG [ObjectUtil.getTypedObjects:31] Enter:db=lyy@192.168.136.128:1521/orcl,objType=Table
+2019-02-15 15:45:48.011 DEBUG [JdbcUtil.getConnection:85] oracle.jdbc.driver.OracleDriver
+2019-02-15 15:45:48.011 DEBUG [JdbcUtil.getConnection:86] jdbc:oracle:thin:@192.168.136.128:1521/orcl
+2019-02-15 15:45:48.154  INFO [SQLFactory.getShowObjSQL:32] Enter:dbType = Oracle,objType = Table
+2019-02-15 15:45:48.155 DEBUG [ObjectUtil.getTypedObjects:42] sql=SELECT DISTINCT user, table_name FROM user_tables MINUS  SELECT DISTINCT user,mview_name FROM user_mviews  ORDER BY table_name
+2019-02-15 15:45:48.365 DEBUG [ObjectUtil.getTypedObjects:65] Return: size=154
+2019-02-15 15:45:48.365  INFO [MainView.fillTbObject:465] objectList.size = 154
+2019-02-15 15:46:34.670 DEBUG [MainView.<init>:41] Enter
+2019-02-15 15:46:38.714 DEBUG [MainView.dbActionPerformed:372] comboBoxChanged
+2019-02-15 15:46:38.714 DEBUG [MainView.dbActionPerformed:385] <源端Oracle数据库>
+2019-02-15 15:46:44.999 DEBUG [DBConfigDialog.btnOKActionPerformed:239] 确定
+2019-02-15 15:46:45.001 DEBUG [JdbcUtil.getConnection:85] oracle.jdbc.driver.OracleDriver
+2019-02-15 15:46:45.001 DEBUG [JdbcUtil.getConnection:86] jdbc:oracle:thin:@192.168.136.128:1521/orcl
+2019-02-15 15:46:45.305 DEBUG [DBConfigDialog.btnOKActionPerformed:253] Connected
+2019-02-15 15:46:45.313 DEBUG [MainView.dbActionPerformed:390] response=0
+2019-02-15 15:46:46.280 DEBUG [MainView.btnOpenMigrateActionPerformed:438] Enter:
+2019-02-15 15:46:46.281  INFO [MainView.fillTbObject:445] Enter
+2019-02-15 15:46:46.282 DEBUG [ObjectUtil.getTypedObjects:31] Enter:db=lyy@192.168.136.128:1521/orcl,objType=Table
+2019-02-15 15:46:46.283 DEBUG [JdbcUtil.getConnection:85] oracle.jdbc.driver.OracleDriver
+2019-02-15 15:46:46.283 DEBUG [JdbcUtil.getConnection:86] jdbc:oracle:thin:@192.168.136.128:1521/orcl
+2019-02-15 15:46:46.369  INFO [SQLFactory.getShowObjSQL:32] Enter:dbType = Oracle,objType = Table
+2019-02-15 15:46:46.370 DEBUG [ObjectUtil.getTypedObjects:42] sql=SELECT DISTINCT user, table_name FROM user_tables MINUS  SELECT DISTINCT user,mview_name FROM user_mviews  ORDER BY table_name
+2019-02-15 15:46:46.502 DEBUG [ObjectUtil.getTypedObjects:65] Return: size=154
+2019-02-15 15:46:46.504  INFO [MainView.fillTbObject:465] objectList.size = 154
+2019-02-15 15:52:51.334 DEBUG [MainView.<init>:40] Enter
+2019-02-15 15:52:57.862 DEBUG [MainView.btnOpenMigrateActionPerformed:459] Enter:
+2019-02-15 15:52:57.863  INFO [MainView.fillTbObject:466] Enter
+2019-02-15 15:52:57.863 ERROR [MainView.fillTbObject:496] 请先配置数据源！
+2019-02-15 15:53:00.048 DEBUG [MainView.dbActionPerformed:393] comboBoxChanged
+2019-02-15 15:53:00.048 DEBUG [MainView.dbActionPerformed:406] <源端Oracle数据库>
+2019-02-15 15:53:12.221 DEBUG [DBConfigDialog.btnOKActionPerformed:239] 确定
+2019-02-15 15:53:12.224 DEBUG [JdbcUtil.getConnection:85] oracle.jdbc.driver.OracleDriver
+2019-02-15 15:53:12.224 DEBUG [JdbcUtil.getConnection:86] jdbc:oracle:thin:@192.168.136.128:1521/orcl
+2019-02-15 15:53:12.524 DEBUG [DBConfigDialog.btnOKActionPerformed:253] Connected
+2019-02-15 15:53:12.531 DEBUG [MainView.dbActionPerformed:411] response=0
+2019-02-15 15:53:13.750 DEBUG [MainView.btnOpenMigrateActionPerformed:459] Enter:
+2019-02-15 15:53:13.752  INFO [MainView.fillTbObject:466] Enter
+2019-02-15 15:53:13.752 DEBUG [ObjectUtil.getTypedObjects:31] Enter:db=lyy@192.168.136.128:1521/orcl,objType=Table
+2019-02-15 15:53:13.753 DEBUG [JdbcUtil.getConnection:85] oracle.jdbc.driver.OracleDriver
+2019-02-15 15:53:13.753 DEBUG [JdbcUtil.getConnection:86] jdbc:oracle:thin:@192.168.136.128:1521/orcl
+2019-02-15 15:53:13.894  INFO [SQLFactory.getShowObjSQL:32] Enter:dbType = Oracle,objType = Table
+2019-02-15 15:53:13.895 DEBUG [ObjectUtil.getTypedObjects:42] sql=SELECT DISTINCT user, table_name FROM user_tables MINUS  SELECT DISTINCT user,mview_name FROM user_mviews  ORDER BY table_name
+2019-02-15 15:53:13.948 DEBUG [ObjectUtil.getTypedObjects:65] Return: size=154
+2019-02-15 15:53:13.948  INFO [MainView.fillTbObject:486] objectList.size = 154
+2019-02-15 15:54:09.875 DEBUG [MainView.<init>:40] Enter
+2019-02-15 15:54:12.304 DEBUG [MainView.dbActionPerformed:396] comboBoxChanged
+2019-02-15 15:54:12.304 DEBUG [MainView.dbActionPerformed:409] <源端Oracle数据库>
+2019-02-15 15:54:18.237 DEBUG [DBConfigDialog.btnOKActionPerformed:239] 确定
+2019-02-15 15:54:18.239 DEBUG [JdbcUtil.getConnection:85] oracle.jdbc.driver.OracleDriver
+2019-02-15 15:54:18.239 DEBUG [JdbcUtil.getConnection:86] jdbc:oracle:thin:@192.168.136.128:1521/orcl
+2019-02-15 15:54:18.536 DEBUG [DBConfigDialog.btnOKActionPerformed:253] Connected
+2019-02-15 15:54:18.545 DEBUG [MainView.dbActionPerformed:414] response=0
+2019-02-15 15:54:19.158 DEBUG [MainView.btnOpenMigrateActionPerformed:462] Enter:
+2019-02-15 15:54:19.159  INFO [MainView.fillTbObject:469] Enter
+2019-02-15 15:54:19.160 DEBUG [ObjectUtil.getTypedObjects:31] Enter:db=lyy@192.168.136.128:1521/orcl,objType=Table
+2019-02-15 15:54:19.160 DEBUG [JdbcUtil.getConnection:85] oracle.jdbc.driver.OracleDriver
+2019-02-15 15:54:19.160 DEBUG [JdbcUtil.getConnection:86] jdbc:oracle:thin:@192.168.136.128:1521/orcl
+2019-02-15 15:54:19.242  INFO [SQLFactory.getShowObjSQL:32] Enter:dbType = Oracle,objType = Table
+2019-02-15 15:54:19.243 DEBUG [ObjectUtil.getTypedObjects:42] sql=SELECT DISTINCT user, table_name FROM user_tables MINUS  SELECT DISTINCT user,mview_name FROM user_mviews  ORDER BY table_name
+2019-02-15 15:54:19.340 DEBUG [ObjectUtil.getTypedObjects:65] Return: size=154
+2019-02-15 15:54:19.341  INFO [MainView.fillTbObject:489] objectList.size = 154
+2019-02-15 15:55:29.340 DEBUG [MainView.<init>:40] Enter
+2019-02-15 15:55:33.383 DEBUG [MainView.dbActionPerformed:397] comboBoxChanged
+2019-02-15 15:55:33.383 DEBUG [MainView.dbActionPerformed:410] <源端Oracle数据库>
+2019-02-15 15:56:04.549 DEBUG [DBConfigDialog.btnOKActionPerformed:239] 确定
+2019-02-15 15:56:04.550 DEBUG [JdbcUtil.getConnection:85] oracle.jdbc.driver.OracleDriver
+2019-02-15 15:56:04.551 DEBUG [JdbcUtil.getConnection:86] jdbc:oracle:thin:@192.168.136.128:1521/orcl
+2019-02-15 15:56:04.848 DEBUG [DBConfigDialog.btnOKActionPerformed:253] Connected
+2019-02-15 15:56:04.855 DEBUG [MainView.dbActionPerformed:415] response=0
+2019-02-15 15:56:05.717 DEBUG [MainView.btnOpenMigrateActionPerformed:463] Enter:
+2019-02-15 15:56:05.718  INFO [MainView.fillTbObject:470] Enter
+2019-02-15 15:56:05.719 DEBUG [ObjectUtil.getTypedObjects:31] Enter:db=lyy@192.168.136.128:1521/orcl,objType=Table
+2019-02-15 15:56:05.719 DEBUG [JdbcUtil.getConnection:85] oracle.jdbc.driver.OracleDriver
+2019-02-15 15:56:05.719 DEBUG [JdbcUtil.getConnection:86] jdbc:oracle:thin:@192.168.136.128:1521/orcl
+2019-02-15 15:56:05.835  INFO [SQLFactory.getShowObjSQL:32] Enter:dbType = Oracle,objType = Table
+2019-02-15 15:56:05.836 DEBUG [ObjectUtil.getTypedObjects:42] sql=SELECT DISTINCT user, table_name FROM user_tables MINUS  SELECT DISTINCT user,mview_name FROM user_mviews  ORDER BY table_name
+2019-02-15 15:56:05.898 DEBUG [ObjectUtil.getTypedObjects:65] Return: size=154
+2019-02-15 15:56:05.899  INFO [MainView.fillTbObject:490] objectList.size = 154
+2019-02-15 15:56:25.646 DEBUG [MainView.<init>:40] Enter
+2019-02-15 15:56:31.215 DEBUG [MainView.dbActionPerformed:397] comboBoxChanged
+2019-02-15 15:56:31.215 DEBUG [MainView.dbActionPerformed:410] <源端Oracle数据库>
+2019-02-15 15:56:42.133 DEBUG [DBConfigDialog.btnOKActionPerformed:239] 确定
+2019-02-15 15:56:42.135 DEBUG [JdbcUtil.getConnection:85] oracle.jdbc.driver.OracleDriver
+2019-02-15 15:56:42.135 DEBUG [JdbcUtil.getConnection:86] jdbc:oracle:thin:@192.168.136.128:1521/orcl
+2019-02-15 15:56:42.424 DEBUG [DBConfigDialog.btnOKActionPerformed:253] Connected
+2019-02-15 15:56:42.432 DEBUG [MainView.dbActionPerformed:415] response=0
+2019-02-15 15:56:42.917 DEBUG [MainView.btnOpenMigrateActionPerformed:463] Enter:
+2019-02-15 15:56:42.918  INFO [MainView.fillTbObject:470] Enter
+2019-02-15 15:56:42.919 DEBUG [ObjectUtil.getTypedObjects:31] Enter:db=lyy@192.168.136.128:1521/orcl,objType=Table
+2019-02-15 15:56:42.919 DEBUG [JdbcUtil.getConnection:85] oracle.jdbc.driver.OracleDriver
+2019-02-15 15:56:42.920 DEBUG [JdbcUtil.getConnection:86] jdbc:oracle:thin:@192.168.136.128:1521/orcl
+2019-02-15 15:56:43.030  INFO [SQLFactory.getShowObjSQL:32] Enter:dbType = Oracle,objType = Table
+2019-02-15 15:56:43.031 DEBUG [ObjectUtil.getTypedObjects:42] sql=SELECT DISTINCT user, table_name FROM user_tables MINUS  SELECT DISTINCT user,mview_name FROM user_mviews  ORDER BY table_name
+2019-02-15 15:56:43.129 DEBUG [ObjectUtil.getTypedObjects:65] Return: size=154
+2019-02-15 15:56:43.130  INFO [MainView.fillTbObject:490] objectList.size = 154
+2019-02-15 15:56:57.275 DEBUG [MainView.<init>:40] Enter
+2019-02-15 15:57:40.198 DEBUG [MainView.dbActionPerformed:398] comboBoxChanged
+2019-02-15 15:57:40.199 DEBUG [MainView.dbActionPerformed:411] <源端Oracle数据库>
+2019-02-15 15:57:46.989 DEBUG [DBConfigDialog.btnOKActionPerformed:239] 确定
+2019-02-15 15:57:46.990 DEBUG [JdbcUtil.getConnection:85] oracle.jdbc.driver.OracleDriver
+2019-02-15 15:57:46.990 DEBUG [JdbcUtil.getConnection:86] jdbc:oracle:thin:@192.168.136.128:1521/orcl
+2019-02-15 15:57:47.535 DEBUG [DBConfigDialog.btnOKActionPerformed:253] Connected
+2019-02-15 15:57:47.571 DEBUG [MainView.dbActionPerformed:416] response=0
+2019-02-15 15:57:48.509 DEBUG [MainView.btnOpenMigrateActionPerformed:464] Enter:
+2019-02-15 15:57:48.510  INFO [MainView.fillTbObject:471] Enter
+2019-02-15 15:57:48.511 DEBUG [ObjectUtil.getTypedObjects:31] Enter:db=lyy@192.168.136.128:1521/orcl,objType=Table
+2019-02-15 15:57:48.511 DEBUG [JdbcUtil.getConnection:85] oracle.jdbc.driver.OracleDriver
+2019-02-15 15:57:48.511 DEBUG [JdbcUtil.getConnection:86] jdbc:oracle:thin:@192.168.136.128:1521/orcl
+2019-02-15 15:57:48.597  INFO [SQLFactory.getShowObjSQL:32] Enter:dbType = Oracle,objType = Table
+2019-02-15 15:57:48.598 DEBUG [ObjectUtil.getTypedObjects:42] sql=SELECT DISTINCT user, table_name FROM user_tables MINUS  SELECT DISTINCT user,mview_name FROM user_mviews  ORDER BY table_name
+2019-02-15 15:57:48.690 DEBUG [ObjectUtil.getTypedObjects:65] Return: size=154
+2019-02-15 15:57:48.691  INFO [MainView.fillTbObject:491] objectList.size = 154
+2019-02-15 15:58:10.797 DEBUG [MainView.btnOpenConvertActionPerformed:528] Enter:
+2019-02-15 15:58:13.565 DEBUG [MainView.btnOpenMigrateActionPerformed:464] Enter:
+2019-02-15 15:58:13.566  INFO [MainView.fillTbObject:471] Enter
+2019-02-15 15:58:13.567 DEBUG [MainView.fillTbObject:480] Remain and return.
+2019-02-15 15:58:14.294 DEBUG [MainView.btnOpenConvertActionPerformed:528] Enter:
+2019-02-15 15:58:15.501 DEBUG [MainView.btnOpenDatatypeActionPerformed:429] Enter:
+2019-02-15 15:58:15.502  INFO [MainView.fillTbDatatype:436] Enter
+2019-02-15 15:58:15.507 DEBUG [DatatypeFactory.getDefaultDatatypeCasts:222] Enter: sourceDB=Oracle
+2019-02-15 15:58:15.508  INFO [MainView.fillTbDatatype:450] datatypeList.size = 21
+2019-02-15 15:58:16.966 DEBUG [MainView.btnOpenConvertActionPerformed:528] Enter:
+2019-02-15 15:58:18.605 DEBUG [MainView.btnOpenDatatypeActionPerformed:429] Enter:
+2019-02-15 15:58:18.607  INFO [MainView.fillTbDatatype:436] Enter
+2019-02-15 15:58:18.607 DEBUG [MainView.fillTbDatatype:445] Remain and return.
+2019-02-15 15:58:36.283 DEBUG [MainView.<init>:40] Enter
+2019-02-15 15:58:37.493 DEBUG [MainView.btnOpenDatatypeActionPerformed:431] Enter:
+2019-02-15 15:58:37.494  INFO [MainView.fillTbDatatype:438] Enter
+2019-02-15 15:58:37.502 DEBUG [DatatypeFactory.getDefaultDatatypeCasts:222] Enter: sourceDB=Oracle
+2019-02-15 15:58:37.503  INFO [MainView.fillTbDatatype:452] datatypeList.size = 21
+2019-02-15 15:58:38.556 DEBUG [MainView.btnOpenConvertActionPerformed:530] Enter:
+2019-02-15 15:58:39.628 DEBUG [MainView.btnOpenMigrateActionPerformed:466] Enter:
+2019-02-15 15:58:39.630  INFO [MainView.fillTbObject:473] Enter
+2019-02-15 15:58:39.630 ERROR [MainView.fillTbObject:503] 请先配置数据源！
+2019-02-15 15:58:41.893 DEBUG [MainView.btnOpenConvertActionPerformed:530] Enter:
+2019-02-15 15:58:42.700 DEBUG [MainView.btnOpenDatatypeActionPerformed:431] Enter:
+2019-02-15 15:58:42.701  INFO [MainView.fillTbDatatype:438] Enter
+2019-02-15 15:58:42.702 DEBUG [MainView.fillTbDatatype:447] Remain and return.
+2019-02-15 15:58:43.093 DEBUG [MainView.btnOpenConvertActionPerformed:530] Enter:
+2019-02-15 15:58:43.428 DEBUG [MainView.btnOpenMigrateActionPerformed:466] Enter:
+2019-02-15 15:58:43.430  INFO [MainView.fillTbObject:473] Enter
+2019-02-15 15:58:43.431 ERROR [MainView.fillTbObject:503] 请先配置数据源！
+2019-02-15 15:58:47.951 DEBUG [MainView.dbActionPerformed:400] comboBoxChanged
+2019-02-15 15:58:47.951 DEBUG [MainView.dbActionPerformed:413] <源端Oracle数据库>
+2019-02-15 15:58:49.457 DEBUG [MainView.dbActionPerformed:418] response=-1
+2019-02-15 15:58:50.381 DEBUG [MainView.dbActionPerformed:400] comboBoxChanged
+2019-02-15 15:58:50.381 DEBUG [MainView.dbActionPerformed:413] <目标端PG数据库>
+2019-02-15 15:58:51.835 DEBUG [MainView.dbActionPerformed:418] response=-1
+2019-02-15 15:59:03.110 DEBUG [MainView.dbActionPerformed:400] comboBoxChanged
+2019-02-15 15:59:03.110 DEBUG [MainView.dbActionPerformed:413] <目标端PG数据库>
+2019-02-15 15:59:04.515 DEBUG [MainView.dbActionPerformed:418] response=-1
+2019-02-15 16:11:46.984 DEBUG [MainView.<init>:40] Enter
+2019-02-15 16:11:48.753 DEBUG [MainView.btnOpenDatatypeActionPerformed:431] Enter:
+2019-02-15 16:11:48.754  INFO [MainView.fillTbDatatype:438] Enter
+2019-02-15 16:11:48.765 DEBUG [DatatypeFactory.getDefaultDatatypeCasts:222] Enter: sourceDB=Oracle
+2019-02-15 16:11:48.766  INFO [MainView.fillTbDatatype:452] datatypeList.size = 21
+2019-02-15 16:24:47.232 DEBUG [MainView.<init>:40] Enter
+2019-02-15 16:29:32.977 DEBUG [MainView.<init>:40] Enter
+2019-02-15 16:30:05.166 DEBUG [MainView.<init>:40] Enter
+2019-02-15 16:30:10.261 DEBUG [MainView.btnOpenDatatypeActionPerformed:456] Enter:
+2019-02-15 16:30:10.264  INFO [MainView.fillTbDatatype:463] Enter
+2019-02-15 16:30:10.275 DEBUG [DatatypeFactory.getDefaultDatatypeCasts:222] Enter: sourceDB=Oracle
+2019-02-15 16:30:10.276  INFO [MainView.fillTbDatatype:477] datatypeList.size = 21
+2019-02-15 16:30:12.333 DEBUG [MainView.btnOpenMigrateActionPerformed:491] Enter:
+2019-02-15 16:30:12.335  INFO [MainView.fillTbObject:498] Enter
+2019-02-15 16:30:12.335 ERROR [MainView.fillTbObject:528] 请先配置数据源！
+2019-02-15 16:30:14.901 DEBUG [MainView.btnOpenConvertActionPerformed:555] Enter:
+2019-02-15 16:30:15.261 DEBUG [MainView.btnOpenDatatypeActionPerformed:456] Enter:
+2019-02-15 16:30:15.264  INFO [MainView.fillTbDatatype:463] Enter
+2019-02-15 16:30:15.264 DEBUG [MainView.fillTbDatatype:472] Remain and return.
+2019-02-15 16:35:32.980 DEBUG [MainView.<init>:40] Enter
+2019-02-15 16:37:29.654 DEBUG [MainView.<init>:40] Enter
+2019-02-15 16:38:05.934 DEBUG [MainView.<init>:40] Enter
+2019-02-15 16:38:09.315 DEBUG [MainView.dbActionPerformed:451] comboBoxChanged
+2019-02-15 16:38:09.316 DEBUG [MainView.dbActionPerformed:464] <源端Oracle数据源>
+2019-02-15 16:38:10.746 DEBUG [MainView.dbActionPerformed:469] response=-1
+2019-02-15 16:38:11.539 DEBUG [MainView.btnOpenDatatypeActionPerformed:482] Enter:
+2019-02-15 16:38:11.542  INFO [MainView.fillTbDatatype:489] Enter
+2019-02-15 16:38:11.552 DEBUG [DatatypeFactory.getDefaultDatatypeCasts:222] Enter: sourceDB=Oracle
+2019-02-15 16:38:11.553  INFO [MainView.fillTbDatatype:503] datatypeList.size = 21
+2019-02-15 16:38:13.115 DEBUG [MainView.btnOpenWelcomeActionPerformed:443] 
+2019-02-15 16:38:14.307 DEBUG [MainView.btnOpenDatatypeActionPerformed:482] Enter:
+2019-02-15 16:38:14.309  INFO [MainView.fillTbDatatype:489] Enter
+2019-02-15 16:38:14.309 DEBUG [MainView.fillTbDatatype:498] Remain and return.
+2019-02-15 16:38:15.123 DEBUG [MainView.btnOpenMigrateActionPerformed:517] Enter:
+2019-02-15 16:38:15.125  INFO [MainView.fillTbObject:524] Enter
+2019-02-15 16:38:15.125 ERROR [MainView.fillTbObject:554] 请先配置数据源！
+2019-02-15 16:38:17.211 DEBUG [MainView.btnOpenConvertActionPerformed:581] Enter:
+2019-02-15 16:38:18.707 DEBUG [MainView.btnOpenWelcomeActionPerformed:443] 
+2019-02-15 16:38:28.867 DEBUG [MainView.btnOpenDatatypeActionPerformed:482] Enter:
+2019-02-15 16:38:28.869  INFO [MainView.fillTbDatatype:489] Enter
+2019-02-15 16:38:28.869 DEBUG [MainView.fillTbDatatype:498] Remain and return.
+2019-02-15 16:38:29.563 DEBUG [MainView.btnOpenMigrateActionPerformed:517] Enter:
+2019-02-15 16:38:29.565  INFO [MainView.fillTbObject:524] Enter
+2019-02-15 16:38:29.565 ERROR [MainView.fillTbObject:554] 请先配置数据源！
