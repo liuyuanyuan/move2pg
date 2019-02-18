@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -23,12 +24,13 @@ import lyy.pg.orcl.model.DBSource;
 import lyy.pg.orcl.model.DatatypeMapping;
 import lyy.pg.orcl.model.ObjInfo;
 import lyy.pg.orcl.controller.DatatypeFactory;
+import lyy.pg.orcl.controller.SQLFactory;
 import lyy.pg.orcl.util.DBEnum;
 import lyy.pg.orcl.util.DBEnum.DBObject;
-import lyy.pg.orcl.util.ObjectUtil;
 import lyy.pg.orcl.util.ReportUtil;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import ru.barsopen.plsqlconverter.Main;
 
 /**
  *
@@ -213,6 +215,7 @@ public class MainView extends JFrame
             DBObject.Procedure, DBObject.Function, DBObject.Trigger, DBObject.Package
             , DBObject.MView, DBObject.DBLink, DBObject.Synonym
         }));
+        cbbObjType.setSelectedIndex(-1);
         cbbObjType.addActionListener(new ActionListener(){
 
             @Override
@@ -226,6 +229,13 @@ public class MainView extends JFrame
             public void actionPerformed(ActionEvent e)
             {
                 cbbObjectsActionPerformed(e);
+            }
+        });
+        btnConvert.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                btnConvertActionPerformed(e);
             }
         });
         
@@ -277,6 +287,7 @@ public class MainView extends JFrame
         epSource = new javax.swing.JEditorPane();
         spPG = new javax.swing.JScrollPane();
         epPG = new javax.swing.JEditorPane();
+        btnCheck = new javax.swing.JButton();
         tfStatus = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -448,6 +459,7 @@ public class MainView extends JFrame
         pnlConvert.setBackground(new java.awt.Color(255, 255, 255));
 
         cbbObjType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Function", "Procedure", "Package" }));
+        cbbObjType.setSelectedIndex(-1);
 
         btnExecute.setText(constBundle.getString("execute"));
 
@@ -464,6 +476,8 @@ public class MainView extends JFrame
 
         spEditor.setRightComponent(spPG);
 
+        btnCheck.setText(constBundle.getString("check"));
+
         javax.swing.GroupLayout pnlConvertLayout = new javax.swing.GroupLayout(pnlConvert);
         pnlConvert.setLayout(pnlConvertLayout);
         pnlConvertLayout.setHorizontalGroup(
@@ -472,11 +486,13 @@ public class MainView extends JFrame
                 .addContainerGap()
                 .addComponent(cbbObjType, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbbObjects, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 224, Short.MAX_VALUE)
+                .addComponent(cbbObjects, 0, 43, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 195, Short.MAX_VALUE)
                 .addComponent(btnConvert)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnExecute)
+                .addGap(10, 10, 10)
+                .addComponent(btnCheck)
                 .addContainerGap())
             .addComponent(spEditor, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
@@ -488,7 +504,8 @@ public class MainView extends JFrame
                     .addComponent(cbbObjType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbbObjects, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnExecute)
-                    .addComponent(btnConvert))
+                    .addComponent(btnConvert)
+                    .addComponent(btnCheck))
                 .addGap(9, 9, 9)
                 .addComponent(spEditor, javax.swing.GroupLayout.DEFAULT_SIZE, 351, Short.MAX_VALUE))
         );
@@ -622,11 +639,9 @@ public class MainView extends JFrame
             DBSource sdb = getSourceDB();
             if(sdb == null)
             {
-                JOptionPane.showMessageDialog(this, constBundle.getString("configDBSource"),
-                    constBundle.getString("warning"), JOptionPane.WARNING_MESSAGE);
-                return;
+                throw new Exception(constBundle.getString("configDBSource"));
             }
-            List<ObjInfo> objectList = ObjectUtil.getTypedObjects(sdb, DBEnum.DBObject.Table);
+            List<ObjInfo> objectList = SQLFactory.getTypedObjects(sdb, DBEnum.DBObject.Table);
             logger.info("objectList.size = " + objectList.size());
             for (ObjInfo obj : objectList)
             {
@@ -693,25 +708,79 @@ public class MainView extends JFrame
         tbMain.removeAll();
         tbMain.add(constBundle.getString("convertTitle"), pnlConvert);
         tfStatus.setText(constBundle.getString("convertTitle"));
-        //filleTbSQLObject();
     }
     private void cbbObjTypeActionPerformed(ActionEvent e)
     {
         logger.debug(e.getActionCommand());
-
+        try
+        {        
+            DBSource sdb = getSourceDB();
+            if(sdb == null)
+            {
+                throw new Exception(constBundle.getString("configDBSource"));
+            }
+            DBEnum.DBObject type = (DBEnum.DBObject) cbbObjType.getSelectedItem();
+            if (type == null)
+            {
+                throw new Exception(constBundle.getString("nullItemNotAllowed"));
+            }
+            List<ObjInfo> objectList = SQLFactory.getTypedObjects(sdb, type);            
+            cbbObjects.setModel(new DefaultComboBoxModel(objectList.toArray()));
+        } catch (Exception ex)
+        {
+            logger.error(ex.getMessage());
+            JOptionPane.showMessageDialog(this, ex.getMessage(),
+                    constBundle.getString("error"), JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace(System.out);
+        }
+        
     }
     private void cbbObjectsActionPerformed(ActionEvent e)
     {
         logger.debug(e.getActionCommand());
-        Object obj = cbbObjects.getSelectedItem();
-        if(obj == null)
+        try
+        {            
+            DBSource sdb = getSourceDB();
+            if(sdb == null)
+            {
+                throw new Exception(constBundle.getString("configDBSource"));
+            }
+            ObjInfo obj = (ObjInfo) cbbObjects.getSelectedItem();
+            if (obj == null)
+            {
+                throw new Exception(constBundle.getString("nullItemNotAllowed"));
+            }
+            String sddl = SQLFactory.getDDL(obj, getSourceDB());
+            epSource.setText(sddl);
+        } catch (Exception ex)
         {
-            logger.warn("Selected object is null, do nothing and return.");
-            return;
+            logger.error(ex.getMessage());
+            JOptionPane.showMessageDialog(this, ex.getMessage(),
+                    constBundle.getString("error"), JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace(System.out);
+        }
+    }
+    private void btnConvertActionPerformed(ActionEvent e)
+    {
+        logger.debug(e.getActionCommand());
+        try
+        {            
+            String sddl = epSource.getText();
+            Main converterMain = new Main();
+            String hgSQL = converterMain.convert(sddl);
+            //+ " \r\n $$ LANGUAGE plpgsql;";
+            logger.debug("hgSQL=" + hgSQL);
+            epPG.setText(hgSQL);
+        } catch (Exception ex)
+        {
+            logger.error(ex.getMessage());
+            JOptionPane.showMessageDialog(this, ex.getMessage(),
+                    constBundle.getString("error"), JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace(System.out);
         }
         
-        
     }
+    
     
     public static void main(String args[])
     {
@@ -739,6 +808,7 @@ public class MainView extends JFrame
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCheck;
     private javax.swing.JButton btnCompare;
     private javax.swing.JButton btnConvert;
     private javax.swing.JButton btnExecute;

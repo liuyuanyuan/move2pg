@@ -4,12 +4,20 @@
  */
 package lyy.pg.orcl.controller;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import lyy.pg.orcl.model.DBSource;
+import lyy.pg.orcl.model.ObjInfo;
 import lyy.pg.orcl.util.DBEnum;
 import lyy.pg.orcl.util.DBEnum.DBObject;
 import lyy.pg.orcl.util.DBEnum.TabObject;
+import lyy.pg.orcl.util.JdbcUtil;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-
 
 /**
  * @author Liu Yuanyuan
@@ -26,9 +34,107 @@ import org.apache.log4j.Logger;
  */
 public class SQLFactory
 {
+
     private static final Logger logger = LogManager.getLogger(SQLFactory.class);
 
-    public static String getShowObjSQL(DBEnum db, DBObject obj)
+    public static List<ObjInfo> getTypedObjects(DBSource dbsource, DBObject objType) throws Exception
+    {
+        logger.debug("Enter:db=" + dbsource + ",objType=" + objType);
+        List<ObjInfo> objList = new ArrayList<>();
+        if (dbsource == null || objType == null)
+        {
+            logger.warn("Entered dbsource or objType is null, do nothing and return empty list.");
+            return objList;
+        }
+
+        Connection conn = null;
+        Statement stmt = null;
+        ResultSet rtset = null;
+        try
+        {
+            conn = JdbcUtil.getConnection(dbsource);
+            stmt = conn.createStatement();
+            String sql = SQLFactory.getShowObjSQL(dbsource.getType(), objType);
+            logger.debug("sql=" + sql);
+            rtset = stmt.executeQuery(sql);
+            while (rtset.next())
+            {
+                ObjInfo objInfo = new ObjInfo();
+                objInfo.setType(objType);
+                objInfo.setSchema(rtset.getString(1));
+                objInfo.setName(rtset.getString(2));
+                objInfo.setSelected(false);
+                objList.add(objInfo);
+            }
+        } catch (Exception ex)
+        {
+            logger.error(ex.getMessage());
+            ex.printStackTrace(System.out);
+            throw ex;
+        } finally
+        {
+            JdbcUtil.close(rtset);
+            JdbcUtil.close(stmt);
+            JdbcUtil.close(conn);
+        }
+
+        logger.debug("Return: size=" + objList.size());
+        return objList;
+    }
+
+    public static String getDDL(ObjInfo obj, DBSource sourceDB) throws Exception //, DBSource targetPGDB
+    {
+        if (obj == null || sourceDB == null)
+        {
+            logger.warn("Entered object or sourceDB is null, do nothing and return null.");
+            return null;
+        }
+        
+        logger.debug("Type=" + obj.getType() + ",schema=" + obj.getSchema() + ",objName=" + obj.getName());
+        String oraSql = null;
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try
+        {
+            conn = JdbcUtil.getConnection(sourceDB);
+            String sql = getSelectSQL(sourceDB.getType(), obj.getType());
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, obj.getSchema());
+            pstmt.setString(2, obj.getName());
+            rs = pstmt.executeQuery();
+            StringBuilder oracleCreateSql = new StringBuilder("CREATE OR REPLACE ");
+            while (rs.next())
+            {
+                oracleCreateSql.append(rs.getString(1));
+            }
+            pstmt.clearParameters();
+            pstmt.clearBatch();
+
+            String quotedSchemaAndName = KeywordFactory.getInstance().quotedName2PG(obj.getSchema(), sourceDB.getType())
+                    + "." + KeywordFactory.getInstance().quotedName2PG(obj.getName(), sourceDB.getType());
+            oraSql = oracleCreateSql.toString().replaceFirst("(?i)" + obj.getName(), quotedSchemaAndName);
+            logger.debug("oraSql=" + oraSql);
+            //Main converterMain = new Main();
+            //String hgCreateSQL =  converterMain.convert(newOraSql);
+            // + " \r\n $$ LANGUAGE plpgsql;";
+            //logger.debug("hgSQL=" + hgCreateSQL);
+        } catch (Exception ex)
+        {
+            logger.error(ex.getMessage());
+            ex.printStackTrace(System.out);
+            throw ex;
+        } finally
+        {
+            JdbcUtil.close(rs);
+            JdbcUtil.close(pstmt);
+            JdbcUtil.close(conn);
+        }
+        logger.debug("Return");
+        return oraSql;
+    }
+
+    private static String getShowObjSQL(DBEnum db, DBObject obj)
     {
         logger.info("Enter:dbType = " + db + ",objType = " + obj.toString());
         StringBuilder sql = new StringBuilder();
@@ -95,7 +201,7 @@ public class SQLFactory
         {
             case Oracle:
                 switch (obj)
-                {                    
+                {
                     case Sequence:
                         sql.append("SELECT user, sequence_name, last_number, min_value, max_value, increment_by,");
                         sql.append("cache_size, cycle_flag FROM user_sequences");
@@ -141,7 +247,7 @@ public class SQLFactory
                         sql.append("SELECT db_link,username,host FROM user_db_links WHERE user = ? AND db_link = ?");
                         break;
                     case Synonym:
-				//doc:https://docs.oracle.com/cd/B19306_01/server.102/b14200/statements_7001.htm
+                        //doc:https://docs.oracle.com/cd/B19306_01/server.102/b14200/statements_7001.htm
                         //user_synonyms for owner only current user, dba_synonyms for owner is user and 'PUBLIC'
                         //define: CREATE OR REPLACE [PUBLIC] synonym_name FOR table_owner.table_name[@db_link];
                         sql.append("SELECT synonym_name, table_owner, table_name, db_link FROM user_synonyms WHERE user = ? AND synonym_name = ?");

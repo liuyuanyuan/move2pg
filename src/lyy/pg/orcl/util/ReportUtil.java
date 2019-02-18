@@ -18,7 +18,7 @@ import org.apache.log4j.Logger;
 public class ReportUtil
 {
 
-    private static final Logger logger = LogManager.getLogger(ObjectUtil.class);
+    private static final Logger logger = LogManager.getLogger(ReportUtil.class);
     private final static SimpleDateFormat Time4FileName = new SimpleDateFormat("yyyyMMddHHmmss");
     private final static String ReportRoot = new File("").getAbsoluteFile() + File.separator + "Reports" + File.separator;
 

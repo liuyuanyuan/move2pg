@@ -1,0 +1,32 @@
+prepare: antlr 3 and maven
+
+come to \plsql-postgresql-converter-master\plsql-parser
+
+just execute：
+mvn package
+
+then return:
+......
+[INFO] No tests to run.
+[INFO]
+[INFO] --- maven-jar-plugin:2.4:jar (default-jar) @ lexer-parser-walker ---
+[INFO] Building jar: F:\Antlr\plsql-postgresql-converter-master\plsql-parser\lexer-parser-walker\target\lexer-parser-walker-1.0-SNAPSHOT.jar
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary:
+[INFO]
+[INFO] plsql .............................................. SUCCESS [  0.786 s]
+[INFO] lexer-parser-walker ................................ SUCCESS [ 50.436 s]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 51.297 s
+[INFO] Finished at: 2018-10-06T11:19:55+08:00
+[INFO] Final Memory: 22M/363M
+[INFO] ------------------------------------------------------------------------
+
+jar file under:
+\plsql-postgresql-converter-master\plsql-parser\lexer-parser-walker\target\lexer-parser-walker-1.0-SNAPSHOT.jar
+
+java and tokens files under:
+\plsql-postgresql-converter-master\plsql-parser\lexer-parser-walker\target\generated-sources\antlr3\br\com\porcelli\parser\plsql\
+

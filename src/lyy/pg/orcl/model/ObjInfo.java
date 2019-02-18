@@ -18,6 +18,12 @@ public class ObjInfo //implements Comparable
     private String name;
     private boolean selected;
 
+    @Override
+    public String toString()
+    {
+        return schema + "." + name;
+    }
+    
     public String getName()
     {
         return name;
