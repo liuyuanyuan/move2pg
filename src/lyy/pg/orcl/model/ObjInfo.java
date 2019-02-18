@@ -4,7 +4,7 @@
  */
 package lyy.pg.orcl.model;
 
-import lyy.pg.orcl.util.Enum.DBObject;
+import lyy.pg.orcl.util.DBEnum.DBObject;
 
 
 /**

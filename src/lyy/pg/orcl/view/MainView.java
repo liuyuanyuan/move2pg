@@ -24,8 +24,8 @@ import lyy.pg.orcl.model.DBSource;
 import lyy.pg.orcl.model.DatatypeMapping;
 import lyy.pg.orcl.model.ObjInfo;
 import lyy.pg.orcl.controller.DatatypeFactory;
-import lyy.pg.orcl.util.Enum;
-import lyy.pg.orcl.util.Enum.DBObject;
+import lyy.pg.orcl.util.DBEnum;
+import lyy.pg.orcl.util.DBEnum.DBObject;
 import lyy.pg.orcl.util.ObjectUtil;
 import lyy.pg.orcl.util.ReportUtil;
 import org.apache.log4j.LogManager;
@@ -104,7 +104,7 @@ public class MainView extends JFrame
         });
         tbDatatype.setModel(new DefaultTableModel(
                 new Object[][]{},
-                new Object[]{Enum.Oracle, Enum.PostgreSQL})
+                new Object[]{DBEnum.Oracle, DBEnum.PostgreSQL})
                 {
                     Class[] types = new Class[]
                     {
@@ -534,18 +534,19 @@ public class MainView extends JFrame
 
         JComboBox cbb = (JComboBox) e.getSource();
         Object selectedItem = cbb.getSelectedItem();
-        if (selectedItem == null)
+        if (selectedItem == null)//selected nothing
         {
             return;
-        } else if (selectedItem instanceof DBSource)
+        } else if (selectedItem instanceof DBSource)//selected db
         {
             logger.warn("Changed db source");
             return;
         }
 
+        //selected config db
         logger.debug(selectedItem.toString());
         DBConfigDialog dbcDialog = new DBConfigDialog(this, true,
-                selectedItem.equals(constBundle.getString("sourceDB")) ? Enum.Oracle : Enum.PostgreSQL);
+                selectedItem.equals(constBundle.getString("sourceDB")) ? DBEnum.Oracle : DBEnum.PostgreSQL);
         dbcDialog.setLocationRelativeTo(this);
         dbcDialog.setVisible(true);
         logger.debug("response=" + dbcDialog.getResponse());
@@ -582,7 +583,7 @@ public class MainView extends JFrame
             return;
         }
 
-        List<DatatypeMapping> datatypeList = DatatypeFactory.getInstance().getDefaultDatatypeCasts(Enum.Oracle);
+        List<DatatypeMapping> datatypeList = DatatypeFactory.getInstance().getDefaultDatatypeCasts(DBEnum.Oracle);
         logger.info("datatypeList.size = " + datatypeList.size());
         for (DatatypeMapping DatatypeMapping : datatypeList)
         {
@@ -626,7 +627,7 @@ public class MainView extends JFrame
                     constBundle.getString("warning"), JOptionPane.WARNING_MESSAGE);
                 return;
             }
-            List<ObjInfo> objectList = ObjectUtil.getTypedObjects(sdb, Enum.DBObject.Table);
+            List<ObjInfo> objectList = ObjectUtil.getTypedObjects(sdb, DBEnum.DBObject.Table);
             logger.info("objectList.size = " + objectList.size());
             for (ObjInfo obj : objectList)
             {

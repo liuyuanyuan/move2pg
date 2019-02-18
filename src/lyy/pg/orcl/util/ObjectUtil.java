@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package lyy.pg.orcl.util;
 
 import lyy.pg.orcl.controller.SQLFactory;
@@ -14,23 +13,23 @@ import java.util.ArrayList;
 import java.util.List;
 import lyy.pg.orcl.model.DBSource;
 import lyy.pg.orcl.model.ObjInfo;
-import lyy.pg.orcl.util.Enum.DBObject;
+import lyy.pg.orcl.util.DBEnum.DBObject;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 /**
  *
  * @author Liu Yuanyuan
- * 
+ *
  */
 public class ObjectUtil
 {
     private static final Logger logger = LogManager.getLogger(ObjectUtil.class);
-    
+
     public static List<ObjInfo> getTypedObjects(DBSource db, DBObject objType) throws Exception
     {
         logger.debug("Enter:db=" + db + ",objType=" + objType);
-        
+
         List<ObjInfo> objList = new ArrayList<>();
         Connection conn = null;
         Statement stmt = null;
@@ -62,9 +61,9 @@ public class ObjectUtil
             JdbcUtil.close(stmt);
             JdbcUtil.close(conn);
         }
-        
+
         logger.debug("Return: size=" + objList.size());
-        return  objList;
+        return objList;
     }
-    
+
 }

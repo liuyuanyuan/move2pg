@@ -377,3 +377,559 @@
 2019-02-15 16:38:29.563 DEBUG [MainView.btnOpenMigrateActionPerformed:517] Enter:
 2019-02-15 16:38:29.565  INFO [MainView.fillTbObject:524] Enter
 2019-02-15 16:38:29.565 ERROR [MainView.fillTbObject:554] 请先配置数据源！
+2019-02-15 16:46:53.886 DEBUG [MainView.<init>:40] Enter
+2019-02-15 16:47:44.742 DEBUG [MainView.<init>:40] Enter
+2019-02-15 16:47:47.024 DEBUG [MainView.btnOpenWelcomeActionPerformed:443] 
+2019-02-15 16:47:48.874 DEBUG [MainView.dbActionPerformed:451] comboBoxChanged
+2019-02-15 16:47:48.874 DEBUG [MainView.dbActionPerformed:464] <Դ��Oracle����Դ>
+2019-02-15 16:47:49.864 DEBUG [MainView.dbActionPerformed:469] response=-1
+2019-02-15 16:47:50.649 DEBUG [MainView.btnOpenDatatypeActionPerformed:482] Enter:
+2019-02-15 16:47:50.651  INFO [MainView.fillTbDatatype:489] Enter
+2019-02-15 16:47:50.658 DEBUG [DatatypeFactory.getDefaultDatatypeCasts:222] Enter: sourceDB=Oracle
+2019-02-15 16:47:50.659  INFO [MainView.fillTbDatatype:503] datatypeList.size = 21
+2019-02-15 16:47:51.753 DEBUG [MainView.btnOpenMigrateActionPerformed:517] Enter:
+2019-02-15 16:47:51.755  INFO [MainView.fillTbObject:524] Enter
+2019-02-15 16:47:51.755 ERROR [MainView.fillTbObject:554] ������������Դ��
+2019-02-15 16:47:54.585 DEBUG [MainView.dbActionPerformed:451] comboBoxChanged
+2019-02-15 16:47:54.585 DEBUG [MainView.dbActionPerformed:464] <Ŀ���PG����Դ>
+2019-02-15 16:47:55.863 DEBUG [MainView.dbActionPerformed:469] response=-1
+2019-02-15 16:48:47.753 DEBUG [MainView.<init>:40] Enter
+2019-02-15 16:48:49.121 DEBUG [MainView.dbActionPerformed:451] comboBoxChanged
+2019-02-15 16:48:49.121 DEBUG [MainView.dbActionPerformed:464] <源端Oracle数据源>
+2019-02-15 16:48:54.495 DEBUG [MainView.dbActionPerformed:469] response=-1
+2019-02-15 16:48:55.320 DEBUG [MainView.dbActionPerformed:451] comboBoxChanged
+2019-02-15 16:48:55.320 DEBUG [MainView.dbActionPerformed:464] <目标端PG数据源>
+2019-02-15 16:48:56.311 DEBUG [MainView.dbActionPerformed:469] response=-1
+2019-02-15 16:48:56.712 DEBUG [MainView.btnOpenDatatypeActionPerformed:482] Enter:
+2019-02-15 16:48:56.715  INFO [MainView.fillTbDatatype:489] Enter
+2019-02-15 16:48:56.726 DEBUG [DatatypeFactory.getDefaultDatatypeCasts:222] Enter: sourceDB=Oracle
+2019-02-15 16:48:56.727  INFO [MainView.fillTbDatatype:503] datatypeList.size = 21
+2019-02-15 16:48:58.168 DEBUG [MainView.btnOpenMigrateActionPerformed:517] Enter:
+2019-02-15 16:48:58.169  INFO [MainView.fillTbObject:524] Enter
+2019-02-15 16:48:58.170 ERROR [MainView.fillTbObject:554] 请先配置数据源！
+2019-02-15 16:49:00.361 DEBUG [MainView.btnOpenConvertActionPerformed:581] Enter:
+2019-02-15 16:49:01.393 DEBUG [MainView.btnOpenMigrateActionPerformed:517] Enter:
+2019-02-15 16:49:01.395  INFO [MainView.fillTbObject:524] Enter
+2019-02-15 16:49:01.395 ERROR [MainView.fillTbObject:554] 请先配置数据源！
+2019-02-15 16:55:31.788 DEBUG [MainView.<init>:40] Enter
+2019-02-15 16:55:33.174 DEBUG [MainView.btnOpenDatatypeActionPerformed:482] Enter:
+2019-02-15 16:55:33.176  INFO [MainView.fillTbDatatype:489] Enter
+2019-02-15 16:55:33.188 DEBUG [DatatypeFactory.getDefaultDatatypeCasts:222] Enter: sourceDB=Oracle
+2019-02-15 16:55:33.189  INFO [MainView.fillTbDatatype:503] datatypeList.size = 21
+2019-02-15 17:00:49.822 DEBUG [MainView.<init>:41] Enter
+2019-02-15 17:00:51.582 DEBUG [MainView.btnOpenDatatypeActionPerformed:487] Enter:
+2019-02-15 17:00:51.584  INFO [MainView.fillTbDatatype:494] Enter
+2019-02-15 17:00:51.595 DEBUG [DatatypeFactory.getDefaultDatatypeCasts:222] Enter: sourceDB=Oracle
+2019-02-15 17:00:51.596  INFO [MainView.fillTbDatatype:508] datatypeList.size = 21
+2019-02-15 17:01:00.901 DEBUG [MainView.btnOpenDatatypeActionPerformed:482] Enter:
+2019-02-15 17:01:00.906  INFO [MainView.fillTbDatatype:489] Enter
+2019-02-15 17:01:00.906 DEBUG [MainView.fillTbDatatype:498] Remain and return.
+2019-02-15 17:01:01.622 DEBUG [MainView.btnOpenDatatypeActionPerformed:482] Enter:
+2019-02-15 17:01:01.623  INFO [MainView.fillTbDatatype:489] Enter
+2019-02-15 17:01:01.623 DEBUG [MainView.fillTbDatatype:498] Remain and return.
+2019-02-15 17:01:01.845 DEBUG [MainView.btnOpenDatatypeActionPerformed:482] Enter:
+2019-02-15 17:01:01.847  INFO [MainView.fillTbDatatype:489] Enter
+2019-02-15 17:01:01.847 DEBUG [MainView.fillTbDatatype:498] Remain and return.
+2019-02-15 17:02:58.350 DEBUG [MainView.<init>:42] Enter
+2019-02-15 17:03:00.382 DEBUG [MainView.btnOpenMigrateActionPerformed:523] Enter:
+2019-02-15 17:03:00.384  INFO [MainView.fillTbObject:530] Enter
+2019-02-15 17:03:00.384 ERROR [MainView.fillTbObject:560] 请先配置数据源！
+2019-02-15 17:04:20.862 DEBUG [MainView.<init>:42] Enter
+2019-02-15 17:04:22.300 DEBUG [MainView.btnOpenDatatypeActionPerformed:489] Enter:
+2019-02-15 17:04:22.302  INFO [MainView.fillTbDatatype:496] Enter
+2019-02-15 17:04:22.313 DEBUG [DatatypeFactory.getDefaultDatatypeCasts:222] Enter: sourceDB=Oracle
+2019-02-15 17:04:22.313  INFO [MainView.fillTbDatatype:510] datatypeList.size = 21
+2019-02-15 17:04:23.700 DEBUG [MainView.btnOpenMigrateActionPerformed:524] Enter:
+2019-02-15 17:04:23.702  INFO [MainView.fillTbObject:531] Enter
+2019-02-15 17:04:23.702 ERROR [MainView.fillTbObject:561] 请先配置数据源！
+2019-02-15 17:06:02.269 DEBUG [MainView.<init>:42] Enter
+2019-02-15 17:06:27.418 DEBUG [MainView.<init>:42] Enter
+2019-02-15 17:08:05.862 DEBUG [MainView.<init>:42] Enter
+2019-02-15 17:08:07.684 DEBUG [MainView.btnOpenDatatypeActionPerformed:491] Enter:
+2019-02-15 17:08:07.686  INFO [MainView.fillTbDatatype:498] Enter
+2019-02-15 17:08:07.698 DEBUG [DatatypeFactory.getDefaultDatatypeCasts:222] Enter: sourceDB=Oracle
+2019-02-15 17:08:07.699  INFO [MainView.fillTbDatatype:512] datatypeList.size = 21
+2019-02-15 17:09:20.025 DEBUG [MainView.<init>:42] Enter
+2019-02-15 17:09:21.627 DEBUG [MainView.btnOpenWelcomeActionPerformed:451] 
+2019-02-15 17:09:23.611 DEBUG [MainView.btnOpenDatatypeActionPerformed:490] Enter:
+2019-02-15 17:09:23.613  INFO [MainView.fillTbDatatype:497] Enter
+2019-02-15 17:09:23.624 DEBUG [DatatypeFactory.getDefaultDatatypeCasts:222] Enter: sourceDB=Oracle
+2019-02-15 17:09:23.625  INFO [MainView.fillTbDatatype:511] datatypeList.size = 21
+2019-02-15 17:09:25.259 DEBUG [MainView.btnOpenMigrateActionPerformed:525] Enter:
+2019-02-15 17:09:25.260  INFO [MainView.fillTbObject:532] Enter
+2019-02-15 17:09:25.260 ERROR [MainView.fillTbObject:562] 请先配置数据源！
+2019-02-15 17:09:28.771 DEBUG [MainView.btnOpenConvertActionPerformed:589] Enter:
+2019-02-15 17:09:30.107 DEBUG [MainView.btnOpenMigrateActionPerformed:525] Enter:
+2019-02-15 17:09:30.108  INFO [MainView.fillTbObject:532] Enter
+2019-02-15 17:09:30.108 ERROR [MainView.fillTbObject:562] 请先配置数据源！
+2019-02-15 17:09:48.331 DEBUG [MainView.btnOpenDatatypeActionPerformed:490] Enter:
+2019-02-15 17:09:48.333  INFO [MainView.fillTbDatatype:497] Enter
+2019-02-15 17:09:48.333 DEBUG [MainView.fillTbDatatype:506] Remain and return.
+2019-02-15 17:09:51.899 DEBUG [MainView.btnOpenMigrateActionPerformed:525] Enter:
+2019-02-15 17:09:51.900  INFO [MainView.fillTbObject:532] Enter
+2019-02-15 17:09:51.900 ERROR [MainView.fillTbObject:562] 请先配置数据源！
+2019-02-15 17:10:41.070 DEBUG [MainView.<init>:42] Enter
+2019-02-15 17:12:17.203 DEBUG [MainView.<init>:42] Enter
+2019-02-15 17:15:04.332 DEBUG [MainView.<init>:42] Enter
+2019-02-15 17:15:07.506 DEBUG [MainView.dbActionPerformed:461] comboBoxChanged
+2019-02-15 17:15:07.507 DEBUG [MainView.dbActionPerformed:474] <目标端PG数据源>
+2019-02-15 17:15:08.825 DEBUG [MainView.dbActionPerformed:479] response=-1
+2019-02-15 17:15:13.978 DEBUG [MainView.btnOpenWelcomeActionPerformed:453] 
+2019-02-15 17:15:38.531 DEBUG [MainView.<init>:42] Enter
+2019-02-15 17:15:42.362 DEBUG [MainView.btnOpenWelcomeActionPerformed:453] 
+2019-02-15 17:15:44.385 DEBUG [MainView.btnOpenMigrateActionPerformed:527] Enter:
+2019-02-15 17:15:44.389  INFO [MainView.fillTbObject:534] Enter
+2019-02-15 17:15:44.389 ERROR [MainView.fillTbObject:564] 请先配置数据源！
+2019-02-15 17:15:49.138 DEBUG [MainView.btnOpenConvertActionPerformed:591] Enter:
+2019-02-15 17:15:50.562 DEBUG [MainView.btnOpenDatatypeActionPerformed:492] Enter:
+2019-02-15 17:15:50.564  INFO [MainView.fillTbDatatype:499] Enter
+2019-02-15 17:15:50.574 DEBUG [DatatypeFactory.getDefaultDatatypeCasts:222] Enter: sourceDB=Oracle
+2019-02-15 17:15:50.575  INFO [MainView.fillTbDatatype:513] datatypeList.size = 21
+2019-02-15 17:15:59.474 DEBUG [MainView.btnOpenMigrateActionPerformed:527] Enter:
+2019-02-15 17:15:59.475  INFO [MainView.fillTbObject:534] Enter
+2019-02-15 17:15:59.475 ERROR [MainView.fillTbObject:564] 请先配置数据源！
+2019-02-15 17:16:04.810 DEBUG [MainView.btnOpenDatatypeActionPerformed:492] Enter:
+2019-02-15 17:16:04.811  INFO [MainView.fillTbDatatype:499] Enter
+2019-02-15 17:16:04.811 DEBUG [MainView.fillTbDatatype:508] Remain and return.
+2019-02-15 17:16:10.834 DEBUG [MainView.btnOpenMigrateActionPerformed:527] Enter:
+2019-02-15 17:16:10.836  INFO [MainView.fillTbObject:534] Enter
+2019-02-15 17:16:10.836 ERROR [MainView.fillTbObject:564] 请先配置数据源！
+2019-02-15 17:16:13.625 DEBUG [MainView.btnOpenConvertActionPerformed:591] Enter:
+2019-02-15 17:23:11.685 DEBUG [MainView.<init>:42] Enter
+2019-02-15 17:23:26.024 DEBUG [MainView.<init>:42] Enter
+2019-02-15 17:23:27.520 DEBUG [MainView.btnOpenConvertActionPerformed:635] Enter:
+2019-02-15 17:28:02.714 DEBUG [MainView.<init>:42] Enter
+2019-02-15 17:28:06.575 DEBUG [MainView.btnOpenMigrateActionPerformed:575] Enter:
+2019-02-15 17:28:06.577  INFO [MainView.fillTbObject:582] Enter
+2019-02-15 17:28:06.577 ERROR [MainView.fillTbObject:612] 请先配置数据源！
+2019-02-15 17:31:23.788 DEBUG [MainView.<init>:42] Enter
+2019-02-15 17:31:25.686 DEBUG [MainView.btnOpenDatatypeActionPerformed:541] Enter:
+2019-02-15 17:31:25.688  INFO [MainView.fillTbDatatype:548] Enter
+2019-02-15 17:31:25.699 DEBUG [DatatypeFactory.getDefaultDatatypeCasts:222] Enter: sourceDB=Oracle
+2019-02-15 17:31:25.700  INFO [MainView.fillTbDatatype:562] datatypeList.size = 21
+2019-02-15 17:31:26.518 DEBUG [MainView.btnOpenMigrateActionPerformed:576] Enter:
+2019-02-15 17:31:26.520  INFO [MainView.fillTbObject:583] Enter
+2019-02-15 17:31:26.520 ERROR [MainView.fillTbObject:613] 请先配置数据源！
+2019-02-15 17:32:16.002 DEBUG [MainView.<init>:42] Enter
+2019-02-15 17:32:34.870 DEBUG [MainView.btnOpenMigrateActionPerformed:576] Enter:
+2019-02-15 17:32:34.872  INFO [MainView.fillTbObject:583] Enter
+2019-02-15 17:32:34.873 ERROR [MainView.fillTbObject:613] 请先配置数据源！
+2019-02-15 17:35:05.663 DEBUG [MainView.<init>:42] Enter
+2019-02-15 17:35:07.709 DEBUG [MainView.btnOpenMigrateActionPerformed:577] Enter:
+2019-02-15 17:35:07.711  INFO [MainView.fillTbObject:584] Enter
+2019-02-15 17:35:07.712 ERROR [MainView.fillTbObject:614] 请先配置数据源！
+2019-02-15 17:35:38.058 DEBUG [MainView.<init>:42] Enter
+2019-02-15 17:35:46.468 DEBUG [MainView.btnOpenMigrateActionPerformed:577] Enter:
+2019-02-15 17:35:46.470  INFO [MainView.fillTbObject:584] Enter
+2019-02-15 17:35:46.470 ERROR [MainView.fillTbObject:614] 请先配置数据源！
+2019-02-18 09:12:16.672 DEBUG [MainView.<init>:42] Enter
+2019-02-18 09:12:31.976 DEBUG [MainView.btnOpenDatatypeActionPerformed:544] Enter:
+2019-02-18 09:12:31.978  INFO [MainView.fillTbDatatype:551] Enter
+2019-02-18 09:12:31.994 DEBUG [DatatypeFactory.getDefaultDatatypeCasts:222] Enter: sourceDB=Oracle
+2019-02-18 09:12:32.000  INFO [MainView.fillTbDatatype:565] datatypeList.size = 21
+2019-02-18 09:12:41.816 DEBUG [MainView.btnOpenWelcomeActionPerformed:505] 
+2019-02-18 09:12:43.200 DEBUG [MainView.btnOpenMigrateActionPerformed:579] Enter:
+2019-02-18 09:12:43.202  INFO [MainView.fillTbObject:586] Enter
+2019-02-18 09:12:43.203 ERROR [MainView.fillTbObject:616] 请先配置数据源！
+2019-02-18 09:12:48.144 DEBUG [MainView.btnOpenConvertActionPerformed:643] Enter:
+2019-02-18 09:19:25.219 DEBUG [MainView.<init>:41] Enter
+2019-02-18 09:19:26.647 DEBUG [MainView.btnOpenMigrateActionPerformed:574] Enter:
+2019-02-18 09:19:26.651  INFO [MainView.fillTbObject:581] Enter
+2019-02-18 09:19:26.651 ERROR [MainView.fillTbObject:611] 请先配置数据源！
+2019-02-18 13:27:42.174 DEBUG [MainView.<init>:44] Enter
+2019-02-18 13:27:44.474 DEBUG [MainView.btnOpenMigrateActionPerformed:602] Enter:
+2019-02-18 13:27:44.476  INFO [MainView.fillTbObject:609] Enter
+2019-02-18 13:27:44.476 ERROR [MainView.fillTbObject:639] 请先配置数据源！
+2019-02-18 13:27:46.610 DEBUG [MainView.btnReportActionPerformed:662] 结果报告
+2019-02-18 13:28:16.158 DEBUG [MainView.<init>:44] Enter
+2019-02-18 13:28:18.434 DEBUG [MainView.btnOpenMigrateActionPerformed:602] Enter:
+2019-02-18 13:28:18.437  INFO [MainView.fillTbObject:609] Enter
+2019-02-18 13:28:18.437 ERROR [MainView.fillTbObject:639] 请先配置数据源！
+2019-02-18 13:28:22.538 DEBUG [MainView.btnReportActionPerformed:662] 结果报告
+2019-02-18 13:33:50.524 DEBUG [MainView.<init>:44] Enter
+2019-02-18 13:33:52.121 DEBUG [MainView.btnOpenMigrateActionPerformed:602] Enter:
+2019-02-18 13:33:52.123  INFO [MainView.fillTbObject:609] Enter
+2019-02-18 13:33:52.123 ERROR [MainView.fillTbObject:639] 请先配置数据源！
+2019-02-18 13:33:53.928 DEBUG [MainView.btnReportActionPerformed:662] 结果报告
+2019-02-18 13:33:53.930  WARN [ObjectUtil.createMigrateReport:30] Report Root Folder doesn't exist then create: E:\Netbean-Project\orcl2pg\reports\
+2019-02-18 13:35:49.257 DEBUG [MainView.<init>:44] Enter
+2019-02-18 13:35:50.648 DEBUG [MainView.btnOpenMigrateActionPerformed:602] Enter:
+2019-02-18 13:35:50.650  INFO [MainView.fillTbObject:609] Enter
+2019-02-18 13:35:53.056 DEBUG [MainView.btnReportActionPerformed:664] 结果报告
+2019-02-18 13:35:53.058  WARN [ObjectUtil.createMigrateReport:30] Report Root Folder doesn't exist then create: E:\Netbean-Project\orcl2pg\Reports\
+2019-02-18 13:42:07.430 DEBUG [MainView.dbActionPerformed:536] comboBoxChanged
+2019-02-18 13:42:07.431 DEBUG [MainView.dbActionPerformed:549] <源端Oracle数据源>
+2019-02-18 13:43:30.590 DEBUG [DBConfigDialog.btnOKActionPerformed:241] 确定
+2019-02-18 13:43:30.619 DEBUG [JdbcUtil.getConnection:85] oracle.jdbc.driver.OracleDriver
+2019-02-18 13:43:30.620 DEBUG [JdbcUtil.getConnection:86] jdbc:oracle:thin:@192.168.136.128:1521/orcl
+2019-02-18 13:43:31.218 DEBUG [DBConfigDialog.btnOKActionPerformed:255] Connected
+2019-02-18 13:43:31.225 DEBUG [MainView.dbActionPerformed:554] response=0
+2019-02-18 13:43:33.526 DEBUG [MainView.btnOpenMigrateActionPerformed:602] Enter:
+2019-02-18 13:43:33.527  INFO [MainView.fillTbObject:609] Enter
+2019-02-18 13:43:33.528 DEBUG [ObjectUtil.getTypedObjects:31] Enter:db=lyy@192.168.136.128:1521/orcl,objType=Table
+2019-02-18 13:43:33.529 DEBUG [JdbcUtil.getConnection:85] oracle.jdbc.driver.OracleDriver
+2019-02-18 13:43:33.529 DEBUG [JdbcUtil.getConnection:86] jdbc:oracle:thin:@192.168.136.128:1521/orcl
+2019-02-18 13:43:33.631  INFO [SQLFactory.getShowObjSQL:32] Enter:dbType = Oracle,objType = Table
+2019-02-18 13:43:33.632 DEBUG [ObjectUtil.getTypedObjects:42] sql=SELECT DISTINCT user, table_name FROM user_tables MINUS  SELECT DISTINCT user,mview_name FROM user_mviews  ORDER BY table_name
+2019-02-18 13:43:33.695 DEBUG [ObjectUtil.getTypedObjects:65] Return: size=154
+2019-02-18 13:43:33.695  INFO [MainView.fillTbObject:629] objectList.size = 154
+2019-02-18 13:43:36.849 DEBUG [MainView.btnReportActionPerformed:662] 结果报告
+2019-02-18 13:45:43.507 DEBUG [MainView.<init>:45] Enter
+2019-02-18 13:45:47.334 DEBUG [MainView.dbActionPerformed:537] comboBoxChanged
+2019-02-18 13:45:47.334 DEBUG [MainView.dbActionPerformed:550] <源端Oracle数据源>
+2019-02-18 13:46:02.958 DEBUG [DBConfigDialog.btnOKActionPerformed:241] 确定
+2019-02-18 13:46:02.960 DEBUG [JdbcUtil.getConnection:85] oracle.jdbc.driver.OracleDriver
+2019-02-18 13:46:02.960 DEBUG [JdbcUtil.getConnection:86] jdbc:oracle:thin:@192.168.136.128:1521/orcl
+2019-02-18 13:46:03.271 DEBUG [DBConfigDialog.btnOKActionPerformed:255] Connected
+2019-02-18 13:46:03.278 DEBUG [MainView.dbActionPerformed:555] response=0
+2019-02-18 13:46:04.326 DEBUG [MainView.btnOpenMigrateActionPerformed:603] Enter:
+2019-02-18 13:46:04.329  INFO [MainView.fillTbObject:610] Enter
+2019-02-18 13:46:04.330 DEBUG [ObjectUtil.getTypedObjects:31] Enter:db=lyy@192.168.136.128:1521/orcl,objType=Table
+2019-02-18 13:46:04.330 DEBUG [JdbcUtil.getConnection:85] oracle.jdbc.driver.OracleDriver
+2019-02-18 13:46:04.330 DEBUG [JdbcUtil.getConnection:86] jdbc:oracle:thin:@192.168.136.128:1521/orcl
+2019-02-18 13:46:04.454  INFO [SQLFactory.getShowObjSQL:32] Enter:dbType = Oracle,objType = Table
+2019-02-18 13:46:04.456 DEBUG [ObjectUtil.getTypedObjects:42] sql=SELECT DISTINCT user, table_name FROM user_tables MINUS  SELECT DISTINCT user,mview_name FROM user_mviews  ORDER BY table_name
+2019-02-18 13:46:04.509 DEBUG [ObjectUtil.getTypedObjects:65] Return: size=154
+2019-02-18 13:46:04.510  INFO [MainView.fillTbObject:632] objectList.size = 154
+2019-02-18 13:46:06.029 DEBUG [MainView.btnReportActionPerformed:665] 结果报告
+2019-02-18 13:46:06.030 DEBUG [MainView.btnReportActionPerformed:670] RowCount=154
+2019-02-18 13:46:06.030 ERROR [MainView.btnReportActionPerformed:683] 
+2019-02-18 13:47:59.941 DEBUG [MainView.<init>:45] Enter
+2019-02-18 13:48:01.653 DEBUG [MainView.btnOpenMigrateActionPerformed:603] Enter:
+2019-02-18 13:48:01.655  INFO [MainView.fillTbObject:610] Enter
+2019-02-18 13:48:03.693 DEBUG [MainView.dbActionPerformed:537] comboBoxChanged
+2019-02-18 13:48:03.693 DEBUG [MainView.dbActionPerformed:550] <源端Oracle数据源>
+2019-02-18 13:48:20.461 DEBUG [DBConfigDialog.btnOKActionPerformed:241] 确定
+2019-02-18 13:48:20.462 DEBUG [JdbcUtil.getConnection:85] oracle.jdbc.driver.OracleDriver
+2019-02-18 13:48:20.462 DEBUG [JdbcUtil.getConnection:86] jdbc:oracle:thin:@192.168.136.128:1521/orcl
+2019-02-18 13:48:20.760 DEBUG [DBConfigDialog.btnOKActionPerformed:255] Connected
+2019-02-18 13:48:20.767 DEBUG [MainView.dbActionPerformed:555] response=0
+2019-02-18 13:48:22.245 DEBUG [MainView.btnOpenMigrateActionPerformed:603] Enter:
+2019-02-18 13:48:22.247  INFO [MainView.fillTbObject:610] Enter
+2019-02-18 13:48:22.248 DEBUG [ObjectUtil.getTypedObjects:31] Enter:db=lyy@192.168.136.128:1521/orcl,objType=Table
+2019-02-18 13:48:22.248 DEBUG [JdbcUtil.getConnection:85] oracle.jdbc.driver.OracleDriver
+2019-02-18 13:48:22.248 DEBUG [JdbcUtil.getConnection:86] jdbc:oracle:thin:@192.168.136.128:1521/orcl
+2019-02-18 13:48:22.378  INFO [SQLFactory.getShowObjSQL:32] Enter:dbType = Oracle,objType = Table
+2019-02-18 13:48:22.380 DEBUG [ObjectUtil.getTypedObjects:42] sql=SELECT DISTINCT user, table_name FROM user_tables MINUS  SELECT DISTINCT user,mview_name FROM user_mviews  ORDER BY table_name
+2019-02-18 13:48:22.431 DEBUG [ObjectUtil.getTypedObjects:65] Return: size=154
+2019-02-18 13:48:22.432  INFO [MainView.fillTbObject:632] objectList.size = 154
+2019-02-18 13:48:23.901 DEBUG [MainView.btnReportActionPerformed:665] 结果报告
+2019-02-18 13:48:23.901 DEBUG [MainView.btnReportActionPerformed:670] RowCount=154
+2019-02-18 13:48:23.912  WARN [ObjectUtil.createMigrateReport:30] Report Root Folder doesn't exist then create: E:\Netbean-Project\orcl2pg\Reports\
+2019-02-18 13:48:38.046 DEBUG [MainView.btnReportActionPerformed:665] 结果报告
+2019-02-18 13:48:38.046 DEBUG [MainView.btnReportActionPerformed:670] RowCount=154
+2019-02-18 13:55:16.774 DEBUG [MainView.<init>:45] Enter
+2019-02-18 13:55:20.035 DEBUG [MainView.btnOpenMigrateActionPerformed:597] Enter:
+2019-02-18 13:55:20.037  INFO [MainView.fillTbObject:604] Enter
+2019-02-18 13:55:35.914 DEBUG [MainView.<init>:45] Enter
+2019-02-18 13:55:42.275 DEBUG [MainView.btnOpenWelcomeActionPerformed:523] 
+2019-02-18 13:55:42.971 DEBUG [MainView.btnOpenConvertActionPerformed:689] Enter:
+2019-02-18 13:55:43.500 DEBUG [MainView.btnOpenMigrateActionPerformed:597] Enter:
+2019-02-18 13:55:43.502  INFO [MainView.fillTbObject:604] Enter
+2019-02-18 13:59:07.252 DEBUG [MainView.<init>:45] Enter
+2019-02-18 14:02:45.689 DEBUG [MainView.<init>:45] Enter
+2019-02-18 14:02:50.161 DEBUG [MainView.btnOpenMigrateActionPerformed:599] Enter:
+2019-02-18 14:02:50.164  INFO [MainView.fillTbObject:607] Enter
+2019-02-18 14:02:51.866 DEBUG [MainView.btnOpenConvertActionPerformed:691] Enter:
+2019-02-18 14:02:54.930 DEBUG [MainView.btnOpenWelcomeActionPerformed:523] 
+2019-02-18 14:04:04.162 DEBUG [MainView.<init>:45] Enter
+2019-02-18 14:04:06.754 DEBUG [MainView.btnOpenMigrateActionPerformed:601] Enter:
+2019-02-18 14:04:06.755  INFO [MainView.fillTbObject:609] Enter
+2019-02-18 14:04:47.345 DEBUG [MainView.<init>:45] Enter
+2019-02-18 14:05:16.761 DEBUG [MainView.btnOpenDatatypeActionPerformed:564] Enter:
+2019-02-18 14:05:16.763  INFO [MainView.fillTbDatatype:572] Enter
+2019-02-18 14:05:16.774 DEBUG [DatatypeFactory.getDefaultDatatypeCasts:223] Enter: sourceDB=Oracle
+2019-02-18 14:05:16.775  INFO [MainView.fillTbDatatype:586] datatypeList.size = 21
+2019-02-18 14:05:17.577 DEBUG [MainView.btnOpenMigrateActionPerformed:600] Enter:
+2019-02-18 14:05:17.579  INFO [MainView.fillTbObject:608] Enter
+2019-02-18 14:05:19.545 DEBUG [MainView.btnOpenConvertActionPerformed:692] Enter:
+2019-02-18 14:05:20.897 DEBUG [MainView.btnOpenWelcomeActionPerformed:524] 
+2019-02-18 14:05:22.265 DEBUG [MainView.btnOpenDatatypeActionPerformed:564] Enter:
+2019-02-18 14:05:22.267  INFO [MainView.fillTbDatatype:572] Enter
+2019-02-18 14:05:22.268 DEBUG [MainView.fillTbDatatype:581] Remain and return.
+2019-02-18 14:05:23.008 DEBUG [MainView.btnOpenWelcomeActionPerformed:524] 
+2019-02-18 14:05:24.360 DEBUG [MainView.btnOpenDatatypeActionPerformed:564] Enter:
+2019-02-18 14:05:24.362  INFO [MainView.fillTbDatatype:572] Enter
+2019-02-18 14:05:24.362 DEBUG [MainView.fillTbDatatype:581] Remain and return.
+2019-02-18 14:05:26.449 DEBUG [MainView.btnOpenWelcomeActionPerformed:524] 
+2019-02-18 14:08:32.487 DEBUG [JdbcUtil.getConnection:83] oracle.jdbc.driver.OracleDriver
+2019-02-18 14:08:32.490 DEBUG [JdbcUtil.getConnection:84] jdbc:oracle:thin:@192.168.136.128:1521/orcl
+2019-02-18 14:08:32.765 DEBUG [JdbcUtil.main:54] Connected
+2019-02-18 14:09:42.799 DEBUG [MainView.<init>:45] Enter
+2019-02-18 14:09:45.776 DEBUG [MainView.dbActionPerformed:533] comboBoxChanged
+2019-02-18 14:09:45.776 DEBUG [MainView.dbActionPerformed:546] <源端Oracle数据源>
+2019-02-18 14:10:13.320 DEBUG [DBConfigDialog.btnOKActionPerformed:241] 确定
+2019-02-18 14:10:13.322 DEBUG [JdbcUtil.getConnection:83] oracle.jdbc.driver.OracleDriver
+2019-02-18 14:10:13.322 DEBUG [JdbcUtil.getConnection:84] jdbc:oracle:thin:@192.168.136.128:1521/orcl
+2019-02-18 14:10:13.617 DEBUG [DBConfigDialog.btnOKActionPerformed:255] Connected
+2019-02-18 14:10:13.623 DEBUG [MainView.dbActionPerformed:551] response=0
+2019-02-18 14:10:15.823 DEBUG [MainView.btnOpenMigrateActionPerformed:600] Enter:
+2019-02-18 14:10:15.825  INFO [MainView.fillTbObject:608] Enter
+2019-02-18 14:10:15.826 DEBUG [ObjectUtil.getTypedObjects:32] Enter:db=lyy@192.168.136.128:1521/orcl,objType=Table
+2019-02-18 14:10:15.826 DEBUG [JdbcUtil.getConnection:83] oracle.jdbc.driver.OracleDriver
+2019-02-18 14:10:15.826 DEBUG [JdbcUtil.getConnection:84] jdbc:oracle:thin:@192.168.136.128:1521/orcl
+2019-02-18 14:10:15.949  INFO [SQLFactory.getShowObjSQL:33] Enter:dbType = Oracle,objType = Table
+2019-02-18 14:10:15.951 DEBUG [ObjectUtil.getTypedObjects:43] sql=SELECT DISTINCT user, table_name FROM user_tables MINUS  SELECT DISTINCT user,mview_name FROM user_mviews  ORDER BY table_name
+2019-02-18 14:10:16.000 DEBUG [ObjectUtil.getTypedObjects:66] Return: size=154
+2019-02-18 14:10:16.001  INFO [MainView.fillTbObject:630] objectList.size = 154
+2019-02-18 14:10:17.143 DEBUG [MainView.btnReportActionPerformed:663] 结果报告
+2019-02-18 14:10:17.143 DEBUG [MainView.btnReportActionPerformed:668] RowCount=154
+2019-02-18 14:10:17.153  WARN [ObjectUtil.createMigrateReport:30] Report Root Folder doesn't exist then create: E:\Netbean-Project\orcl2pg\Reports\
+2019-02-18 14:10:26.935 DEBUG [MainView.btnReportActionPerformed:663] 结果报告
+2019-02-18 14:10:26.936 DEBUG [MainView.btnReportActionPerformed:668] RowCount=154
+2019-02-18 14:40:31.157 DEBUG [HisPropertiesUtil.<clinit>:57] E:\Netbean-Project\orcl2pg\History\\DatasourceHistory.properties
+2019-02-18 14:40:31.159 DEBUG [HisPropertiesUtil.saveHistory:62] Enter:dbsource=lyy@192.168.100.106:1521/orcl, savePwd=true
+2019-02-18 14:40:31.160 DEBUG [HisPropertiesUtil.saveHistory:78] E:\Netbean-Project\orcl2pg\History\DatasourceHistory.properties not exist and create it:true
+2019-02-18 14:41:18.834 DEBUG [MainView.<init>:45] Enter
+2019-02-18 14:41:21.953 DEBUG [MainView.dbActionPerformed:533] comboBoxChanged
+2019-02-18 14:41:21.953 DEBUG [MainView.dbActionPerformed:546] <源端Oracle数据源>
+2019-02-18 14:41:24.929 DEBUG [MainView.dbActionPerformed:551] response=-1
+2019-02-18 14:41:39.516 DEBUG [HisPropertiesUtil.<clinit>:57] E:\Netbean-Project\orcl2pg\History\\DatasourceHistory.properties
+2019-02-18 14:41:39.518 DEBUG [HisPropertiesUtil.saveHistory:62] Enter:dbsource=lyy@192.168.100.106:1521/orcl, savePwd=true
+2019-02-18 14:41:51.874 DEBUG [HisPropertiesUtil.<clinit>:57] E:\Netbean-Project\orcl2pg\History\\DatasourceHistory.properties
+2019-02-18 14:41:51.877 DEBUG [HisPropertiesUtil.saveHistory:62] Enter:dbsource=lyy@192.168.100.106:1521/orcl, savePwd=true
+2019-02-18 14:50:37.647 DEBUG [MainView.<init>:45] Enter
+2019-02-18 14:50:44.565 DEBUG [MainView.btnOpenMigrateActionPerformed:601] Enter:
+2019-02-18 14:50:44.567  INFO [MainView.fillTbObject:609] Enter
+2019-02-18 14:51:05.030 DEBUG [MainView.dbActionPerformed:533] comboBoxChanged
+2019-02-18 14:51:05.030 DEBUG [MainView.dbActionPerformed:547] <源端Oracle数据源>
+2019-02-18 14:51:05.050 DEBUG [HisPropertiesUtil.<clinit>:57] E:\Netbean-Project\orcl2pg\History\\DatasourceHistory.properties
+2019-02-18 14:51:05.222 DEBUG [HisPropertiesUtil.readHistory:164] Return
+2019-02-18 14:51:16.977 DEBUG [MainView.dbActionPerformed:552] response=-1
+2019-02-18 14:55:34.870 DEBUG [MainView.<init>:45] Enter
+2019-02-18 14:55:37.157 DEBUG [MainView.dbActionPerformed:533] comboBoxChanged
+2019-02-18 14:55:37.158 DEBUG [MainView.dbActionPerformed:547] <源端Oracle数据源>
+2019-02-18 14:55:37.182 DEBUG [HisPropertiesUtil.<clinit>:57] E:\Netbean-Project\orcl2pg\History\\DatasourceHistory.properties
+2019-02-18 14:55:37.367 DEBUG [HisPropertiesUtil.readHistory:164] Return
+2019-02-18 14:55:45.428 DEBUG [MainView.dbActionPerformed:552] response=-1
+2019-02-18 14:56:01.938 DEBUG [MainView.<init>:45] Enter
+2019-02-18 14:56:04.653 DEBUG [MainView.dbActionPerformed:533] comboBoxChanged
+2019-02-18 14:56:04.653 DEBUG [MainView.dbActionPerformed:547] <源端Oracle数据源>
+2019-02-18 14:56:04.677 DEBUG [HisPropertiesUtil.<clinit>:57] E:\Netbean-Project\orcl2pg\History\\DatasourceHistory.properties
+2019-02-18 14:56:04.855 DEBUG [HisPropertiesUtil.readHistory:164] Return
+2019-02-18 14:56:08.460 DEBUG [MainView.dbActionPerformed:552] response=-1
+2019-02-18 14:56:36.640 DEBUG [MainView.<init>:45] Enter
+2019-02-18 14:56:38.940 DEBUG [MainView.dbActionPerformed:533] comboBoxChanged
+2019-02-18 14:56:38.941 DEBUG [MainView.dbActionPerformed:547] <源端Oracle数据源>
+2019-02-18 14:56:38.968 DEBUG [HisPropertiesUtil.<clinit>:57] E:\Netbean-Project\orcl2pg\History\\DatasourceHistory.properties
+2019-02-18 14:56:39.167 DEBUG [HisPropertiesUtil.readHistory:164] Return
+2019-02-18 14:56:45.683 DEBUG [MainView.dbActionPerformed:552] response=-1
+2019-02-18 14:57:15.047 DEBUG [MainView.<init>:45] Enter
+2019-02-18 14:57:16.372 DEBUG [MainView.dbActionPerformed:533] comboBoxChanged
+2019-02-18 14:57:16.372 DEBUG [MainView.dbActionPerformed:547] <源端Oracle数据源>
+2019-02-18 14:57:16.396 DEBUG [HisPropertiesUtil.<clinit>:57] E:\Netbean-Project\orcl2pg\History\\DatasourceHistory.properties
+2019-02-18 14:57:16.570 DEBUG [HisPropertiesUtil.readHistory:164] Return
+2019-02-18 14:57:18.611 DEBUG [MainView.dbActionPerformed:552] response=-1
+2019-02-18 14:57:39.829 DEBUG [MainView.<init>:45] Enter
+2019-02-18 14:57:41.820 DEBUG [MainView.dbActionPerformed:533] comboBoxChanged
+2019-02-18 14:57:41.820 DEBUG [MainView.dbActionPerformed:547] <源端Oracle数据源>
+2019-02-18 14:57:41.842 DEBUG [HisPropertiesUtil.<clinit>:57] E:\Netbean-Project\orcl2pg\History\\DatasourceHistory.properties
+2019-02-18 14:57:42.006 DEBUG [HisPropertiesUtil.readHistory:164] Return
+2019-02-18 14:57:53.076 DEBUG [DBConfigDialog.btnOKActionPerformed:275] 确定
+2019-02-18 14:57:53.077 DEBUG [JdbcUtil.getConnection:83] oracle.jdbc.driver.OracleDriver
+2019-02-18 14:57:53.078 DEBUG [JdbcUtil.getConnection:84] jdbc:oracle:thin:@192.168.100.106:1521:orcl
+2019-02-18 14:58:14.207 ERROR [DBConfigDialog.btnOKActionPerformed:296] The Network Adapter could not establish the connection
+2019-02-18 14:59:47.868 DEBUG [DBConfigDialog.btnOKActionPerformed:275] 确定
+2019-02-18 14:59:47.868 DEBUG [JdbcUtil.getConnection:83] oracle.jdbc.driver.OracleDriver
+2019-02-18 14:59:47.869 DEBUG [JdbcUtil.getConnection:84] jdbc:oracle:thin:@192.168.136.128:1521:orcl
+2019-02-18 14:59:48.046 DEBUG [DBConfigDialog.btnOKActionPerformed:289] Connected
+2019-02-18 14:59:48.046 DEBUG [HisPropertiesUtil.saveHistory:62] Enter:dbsource=lyy@192.168.136.128:1521/orcl, savePwd=false
+2019-02-18 14:59:48.047 ERROR [DBConfigDialog.btnOKActionPerformed:296] 
+2019-02-18 15:00:55.194 DEBUG [MainView.dbActionPerformed:552] response=-1
+2019-02-18 15:02:13.006 DEBUG [MainView.<init>:45] Enter
+2019-02-18 15:02:15.363 DEBUG [MainView.dbActionPerformed:533] comboBoxChanged
+2019-02-18 15:02:15.364 DEBUG [MainView.dbActionPerformed:547] <源端Oracle数据源>
+2019-02-18 15:02:15.388 DEBUG [HisPropertiesUtil.<clinit>:57] E:\Netbean-Project\orcl2pg\History\\DatasourceHistory.properties
+2019-02-18 15:02:15.573 DEBUG [HisPropertiesUtil.readHistory:164] Return
+2019-02-18 15:02:19.570 DEBUG [MainView.dbActionPerformed:552] response=-1
+2019-02-18 15:02:34.957 DEBUG [MainView.<init>:45] Enter
+2019-02-18 15:02:37.035 DEBUG [MainView.dbActionPerformed:533] comboBoxChanged
+2019-02-18 15:02:37.035 DEBUG [MainView.dbActionPerformed:547] <源端Oracle数据源>
+2019-02-18 15:02:52.225 DEBUG [MainView.<init>:45] Enter
+2019-02-18 15:02:54.251 DEBUG [MainView.dbActionPerformed:533] comboBoxChanged
+2019-02-18 15:02:54.251 DEBUG [MainView.dbActionPerformed:547] <源端Oracle数据源>
+2019-02-18 15:02:54.277 DEBUG [HisPropertiesUtil.<clinit>:57] E:\Netbean-Project\orcl2pg\History\\DatasourceHistory.properties
+2019-02-18 15:02:54.452 DEBUG [HisPropertiesUtil.readHistory:164] Return
+2019-02-18 15:03:01.848 DEBUG [MainView.dbActionPerformed:552] response=-1
+2019-02-18 15:03:17.542 DEBUG [MainView.<init>:45] Enter
+2019-02-18 15:03:37.983 DEBUG [MainView.<init>:45] Enter
+2019-02-18 15:03:40.378 DEBUG [MainView.dbActionPerformed:533] comboBoxChanged
+2019-02-18 15:03:40.379 DEBUG [MainView.dbActionPerformed:547] <源端Oracle数据源>
+2019-02-18 15:03:40.406 DEBUG [HisPropertiesUtil.<clinit>:57] E:\Netbean-Project\orcl2pg\History\\DatasourceHistory.properties
+2019-02-18 15:03:40.580 DEBUG [HisPropertiesUtil.readHistory:164] Return
+2019-02-18 15:03:45.217 DEBUG [MainView.dbActionPerformed:552] response=-1
+2019-02-18 15:03:59.999 DEBUG [MainView.<init>:45] Enter
+2019-02-18 15:04:02.163 DEBUG [MainView.dbActionPerformed:533] comboBoxChanged
+2019-02-18 15:04:02.164 DEBUG [MainView.dbActionPerformed:547] <源端Oracle数据源>
+2019-02-18 15:04:02.187 DEBUG [HisPropertiesUtil.<clinit>:57] E:\Netbean-Project\orcl2pg\History\\DatasourceHistory.properties
+2019-02-18 15:04:02.363 DEBUG [HisPropertiesUtil.readHistory:164] Return
+2019-02-18 15:04:18.642 DEBUG [DBConfigDialog.btnOKActionPerformed:275] 确定
+2019-02-18 15:04:18.643 DEBUG [JdbcUtil.getConnection:83] oracle.jdbc.driver.OracleDriver
+2019-02-18 15:04:18.644 DEBUG [JdbcUtil.getConnection:84] jdbc:oracle:thin:@192.168.136.128:1521/orcl
+2019-02-18 15:04:18.958 DEBUG [DBConfigDialog.btnOKActionPerformed:289] Connected
+2019-02-18 15:04:18.959 DEBUG [HisPropertiesUtil.saveHistory:62] Enter:dbsource=lyy@192.168.136.128:1521/orcl, savePwd=false
+2019-02-18 15:04:18.965 DEBUG [DBConfigDialog.btnOKActionPerformed:291] Saved History
+2019-02-18 15:04:18.972 DEBUG [MainView.dbActionPerformed:552] response=0
+2019-02-18 15:04:31.450 DEBUG [MainView.dbActionPerformed:533] comboBoxChanged
+2019-02-18 15:04:31.451 DEBUG [MainView.dbActionPerformed:547] <源端Oracle数据源>
+2019-02-18 15:04:31.465 DEBUG [HisPropertiesUtil.readHistory:164] Return
+2019-02-18 15:04:35.511 DEBUG [MainView.dbActionPerformed:552] response=-1
+2019-02-18 15:04:37.523 DEBUG [MainView.dbActionPerformed:533] comboBoxChanged
+2019-02-18 15:04:37.523 DEBUG [MainView.dbActionPerformed:547] <目标端PG数据源>
+2019-02-18 15:04:37.538 ERROR [DBConfigDialog.updateForType:266] null
+2019-02-18 15:07:23.229 DEBUG [MainView.<init>:45] Enter
+2019-02-18 15:07:28.415 DEBUG [MainView.dbActionPerformed:552] response=-1
+2019-02-18 15:07:33.942 DEBUG [MainView.<init>:45] Enter
+2019-02-18 15:07:36.546 DEBUG [MainView.dbActionPerformed:533] comboBoxChanged
+2019-02-18 15:07:36.546 DEBUG [MainView.dbActionPerformed:547] <目标端PG数据源>
+2019-02-18 15:07:36.570 DEBUG [HisPropertiesUtil.<clinit>:57] E:\Netbean-Project\orcl2pg\History\\DatasourceHistory.properties
+2019-02-18 15:07:36.571 ERROR [DBConfigDialog.updateForType:266] null
+2019-02-18 15:07:39.815 DEBUG [MainView.dbActionPerformed:552] response=-1
+2019-02-18 15:08:31.452 DEBUG [MainView.<init>:45] Enter
+2019-02-18 15:08:33.545 DEBUG [MainView.dbActionPerformed:533] comboBoxChanged
+2019-02-18 15:08:33.546 DEBUG [MainView.dbActionPerformed:547] <目标端PG数据源>
+2019-02-18 15:08:33.570 DEBUG [HisPropertiesUtil.<clinit>:57] E:\Netbean-Project\orcl2pg\History\\DatasourceHistory.properties
+2019-02-18 15:08:33.571 ERROR [DBConfigDialog.updateForType:266] 
+2019-02-18 15:09:42.870 DEBUG [MainView.dbActionPerformed:552] response=-1
+2019-02-18 15:09:46.154 DEBUG [MainView.<init>:45] Enter
+2019-02-18 15:09:48.217 DEBUG [MainView.dbActionPerformed:533] comboBoxChanged
+2019-02-18 15:09:48.217 DEBUG [MainView.dbActionPerformed:547] <目标端PG数据源>
+2019-02-18 15:09:48.241 DEBUG [HisPropertiesUtil.<clinit>:57] E:\Netbean-Project\orcl2pg\History\\DatasourceHistory.properties
+2019-02-18 15:09:48.242 ERROR [DBConfigDialog.updateForType:266] 
+2019-02-18 15:10:37.486 DEBUG [MainView.<init>:45] Enter
+2019-02-18 15:10:39.679 DEBUG [MainView.dbActionPerformed:552] response=-1
+2019-02-18 15:14:01.217 DEBUG [MainView.<init>:45] Enter
+2019-02-18 15:14:04.328 DEBUG [MainView.dbActionPerformed:533] comboBoxChanged
+2019-02-18 15:14:04.329 DEBUG [MainView.dbActionPerformed:547] <目标端PG数据源>
+2019-02-18 15:14:04.354 DEBUG [HisPropertiesUtil.<clinit>:57] E:\Netbean-Project\orcl2pg\History\\DatasourceHistory.properties
+2019-02-18 15:14:04.355 ERROR [DBConfigDialog.updateForType:266] 
+2019-02-18 15:15:44.205 DEBUG [MainView.<init>:45] Enter
+2019-02-18 15:15:47.768 DEBUG [MainView.dbActionPerformed:552] response=-1
+2019-02-18 15:15:52.008 DEBUG [MainView.dbActionPerformed:533] comboBoxChanged
+2019-02-18 15:15:52.008 DEBUG [MainView.dbActionPerformed:547] <目标端PG数据源>
+2019-02-18 15:15:52.033 DEBUG [HisPropertiesUtil.<clinit>:57] E:\Netbean-Project\orcl2pg\History\\DatasourceHistory.properties
+2019-02-18 15:15:52.034 DEBUG [HisPropertiesUtil.readHistory:137] false
+2019-02-18 15:15:52.034 ERROR [DBConfigDialog.updateForType:266] 
+2019-02-18 15:17:24.766 DEBUG [MainView.dbActionPerformed:552] response=-1
+2019-02-18 15:17:28.365 DEBUG [MainView.<init>:45] Enter
+2019-02-18 15:17:30.160 DEBUG [MainView.dbActionPerformed:533] comboBoxChanged
+2019-02-18 15:17:30.160 DEBUG [MainView.dbActionPerformed:547] <目标端PG数据源>
+2019-02-18 15:17:30.185 DEBUG [HisPropertiesUtil.<clinit>:57] E:\Netbean-Project\orcl2pg\History\\DatasourceHistory.properties
+2019-02-18 15:17:30.185 DEBUG [HisPropertiesUtil.readHistory:137] port=null
+2019-02-18 15:17:30.186 ERROR [DBConfigDialog.updateForType:266] 
+2019-02-18 15:20:07.922 DEBUG [MainView.<init>:45] Enter
+2019-02-18 15:20:11.734 DEBUG [MainView.dbActionPerformed:552] response=-1
+2019-02-18 15:20:14.303 DEBUG [MainView.dbActionPerformed:533] comboBoxChanged
+2019-02-18 15:20:14.303 DEBUG [MainView.dbActionPerformed:547] <源端Oracle数据源>
+2019-02-18 15:20:14.329 DEBUG [HisPropertiesUtil.<clinit>:57] E:\Netbean-Project\orcl2pg\History\\DatasourceHistory.properties
+2019-02-18 15:20:14.329 DEBUG [HisPropertiesUtil.readHistory:136] port=1521
+2019-02-18 15:20:14.330 DEBUG [HisPropertiesUtil.readHistory:170] Return
+2019-02-18 15:20:16.261 DEBUG [MainView.dbActionPerformed:552] response=-1
+2019-02-18 15:20:17.191 DEBUG [MainView.dbActionPerformed:533] comboBoxChanged
+2019-02-18 15:20:17.191 DEBUG [MainView.dbActionPerformed:547] <目标端PG数据源>
+2019-02-18 15:20:17.208 DEBUG [HisPropertiesUtil.readHistory:136] port=null
+2019-02-18 15:20:17.208 DEBUG [HisPropertiesUtil.readHistory:170] Return
+2019-02-18 15:20:42.925 DEBUG [MainView.dbActionPerformed:552] response=-1
+2019-02-18 15:23:50.648 DEBUG [MainView.<init>:45] Enter
+2019-02-18 15:23:52.662 DEBUG [MainView.dbActionPerformed:533] comboBoxChanged
+2019-02-18 15:23:52.662 DEBUG [MainView.dbActionPerformed:547] <目标端PG数据源>
+2019-02-18 15:23:52.689 DEBUG [HisPropertiesUtil.<clinit>:57] E:\Netbean-Project\orcl2pg\History\\DatasourceHistory.properties
+2019-02-18 15:23:52.690 ERROR [DBConfigDialog.updateForType:266] 
+2019-02-18 15:25:30.335 DEBUG [MainView.<init>:45] Enter
+2019-02-18 15:25:33.397 DEBUG [MainView.dbActionPerformed:552] response=-1
+2019-02-18 15:25:36.381 DEBUG [MainView.dbActionPerformed:533] comboBoxChanged
+2019-02-18 15:25:36.382 DEBUG [MainView.dbActionPerformed:547] <目标端PG数据源>
+2019-02-18 15:25:36.413 DEBUG [HisPropertiesUtil.<clinit>:57] E:\Netbean-Project\orcl2pg\History\\DatasourceHistory.properties
+2019-02-18 15:25:36.414 DEBUG [HisPropertiesUtil.readHistory:114] dbType=PostgreSQL
+2019-02-18 15:25:36.415 ERROR [DBConfigDialog.updateForType:266] 
+2019-02-18 15:28:33.658 DEBUG [MainView.<init>:45] Enter
+2019-02-18 15:28:35.306 DEBUG [MainView.dbActionPerformed:552] response=-1
+2019-02-18 15:28:38.621 DEBUG [MainView.dbActionPerformed:533] comboBoxChanged
+2019-02-18 15:28:38.621 DEBUG [MainView.dbActionPerformed:547] <目标端PG数据源>
+2019-02-18 15:28:38.648 DEBUG [HisPropertiesUtil.<clinit>:57] E:\Netbean-Project\orcl2pg\History\\DatasourceHistory.properties
+2019-02-18 15:28:38.649 DEBUG [HisPropertiesUtil.readHistory:114] dbType=PostgreSQL
+2019-02-18 15:28:38.650 DEBUG [HisPropertiesUtil.readHistory:142] hostnull
+2019-02-18 15:28:38.651 ERROR [DBConfigDialog.updateForType:266] 
+2019-02-18 15:31:44.618 DEBUG [MainView.<init>:45] Enter
+2019-02-18 15:32:01.604 DEBUG [MainView.dbActionPerformed:533] comboBoxChanged
+2019-02-18 15:32:01.604 DEBUG [MainView.dbActionPerformed:547] <目标端PG数据源>
+2019-02-18 15:32:01.632 DEBUG [HisPropertiesUtil.<clinit>:57] E:\Netbean-Project\orcl2pg\History\\DatasourceHistory.properties
+2019-02-18 15:32:01.632 DEBUG [HisPropertiesUtil.readHistory:114] dbType=PostgreSQL
+2019-02-18 15:32:01.633  WARN [HisPropertiesUtil.readHistory:144] Datasource History host is null, then return null.
+2019-02-18 15:32:05.051 DEBUG [MainView.dbActionPerformed:552] response=-1
+2019-02-18 15:47:31.761 DEBUG [MainView.<init>:45] Enter
+2019-02-18 15:47:34.000 DEBUG [MainView.dbActionPerformed:533] comboBoxChanged
+2019-02-18 15:47:34.000 DEBUG [MainView.dbActionPerformed:547] <目标端PG数据源>
+2019-02-18 15:47:34.026 DEBUG [HisPropertiesUtil.<clinit>:57] E:\Netbean-Project\orcl2pg\History\\DatasourceHistory.properties
+2019-02-18 15:47:34.026 DEBUG [HisPropertiesUtil.readHistory:114] dbType=PostgreSQL
+2019-02-18 15:47:34.027  WARN [HisPropertiesUtil.readHistory:148] PostgreSQL Datasource History are all null, then return null.
+2019-02-18 15:47:42.257 DEBUG [MainView.dbActionPerformed:552] response=-1
+2019-02-18 15:48:11.875 DEBUG [MainView.<init>:45] Enter
+2019-02-18 15:48:14.496 DEBUG [MainView.dbActionPerformed:533] comboBoxChanged
+2019-02-18 15:48:14.496 DEBUG [MainView.dbActionPerformed:547] <目标端PG数据源>
+2019-02-18 15:48:14.522 DEBUG [HisPropertiesUtil.<clinit>:57] E:\Netbean-Project\orcl2pg\History\\DatasourceHistory.properties
+2019-02-18 15:48:14.522 DEBUG [HisPropertiesUtil.readHistory:114] dbType=PostgreSQL
+2019-02-18 15:48:14.523  WARN [HisPropertiesUtil.readHistory:148] PostgreSQL Datasource History are all null, then return null.
+2019-02-18 15:48:18.286 DEBUG [MainView.dbActionPerformed:552] response=-1
+2019-02-18 15:48:36.824 DEBUG [MainView.dbActionPerformed:533] comboBoxChanged
+2019-02-18 15:48:36.824 DEBUG [MainView.dbActionPerformed:547] <源端Oracle数据源>
+2019-02-18 15:48:36.839 DEBUG [HisPropertiesUtil.readHistory:114] dbType=Oracle
+2019-02-18 15:48:36.840 DEBUG [HisPropertiesUtil.readHistory:187] Return
+2019-02-18 15:48:39.174 DEBUG [MainView.dbActionPerformed:552] response=-1
+2019-02-18 15:48:40.528 DEBUG [MainView.dbActionPerformed:533] comboBoxChanged
+2019-02-18 15:48:40.528 DEBUG [MainView.dbActionPerformed:547] <目标端PG数据源>
+2019-02-18 15:48:40.543 DEBUG [HisPropertiesUtil.readHistory:114] dbType=PostgreSQL
+2019-02-18 15:48:40.544  WARN [HisPropertiesUtil.readHistory:148] PostgreSQL Datasource History are all null, then return null.
+2019-02-18 15:48:41.847 DEBUG [MainView.dbActionPerformed:552] response=-1
+2019-02-18 15:48:44.820 DEBUG [MainView.<init>:45] Enter
+2019-02-18 15:48:47.528 DEBUG [MainView.dbActionPerformed:533] comboBoxChanged
+2019-02-18 15:48:47.528 DEBUG [MainView.dbActionPerformed:547] <源端Oracle数据源>
+2019-02-18 15:48:47.553 DEBUG [HisPropertiesUtil.<clinit>:57] E:\Netbean-Project\orcl2pg\History\\DatasourceHistory.properties
+2019-02-18 15:48:47.553 DEBUG [HisPropertiesUtil.readHistory:114] dbType=Oracle
+2019-02-18 15:48:47.554 DEBUG [HisPropertiesUtil.readHistory:187] Return
+2019-02-18 15:48:53.855 DEBUG [DBConfigDialog.btnResetActionPerformed:314] 重置
+2019-02-18 15:48:53.856 DEBUG [HisPropertiesUtil.readHistory:114] dbType=Oracle
+2019-02-18 15:48:53.857 DEBUG [HisPropertiesUtil.readHistory:187] Return
+2019-02-18 15:49:01.679 DEBUG [MainView.dbActionPerformed:552] response=-1
+2019-02-18 15:49:18.872 DEBUG [MainView.dbActionPerformed:533] comboBoxChanged
+2019-02-18 15:49:18.872 DEBUG [MainView.dbActionPerformed:547] <源端Oracle数据源>
+2019-02-18 15:49:18.887 DEBUG [HisPropertiesUtil.readHistory:114] dbType=Oracle
+2019-02-18 15:49:18.887 DEBUG [HisPropertiesUtil.readHistory:187] Return
+2019-02-18 15:49:21.344 DEBUG [DBConfigDialog.btnResetActionPerformed:314] 重置
+2019-02-18 15:49:21.345 DEBUG [HisPropertiesUtil.readHistory:114] dbType=Oracle
+2019-02-18 15:49:21.346 DEBUG [HisPropertiesUtil.readHistory:187] Return
+2019-02-18 15:49:22.687 DEBUG [DBConfigDialog.btnResetActionPerformed:314] 重置
+2019-02-18 15:49:22.688 DEBUG [HisPropertiesUtil.readHistory:114] dbType=Oracle
+2019-02-18 15:49:22.689 DEBUG [HisPropertiesUtil.readHistory:187] Return
+2019-02-18 15:49:48.266 DEBUG [MainView.dbActionPerformed:552] response=-1
+2019-02-18 15:54:04.806 DEBUG [MainView.<init>:45] Enter
+2019-02-18 15:54:10.038 DEBUG [MainView.dbActionPerformed:533] comboBoxChanged
+2019-02-18 15:54:10.039 DEBUG [MainView.dbActionPerformed:547] <源端Oracle数据源>
+2019-02-18 15:54:10.066 DEBUG [HisPropertiesUtil.<clinit>:57] E:\Netbean-Project\orcl2pg\History\\DatasourceHistory.properties
+2019-02-18 15:54:10.067 DEBUG [HisPropertiesUtil.readHistory:114] dbType=Oracle
+2019-02-18 15:54:10.069 DEBUG [HisPropertiesUtil.readHistory:187] Return
+2019-02-18 15:54:12.439 DEBUG [DBConfigDialog.btnResetActionPerformed:323] 重置
+2019-02-18 15:54:15.854 DEBUG [DBConfigDialog.btnResetActionPerformed:323] 重置
+2019-02-18 15:54:16.926 DEBUG [DBConfigDialog.btnCancleActionPerformed:316] 取消
+2019-02-18 15:54:16.933 DEBUG [MainView.dbActionPerformed:552] response=-1
+2019-02-18 15:54:18.158 DEBUG [MainView.dbActionPerformed:533] comboBoxChanged
+2019-02-18 15:54:18.158 DEBUG [MainView.dbActionPerformed:547] <源端Oracle数据源>
+2019-02-18 15:54:18.174 DEBUG [HisPropertiesUtil.readHistory:114] dbType=Oracle
+2019-02-18 15:54:18.174 DEBUG [HisPropertiesUtil.readHistory:187] Return
+2019-02-18 15:54:21.021 DEBUG [MainView.dbActionPerformed:552] response=-1
+2019-02-18 15:54:22.095 DEBUG [MainView.dbActionPerformed:533] comboBoxChanged
+2019-02-18 15:54:22.096 DEBUG [MainView.dbActionPerformed:547] <目标端PG数据源>
+2019-02-18 15:54:22.110 DEBUG [HisPropertiesUtil.readHistory:114] dbType=PostgreSQL
+2019-02-18 15:54:22.111  WARN [HisPropertiesUtil.readHistory:148] PostgreSQL Datasource History are all null, then return null.
+2019-02-18 15:54:26.862 DEBUG [DBConfigDialog.btnResetActionPerformed:323] 重置
+2019-02-18 15:54:29.294 DEBUG [DBConfigDialog.btnResetActionPerformed:323] 重置
+2019-02-18 15:54:31.894 DEBUG [DBConfigDialog.btnResetActionPerformed:323] 重置
+2019-02-18 15:54:36.318 DEBUG [DBConfigDialog.btnResetActionPerformed:323] 重置
+2019-02-18 15:54:46.522 DEBUG [MainView.dbActionPerformed:552] response=-1
+2019-02-18 15:55:23.460 DEBUG [MainView.<init>:45] Enter
+2019-02-18 15:55:24.958 DEBUG [MainView.dbActionPerformed:533] comboBoxChanged
+2019-02-18 15:55:24.959 DEBUG [MainView.dbActionPerformed:547] <目标端PG数据源>
+2019-02-18 15:55:24.983 DEBUG [HisPropertiesUtil.<clinit>:57] E:\Netbean-Project\orcl2pg\History\\DatasourceHistory.properties
+2019-02-18 15:55:24.983 DEBUG [HisPropertiesUtil.readHistory:114] dbType=PostgreSQL
+2019-02-18 15:55:24.983  WARN [HisPropertiesUtil.readHistory:148] PostgreSQL Datasource History are all null, then return null.
+2019-02-18 15:55:27.157 DEBUG [MainView.dbActionPerformed:552] response=-1

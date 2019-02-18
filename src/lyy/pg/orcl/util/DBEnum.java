@@ -9,7 +9,7 @@ package lyy.pg.orcl.util;
  *
  * @author Liu Yuanyuan
  */
-public enum Enum
+public enum DBEnum
 {
 
     PostgreSQL, Oracle;
@@ -30,7 +30,6 @@ public enum Enum
 
     public enum TabObject
     {
-
         COLUMN, CONSTRAINT_MAIN, CONSTRAINT_COLUMN, CONSTRAINT_CHECKCONDITION, CONSTRAINT_RCOLUMN,
         TABLE_COMMENT, COLUMN_COMMENT
     }

@@ -10,12 +10,22 @@ import java.util.Date;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-
-public class ReportUtil {
+public class ReportUtil
+{
 
     private static final Logger logger = LogManager.getLogger(ObjectUtil.class);
     private final static SimpleDateFormat Time4FileName = new SimpleDateFormat("yyyyMMddHHmmss");
     private final static String ReportRoot = new File("").getAbsoluteFile() + File.separator + "Reports" + File.separator;
+
+    static
+    {
+        File reportRootFolder = new File(ReportRoot);
+        if (!reportRootFolder.exists())
+        {
+            logger.warn("Report Root Folder doesn't exist then create: " + ReportRoot);
+            logger.debug("mkdirs=" + reportRootFolder.mkdirs());
+        }
+    }
 
     public static String createMigrateReport(String schema, String rows) throws Exception
     {
@@ -23,12 +33,6 @@ public class ReportUtil {
         BufferedWriter bwResport = null;
         try
         {
-            File reportRootFolder = new File(ReportRoot);
-            if (!reportRootFolder.exists())
-            {
-                reportRootFolder.mkdirs();
-                logger.warn("Report Root Folder doesn't exist then create: " + ReportRoot);
-            }
             fileName = ReportRoot + "MigrateReport_" + Time4FileName.format(new Date()) + ".html";
             bwResport = new BufferedWriter(new FileWriter(fileName));
             writeLog(bwResport, ContentBefore.replace("SchemaName", schema) + rows + ContentAfter);
@@ -42,7 +46,7 @@ public class ReportUtil {
         }
         return fileName;
     }
-    
+
     private static synchronized void writeLog(BufferedWriter bw, String content) throws Exception
     {
         try
@@ -66,8 +70,7 @@ public class ReportUtil {
             throw ex;
         }
     }
-	
-    
+
     public final static String RowFormat
             = "<tr>\n"
             + " <td>no</td>\n"
@@ -76,7 +79,7 @@ public class ReportUtil {
             + " <td>compareResult</td>\n"
             + " <td>syncResult</td>\n"
             + "</tr>\n";
-    
+
     private static final String ContentBefore
             = "<!DOCTYPE html>\n"
             + "<html>\n"

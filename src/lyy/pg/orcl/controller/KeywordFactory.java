@@ -2,7 +2,7 @@ package lyy.pg.orcl.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import lyy.pg.orcl.util.Enum;
+import lyy.pg.orcl.util.DBEnum;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +24,7 @@ public class KeywordFactory
         String x = "222dd222";
         System.out.println(x.matches(".*(?=(.*[a-z]){1,}).*$"));
 
-        System.out.println(KeywordFactory.getInstance().quotedName2PG("DEFERRABLE", Enum.Oracle));
+        System.out.println(KeywordFactory.getInstance().quotedName2PG("DEFERRABLE", DBEnum.Oracle));
         System.out.println(KeywordFactory.getInstance().quotedName4Oracle("Tab"));
     }
 
@@ -43,10 +43,10 @@ public class KeywordFactory
     }
 
     // for PG create sql by name from oracle/other db system table
-    public String quotedName2PG(String name, Enum dbType)
+    public String quotedName2PG(String name, DBEnum dbType)
     {
         //logger.debug("db=" + dbType + ", name=" + name);		
-        if (dbType == null || dbType != Enum.Oracle)
+        if (dbType == null || dbType != DBEnum.Oracle)
         {
             logger.warn("DB type is null or not Oracle, we cannot support.");
             return name;
@@ -59,7 +59,7 @@ public class KeywordFactory
             return name;
         }
 
-        List<String> objTabColNameKeyWords = getObjTabColNameKeyWords(Enum.PostgreSQL);
+        List<String> objTabColNameKeyWords = getObjTabColNameKeyWords(DBEnum.PostgreSQL);
         for (String kw : objTabColNameKeyWords)
         {
             //logger.debug("kw=" + kw);
@@ -92,7 +92,7 @@ public class KeywordFactory
             return name;
         }
 
-        List<String> objTabColNameKeyWords = getObjTabColNameKeyWords(Enum.Oracle);
+        List<String> objTabColNameKeyWords = getObjTabColNameKeyWords(DBEnum.Oracle);
         for (String kw : objTabColNameKeyWords)
         {
             if (name.equalsIgnoreCase(kw))// or matches()
@@ -124,7 +124,7 @@ public class KeywordFactory
             return name;
         }
 
-        List<String> objTabColNameKeyWords = getObjTabColNameKeyWords(Enum.PostgreSQL);
+        List<String> objTabColNameKeyWords = getObjTabColNameKeyWords(DBEnum.PostgreSQL);
         for (int i = 0; i < objTabColNameKeyWords.size(); i++)
         {
             String kw = objTabColNameKeyWords.get(i).toUpperCase();
@@ -148,7 +148,7 @@ public class KeywordFactory
     }
 
     // Table/Column/other Object(except Function/Type) name
-    private List<String> getObjTabColNameKeyWords(Enum dbType)
+    private List<String> getObjTabColNameKeyWords(DBEnum dbType)
     {
         switch (dbType)
         {
@@ -164,7 +164,7 @@ public class KeywordFactory
 
     // Type and function Keyword(useless currently because plsqlconver check keyword iteself and type needn's migrate)
     @SuppressWarnings("unused")
-    private List<String> getTypeFunNameKeyWords(Enum dbType)
+    private List<String> getTypeFunNameKeyWords(DBEnum dbType)
     {
         switch (dbType)
         {

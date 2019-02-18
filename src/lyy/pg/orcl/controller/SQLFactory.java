@@ -4,9 +4,9 @@
  */
 package lyy.pg.orcl.controller;
 
-import lyy.pg.orcl.util.Enum;
-import lyy.pg.orcl.util.Enum.DBObject;
-import lyy.pg.orcl.util.Enum.TabObject;
+import lyy.pg.orcl.util.DBEnum;
+import lyy.pg.orcl.util.DBEnum.DBObject;
+import lyy.pg.orcl.util.DBEnum.TabObject;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -28,7 +28,7 @@ public class SQLFactory
 {
     private static final Logger logger = LogManager.getLogger(SQLFactory.class);
 
-    public static String getShowObjSQL(Enum db, DBObject obj)
+    public static String getShowObjSQL(DBEnum db, DBObject obj)
     {
         logger.info("Enter:dbType = " + db + ",objType = " + obj.toString());
         StringBuilder sql = new StringBuilder();
@@ -87,7 +87,7 @@ public class SQLFactory
         return sql.toString();
     }
 
-    public static String getSelectSQL(Enum db, DBObject obj)
+    public static String getSelectSQL(DBEnum db, DBObject obj)
     {
         logger.info("Enter:dbType = " + db + ",objType = " + obj.toString());
         StringBuilder sql = new StringBuilder();
@@ -159,7 +159,7 @@ public class SQLFactory
         return sql.toString();
     }
 
-    public static String getSelectSQL(Enum db, TabObject obj)
+    public static String getSelectSQL(DBEnum db, TabObject obj)
     {
         logger.info("Enter:dbType = " + db + ",objType = " + obj.toString());
         StringBuilder sql = new StringBuilder();

@@ -10,12 +10,14 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import lyy.pg.orcl.model.DBSource;
-import lyy.pg.orcl.util.Enum;
-import lyy.pg.orcl.util.Enum.ArgType;
+import lyy.pg.orcl.util.DBEnum;
+import lyy.pg.orcl.util.DBEnum.ArgType;
+import lyy.pg.orcl.util.HistoryPropUtil;
 import lyy.pg.orcl.util.JdbcUtil;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -30,12 +32,12 @@ public class DBConfigDialog extends javax.swing.JDialog
     private Logger logger = LogManager.getLogger(getClass());
     private ResourceBundle constBundle = ResourceBundle.getBundle("constants");
 
-    private Enum type;
+    private DBEnum type;
 
     private int response = -1;
     private DBSource dbSource = null;
 
-    public DBConfigDialog(Frame parent, boolean modal, Enum type)
+    public DBConfigDialog(Frame parent, boolean modal, DBEnum type)
     {
         super(parent, modal);
         initComponents();
@@ -57,7 +59,7 @@ public class DBConfigDialog extends javax.swing.JDialog
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                updateForType((Enum) cbbType.getSelectedItem());
+                updateForType((DBEnum) cbbType.getSelectedItem());
             }
         });
         btnOK.addActionListener(new ActionListener()
@@ -112,9 +114,10 @@ public class DBConfigDialog extends javax.swing.JDialog
         btnReset = new javax.swing.JButton();
         tfPwd = new javax.swing.JPasswordField();
         cbbArgType = new javax.swing.JComboBox();
+        cbRememberPwd = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(255, 260));
+        setPreferredSize(new java.awt.Dimension(330, 260));
         setResizable(false);
 
         lblType.setText(constBundle.getString("dbType"));
@@ -135,42 +138,50 @@ public class DBConfigDialog extends javax.swing.JDialog
 
         btnReset.setText(constBundle.getString("reset"));
 
+        cbRememberPwd.setText(constBundle.getString("rememberPwd"));
+        cbRememberPwd.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(lblType, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)
-                        .addComponent(cbbType, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(lblPwd, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblUser, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblDB, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                        .addContainerGap(11, Short.MAX_VALUE)
                         .addComponent(btnOK)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnCancle)
                         .addGap(10, 10, 10)
                         .addComponent(btnReset))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblHost, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblPort, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(10, 10, 10)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfUser, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(tfHost)
-                            .addComponent(tfPwd)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(lblType, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(10, 10, 10)
+                                .addComponent(cbbType, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(lblPwd, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblUser, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblDB, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(cbbArgType, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(tfPort, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE))
-                                .addGap(5, 5, 5)
-                                .addComponent(tfArg)))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblHost, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblPort, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(10, 10, 10)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tfUser, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(tfHost)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(cbbArgType, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(tfPort, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE))
+                                        .addGap(5, 5, 5)
+                                        .addComponent(tfArg, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(tfPwd)
+                                        .addGap(5, 5, 5)
+                                        .addComponent(cbRememberPwd)))))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -197,11 +208,13 @@ public class DBConfigDialog extends javax.swing.JDialog
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblUser)
                     .addComponent(tfUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
+                .addGap(9, 9, 9)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblPwd)
-                    .addComponent(tfPwd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(tfPwd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbRememberPwd)))
+                .addGap(9, 9, 9)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnOK)
                     .addComponent(btnCancle)
@@ -212,9 +225,9 @@ public class DBConfigDialog extends javax.swing.JDialog
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void updateForType(Enum type)
+    private void customizeForType(DBEnum type)
     {
-        if (type == Enum.PostgreSQL)
+        if (type == DBEnum.PostgreSQL)
         {
             tfPort.setText("5432");
             cbbArgType.setModel(new DefaultComboBoxModel(new ArgType[]
@@ -222,7 +235,7 @@ public class DBConfigDialog extends javax.swing.JDialog
                 ArgType.DB
             }));
             tfArg.setText("postgres");
-        } else if (type == Enum.Oracle)
+        } else if (type == DBEnum.Oracle)
         {
             tfPort.setText("1521");
             cbbArgType.setModel(new DefaultComboBoxModel(new ArgType[]
@@ -232,8 +245,39 @@ public class DBConfigDialog extends javax.swing.JDialog
             tfArg.setText("orcl");
         } else
         {
-            tfPort.setText("");
+            logger.warn(type + " is not supported, do nothing and return.");
+            return;
         }
+        tfHost.setText("");        
+        tfUser.setText("");
+        tfPwd.setText("");
+        cbRememberPwd.setSelected(false);
+    }
+    
+    private void updateForType(DBEnum type)
+    {
+        customizeForType(type);           
+        //load history
+        try
+        {
+            DBSource hisDB = HistoryPropUtil.readHistory(type);
+            if (hisDB != null)
+            {
+                tfHost.setText(hisDB.getHost());
+                tfPort.setText(String.valueOf(hisDB.getPort()));
+                cbbArgType.setSelectedItem(hisDB.getArgType());
+                tfArg.setText(hisDB.getArg());
+                tfUser.setText(hisDB.getUser());
+                tfPwd.setText(hisDB.getPwd());
+                return;
+            }
+        } catch (Exception ex)
+        {
+            logger.error(ex.getMessage());
+            JOptionPane.showMessageDialog(this, ex.getMessage(),
+                    constBundle.getString("error"), JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace(System.out);
+        }        
     }
 
     private void btnOKActionPerformed(ActionEvent e)
@@ -253,6 +297,8 @@ public class DBConfigDialog extends javax.swing.JDialog
 
             JdbcUtil.getConnection(dbSource);
             logger.debug("Connected");
+            HistoryPropUtil.saveHistory(dbSource, cbRememberPwd.isSelected());
+            logger.debug("Saved History");
             response = 0;
             this.dispose();
         } catch (Exception ex)
@@ -275,11 +321,7 @@ public class DBConfigDialog extends javax.swing.JDialog
     private void btnResetActionPerformed(ActionEvent e)
     {
         logger.debug(e.getActionCommand());
-
-        tfHost.setText("");
-        updateForType(type);
-        tfUser.setText("");
-        tfPwd.setText("");
+        customizeForType(type);        
     }
 
     private String checkEmpty(JTextField txfd) throws Exception
@@ -309,6 +351,7 @@ public class DBConfigDialog extends javax.swing.JDialog
     private javax.swing.JButton btnCancle;
     private javax.swing.JButton btnOK;
     private javax.swing.JButton btnReset;
+    private javax.swing.JCheckBox cbRememberPwd;
     private javax.swing.JComboBox cbbArgType;
     private javax.swing.JComboBox cbbType;
     private javax.swing.JLabel lblDB;

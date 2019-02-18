@@ -5,7 +5,7 @@
  */
 package lyy.pg.orcl.model;
 
-import lyy.pg.orcl.util.Enum;
+import lyy.pg.orcl.util.DBEnum;
 
 /**
  *
@@ -13,10 +13,10 @@ import lyy.pg.orcl.util.Enum;
  */
 public class DBSource
 {
-    private Enum type;
+    private DBEnum type;
     private String host;
     private int port;
-    private Enum.ArgType argType;
+    private DBEnum.ArgType argType;
     private String arg;
     private String user;
     private String pwd;
@@ -54,12 +54,12 @@ public class DBSource
         return user + "@" + host + ":" + port + "/" + arg;
     }
 
-    public Enum getType()
+    public DBEnum getType()
     {
         return type;
     }
 
-    public void setType(Enum type)
+    public void setType(DBEnum type)
     {
         this.type = type;
     }
@@ -84,12 +84,12 @@ public class DBSource
         this.port = port;
     }
 
-    public Enum.ArgType getArgType()
+    public DBEnum.ArgType getArgType()
     {
         return argType;
     }
 
-    public void setArgType(Enum.ArgType argType)
+    public void setArgType(DBEnum.ArgType argType)
     {
         this.argType = argType;
     }

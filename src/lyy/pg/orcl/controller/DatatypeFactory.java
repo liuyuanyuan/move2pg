@@ -18,7 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import lyy.pg.orcl.model.DatatypeMapping;
-import lyy.pg.orcl.util.Enum;
+import lyy.pg.orcl.util.DBEnum;
 
 /**
  * @author Liu Yuanyuan 
@@ -71,7 +71,7 @@ public class DatatypeFactory
                 case "CLOB":
                 case "NCLOB":
                 case "BFILE":
-                    String hgType = DatatypeFactory.getInstance().getPgTypeWithoutArgs(Enum.Oracle, type, datatypeMaps);
+                    String hgType = DatatypeFactory.getInstance().getPgTypeWithoutArgs(DBEnum.Oracle, type, datatypeMaps);
                     switch (hgType)
                     {
                         case "BYTEA":
@@ -90,7 +90,7 @@ public class DatatypeFactory
 
     
     //get pg datatype
-    public String getPgTypeWithArgs(Enum sourceDB, HashMap<String, String> datatypeMap,
+    public String getPgTypeWithArgs(DBEnum sourceDB, HashMap<String, String> datatypeMap,
             String schema, String table, String column,
             String sourceDataType, String dataPrecision, String dataScale, int charLength)
     {
@@ -105,7 +105,7 @@ public class DatatypeFactory
         return hgType;
     }
 
-    public String getPgTypeWithoutArgs(Enum sourceDB, String sourceDatatype,
+    public String getPgTypeWithoutArgs(DBEnum sourceDB, String sourceDatatype,
             HashMap<String, String> datatypeMap)
     {
         //logger.debug("sourceDatatype=" + sourceDatatype);
@@ -136,7 +136,7 @@ public class DatatypeFactory
     }
 
     
-    private String castDataType(Enum sourceDBType,
+    private String castDataType(DBEnum sourceDBType,
             String schema, String table, String column,
             String pgDataType, String dataPrecision, String dataScale, int charLength)
     {
@@ -218,7 +218,7 @@ public class DatatypeFactory
 
     
     //get data type mapping for custom
-    public List<DatatypeMapping> getDefaultDatatypeCasts(Enum sourceDB)
+    public List<DatatypeMapping> getDefaultDatatypeCasts(DBEnum sourceDB)
     {
         logger.debug("Enter: sourceDB=" + sourceDB);
         if (sourceDB == null)

@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 import lyy.pg.orcl.model.DBSource;
-import lyy.pg.orcl.util.Enum.ArgType;
+import lyy.pg.orcl.util.DBEnum.ArgType;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -41,7 +41,7 @@ public class JdbcUtil
          System.out.println("defaultdir=" + defaultdir);
          */
         DBSource db = new DBSource();
-        db.setType(Enum.Oracle);
+        db.setType(DBEnum.Oracle);
         db.setHost("192.168.136.128");
         db.setPort(1521);
         db.setArgType(ArgType.Service);
