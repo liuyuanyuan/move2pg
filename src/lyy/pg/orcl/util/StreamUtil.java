@@ -21,8 +21,7 @@ public class StreamUtil
             {
                 writer.close();
             }
-        }
-        catch (IOException e)
+        } catch (IOException e)
         {
             e.printStackTrace(System.out);
         }
@@ -36,8 +35,7 @@ public class StreamUtil
             {
                 os.close();
             }
-        }
-        catch (IOException e)
+        } catch (IOException e)
         {
             e.printStackTrace(System.out);
         }
@@ -51,8 +49,7 @@ public class StreamUtil
             {
                 reader.close();
             }
-        }
-        catch (IOException e)
+        } catch (IOException e)
         {
             e.printStackTrace(System.out);
         }
@@ -66,8 +63,7 @@ public class StreamUtil
             {
                 is.close();
             }
-        }
-        catch (IOException e)
+        } catch (IOException e)
         {
             e.printStackTrace(System.out);
         }

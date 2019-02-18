@@ -10,7 +10,6 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -30,9 +29,9 @@ public class DBConfigDialog extends javax.swing.JDialog
 {
 
     private Logger logger = LogManager.getLogger(getClass());
-    private ResourceBundle constBundle = ResourceBundle.getBundle("constants");
+    private final ResourceBundle constBundle = ResourceBundle.getBundle("constants");
 
-    private DBEnum type;
+    private final DBEnum type;
 
     private int response = -1;
     private DBSource dbSource = null;

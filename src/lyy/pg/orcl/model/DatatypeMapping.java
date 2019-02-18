@@ -3,6 +3,10 @@ package lyy.pg.orcl.model;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ * @author Liu Yuanyuan
+ */
 public class DatatypeMapping
 {
     //private DB sourceDB;

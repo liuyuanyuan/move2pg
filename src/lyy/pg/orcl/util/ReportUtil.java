@@ -10,6 +10,11 @@ import java.util.Date;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
+/**
+ *
+ * @author Liu Yuanyuan
+ *
+ */
 public class ReportUtil
 {
 

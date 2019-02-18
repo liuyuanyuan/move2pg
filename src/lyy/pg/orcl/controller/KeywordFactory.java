@@ -10,13 +10,14 @@ import org.slf4j.LoggerFactory;
 /**
  *
  * @author Liu Yuanyuan
+ * 
  */
 public class KeywordFactory
 {
 
     public static void main(String[] args)
     {
-		//String objName = "qssAZ";
+	//String objName = "qssAZ";
         //boolean match = objName.matches(".*[^$_0-9A-Z].*");
         //System.out.println(match);
         //String s = "_a01a$a#";
