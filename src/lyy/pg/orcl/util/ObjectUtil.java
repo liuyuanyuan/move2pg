@@ -6,6 +6,7 @@
 
 package lyy.pg.orcl.util;
 
+import lyy.pg.orcl.controller.SQLFactory;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;

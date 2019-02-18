@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>report</title>
+        <meta charset="utf-8">
+        <style type="text/css">
+        table { 
+            border-collapse: collapse; 
+            /*font-family: Futura, Arial, sans-serif;**/
+            font-size:medium;
+        } 
+        caption {
+            font-size: large; 
+            margin: 1em auto; 
+        } 
+        th,td { 
+            padding: .65em; 
+        }
+        th {
+            /*background: #555 nonerepeat scroll 0 0;*/            
+            border: 1px solid #777; 
+            background-color: #555;
+            color: #fff; 
+        } 
+        td {
+            border: 1px solid #777;
+        }
+        </style>
+    </head>    
+    <body>
+        <table>
+            <caption>迁移结果报告(schema: SchemaName) </caption>            
+            <thead>
+            <tr align='center'>
+                <th>序号</th>
+                <th>表名</th>
+                <th>迁移结果</th>
+                <th>比对结果</th>
+                <th>同步结果</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>no</td>
+                <td>name</td>
+                <td>migrateResult</td>
+                <td>compareResult</td>
+                <td>syncResult</td>
+            </tr>
+            </tbody>            
+        </table>
+    </body>
+</html>

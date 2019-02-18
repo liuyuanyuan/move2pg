@@ -40,8 +40,6 @@ public class JdbcUtil
          }
          System.out.println("defaultdir=" + defaultdir);
          */
-
-
         DBSource db = new DBSource();
         db.setType(Enum.Oracle);
         db.setHost("192.168.136.128");

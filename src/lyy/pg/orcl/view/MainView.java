@@ -12,19 +12,22 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumnModel;
+import javax.swing.table.TableModel;
 import lyy.pg.orcl.model.DBSource;
 import lyy.pg.orcl.model.DatatypeMapping;
 import lyy.pg.orcl.model.ObjInfo;
-import lyy.pg.orcl.util.DatatypeFactory;
+import lyy.pg.orcl.controller.DatatypeFactory;
 import lyy.pg.orcl.util.Enum;
+import lyy.pg.orcl.util.Enum.DBObject;
 import lyy.pg.orcl.util.ObjectUtil;
+import lyy.pg.orcl.util.ReportUtil;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -43,21 +46,22 @@ public class MainView extends JFrame
         initComponents();
         setTitle(constBundle.getString("title"));
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/lyy/pg/orcl/image/orcl2pg.png")));
+        //inital main view
+        tbMain.removeAll();        
+        tbMain.add(constBundle.getString("welcomeTitle"), pnlWelcome);        
+        tfStatus.setText(constBundle.getString("welcomeTitle"));
+        //customize lookand feel
+        //cbbSourceDB.setBackground(Color.red);        
+        spDatatype.getViewport().setBackground(Color.WHITE);//make table's empty area white
+        spObject.getViewport().setBackground(Color.WHITE);//make table's empty area white
+        //btnMigrate.setContentAreaFilled(false);//default is true
+        //btnMigrate.setOpaque(true);
+        //btnMigrate.setBackground(Color.WHITE);//not work
+        //btnMigrate.setForeground(Color.BLACK);//work
         
-        cbbSourceDB.setBackground(Color.red);
-        spDatatype.getViewport().setBackground(Color.WHITE);//make empty area white
-        spObject.getViewport().setBackground(Color.WHITE);//make empty area white
-        //btnMigrate.setContentAreaFilled(false);
-        btnMigrate.setBackground(Color.WHITE);//not work
-        btnMigrate.setForeground(Color.BLACK);//work
         
-        
-        tbMain.removeAll();
+        //welcome   
         taWelcome.setText(constBundle.getString("welcomeText"));
-        tbMain.add(constBundle.getString("welcomeTitle"), pnlWelcome);
-
-        
-        //welcome
         btnOpenWelcome.addActionListener(new ActionListener()
         {
             @Override
@@ -67,6 +71,7 @@ public class MainView extends JFrame
             }
         });
                 
+        
         //db source
         cbbSourceDB.setModel(new DefaultComboBoxModel(new String[]
         {
@@ -87,6 +92,7 @@ public class MainView extends JFrame
         cbbSourceDB.addActionListener(dbActionListener);
         cbbTargetDB.addActionListener(dbActionListener);
 
+        
         //datatype
         btnOpenDatatype.addActionListener(new ActionListener()
         {
@@ -97,13 +103,8 @@ public class MainView extends JFrame
             }
         });
         tbDatatype.setModel(new DefaultTableModel(
-                new Object[][]
-                {
-                },
-                new Object[]
-                {
-                    Enum.Oracle, Enum.PostgreSQL
-                })
+                new Object[][]{},
+                new Object[]{Enum.Oracle, Enum.PostgreSQL})
                 {
                     Class[] types = new Class[]
                     {
@@ -136,9 +137,7 @@ public class MainView extends JFrame
             }
         });
         tbObject.setModel(new DefaultTableModel(
-                new Object[][]
-                {
-                },
+                new Object[][]{},
                 new Object[]
                 {
                     constBundle.getString("choose"),
@@ -192,6 +191,14 @@ public class MainView extends JFrame
             }
         });
 
+        btnReport.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+               btnReportActionPerformed(e);
+            }
+        });
+                
         
         //convert
         btnOpenConvert.addActionListener(new ActionListener()
@@ -202,8 +209,28 @@ public class MainView extends JFrame
                 btnOpenConvertActionPerformed(e);
             }
         });
+        cbbObjType.setModel(new DefaultComboBoxModel(new DBObject[]
+        {
+            DBObject.Procedure, DBObject.Function, DBObject.Trigger, DBObject.Package
+            , DBObject.MView, DBObject.DBLink, DBObject.Synonym
+        }));
+        cbbObjType.addActionListener(new ActionListener(){
+
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                cbbObjTypeActionPerformed(e);
+            }
+        });
+        cbbObjects.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                cbbObjectsActionPerformed(e);
+            }
+        });
         
-        
+
     }
 
     /**
@@ -237,20 +264,21 @@ public class MainView extends JFrame
         rbtnAll = new javax.swing.JRadioButton();
         rbtnReverse = new javax.swing.JRadioButton();
         rbtnNone = new javax.swing.JRadioButton();
-        btnResport = new javax.swing.JButton();
+        btnReport = new javax.swing.JButton();
         btnSync = new javax.swing.JButton();
         btnCompare = new javax.swing.JButton();
         btnMigrate = new javax.swing.JButton();
         pnlConvert = new javax.swing.JPanel();
         cbbObjType = new javax.swing.JComboBox();
-        cbbObjList = new javax.swing.JComboBox();
+        cbbObjects = new javax.swing.JComboBox();
         btnExecute = new javax.swing.JButton();
         btnConvert = new javax.swing.JButton();
-        jSplitPane1 = new javax.swing.JSplitPane();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jEditorPane3 = new javax.swing.JEditorPane();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        jEditorPane4 = new javax.swing.JEditorPane();
+        spEditor = new javax.swing.JSplitPane();
+        spSource = new javax.swing.JScrollPane();
+        epSource = new javax.swing.JEditorPane();
+        spPG = new javax.swing.JScrollPane();
+        epPG = new javax.swing.JEditorPane();
+        tfStatus = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -282,11 +310,14 @@ public class MainView extends JFrame
         btnOpenWelcome.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         toolBar.add(btnOpenWelcome);
 
+        getContentPane().add(toolBar, java.awt.BorderLayout.NORTH);
+
         pnlWelcome.setBackground(new java.awt.Color(255, 255, 255));
 
+        taWelcome.setEditable(false);
         taWelcome.setColumns(20);
         taWelcome.setRows(5);
-        taWelcome.setText("\n\t欢迎使用oracl2pg ^-^\n        \n\t我们推荐你按照如下步骤使用本工具：\n        step 1: 配置源端、目标端数据源；\n        step 2: 配置源端、目标端数据类型映射；\n\tstep 3: 进行数据表的迁移、比对、映射；\n        step 4: 进行对象定义的SQL和PSQL转换。\n\n        欢迎报告异常或者提交代码给我们\n        \n");
+        taWelcome.setText("\n\t欢迎使用oracl2pg ^-^\n        \n        \n");
         spWelcome.setViewportView(taWelcome);
 
         javax.swing.GroupLayout pnlWelcomeLayout = new javax.swing.GroupLayout(pnlWelcome);
@@ -297,7 +328,7 @@ public class MainView extends JFrame
         );
         pnlWelcomeLayout.setVerticalGroup(
             pnlWelcomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(spWelcome, javax.swing.GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE)
+            .addComponent(spWelcome, javax.swing.GroupLayout.DEFAULT_SIZE, 393, Short.MAX_VALUE)
         );
 
         tbMain.addTab(constBundle.getString("welcomeTitle"), pnlWelcome);
@@ -324,7 +355,7 @@ public class MainView extends JFrame
         );
         pnlDatatypeLayout.setVerticalGroup(
             pnlDatatypeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(spDatatype, javax.swing.GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE)
+            .addComponent(spDatatype, javax.swing.GroupLayout.DEFAULT_SIZE, 393, Short.MAX_VALUE)
         );
 
         tbMain.addTab(constBundle.getString("datatypeTitle"), pnlDatatype);
@@ -367,7 +398,7 @@ public class MainView extends JFrame
         rbtnNone.setSelected(true);
         rbtnNone.setText("None");
 
-        btnResport.setText(constBundle.getString("report"));
+        btnReport.setText(constBundle.getString("report"));
 
         btnSync.setText(constBundle.getString("sync"));
 
@@ -394,19 +425,19 @@ public class MainView extends JFrame
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnSync)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnResport)
+                .addComponent(btnReport)
                 .addContainerGap())
         );
         pnlMigrateLayout.setVerticalGroup(
             pnlMigrateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlMigrateLayout.createSequentialGroup()
-                .addComponent(spObject, javax.swing.GroupLayout.DEFAULT_SIZE, 371, Short.MAX_VALUE)
+                .addComponent(spObject, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlMigrateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rbtnAll)
                     .addComponent(rbtnReverse)
                     .addComponent(rbtnNone)
-                    .addComponent(btnResport)
+                    .addComponent(btnReport)
                     .addComponent(btnSync)
                     .addComponent(btnCompare)
                     .addComponent(btnMigrate))
@@ -423,16 +454,16 @@ public class MainView extends JFrame
 
         btnConvert.setText(constBundle.getString("convert"));
 
-        jSplitPane1.setDividerSize(1);
-        jSplitPane1.setResizeWeight(0.5);
+        spEditor.setDividerSize(1);
+        spEditor.setResizeWeight(0.5);
 
-        jScrollPane1.setViewportView(jEditorPane3);
+        spSource.setViewportView(epSource);
 
-        jSplitPane1.setLeftComponent(jScrollPane1);
+        spEditor.setLeftComponent(spSource);
 
-        jScrollPane4.setViewportView(jEditorPane4);
+        spPG.setViewportView(epPG);
 
-        jSplitPane1.setRightComponent(jScrollPane4);
+        spEditor.setRightComponent(spPG);
 
         javax.swing.GroupLayout pnlConvertLayout = new javax.swing.GroupLayout(pnlConvert);
         pnlConvert.setLayout(pnlConvertLayout);
@@ -442,13 +473,13 @@ public class MainView extends JFrame
                 .addContainerGap()
                 .addComponent(cbbObjType, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbbObjList, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cbbObjects, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 224, Short.MAX_VALUE)
                 .addComponent(btnConvert)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnExecute)
                 .addContainerGap())
-            .addComponent(jSplitPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(spEditor, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
         pnlConvertLayout.setVerticalGroup(
             pnlConvertLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -456,31 +487,22 @@ public class MainView extends JFrame
                 .addContainerGap()
                 .addGroup(pnlConvertLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbbObjType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbbObjList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbbObjects, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnExecute)
                     .addComponent(btnConvert))
                 .addGap(9, 9, 9)
-                .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 372, Short.MAX_VALUE))
+                .addComponent(spEditor, javax.swing.GroupLayout.DEFAULT_SIZE, 351, Short.MAX_VALUE))
         );
 
         tbMain.addTab(constBundle.getString("convertTitle"), pnlConvert);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(toolBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(tbMain)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(toolBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(tbMain))
-        );
-
+        getContentPane().add(tbMain, java.awt.BorderLayout.CENTER);
         tbMain.getAccessibleContext().setAccessibleName(constBundle.getString("welcomeTitle"));
+
+        tfStatus.setEditable(false);
+        tfStatus.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        tfStatus.setText("current status...");
+        getContentPane().add(tfStatus, java.awt.BorderLayout.PAGE_END);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -502,6 +524,7 @@ public class MainView extends JFrame
         logger.debug(e.getActionCommand());
         tbMain.removeAll();
         tbMain.add(constBundle.getString("welcomeTitle"), pnlWelcome);
+        tfStatus.setText(constBundle.getString("welcomeTitle"));
     }
     
     //db source
@@ -541,6 +564,7 @@ public class MainView extends JFrame
         logger.debug("Enter:" + e.getActionCommand());
         tbMain.removeAll();
         tbMain.add(constBundle.getString("datatypeTitle"), pnlDatatype);
+        tfStatus.setText(constBundle.getString("datatypeTitle"));
         fillTbDatatype();
     }
     private void fillTbDatatype()
@@ -576,6 +600,7 @@ public class MainView extends JFrame
         logger.debug("Enter:" + e.getActionCommand());
         tbMain.removeAll();
         tbMain.add(constBundle.getString("migrateTitle"), pnlMigrate);
+        tfStatus.setText(constBundle.getString("migrateTitle"));
         fillTbObject();
     }
     private void fillTbObject()
@@ -597,7 +622,9 @@ public class MainView extends JFrame
             DBSource sdb = getSourceDB();
             if(sdb == null)
             {
-                throw new Exception(constBundle.getString("configDBSource"));
+                JOptionPane.showMessageDialog(this, constBundle.getString("configDBSource"),
+                    constBundle.getString("warning"), JOptionPane.WARNING_MESSAGE);
+                return;
             }
             List<ObjInfo> objectList = ObjectUtil.getTypedObjects(sdb, Enum.DBObject.Table);
             logger.info("objectList.size = " + objectList.size());
@@ -616,7 +643,6 @@ public class MainView extends JFrame
             ex.printStackTrace(System.out);
         }     
     }
-    
     private void chooseObj(boolean choose, DefaultTableModel model)
     {
         for (int i = 0; i < model.getRowCount(); i++)
@@ -632,17 +658,60 @@ public class MainView extends JFrame
         }
     }
     
+    private void btnReportActionPerformed(ActionEvent e)
+    {
+        logger.debug(e.getActionCommand());
+        try
+        {
+            StringBuilder rows = new StringBuilder();
+            TableModel objModel = tbObject.getModel();
+            logger.debug("RowCount=" + objModel.getRowCount());
+            for (int i = 0; i < objModel.getRowCount(); i++)
+            {
+                rows.append(ReportUtil.RowFormat
+                        .replace("no", String.valueOf(i + 1))
+                        .replace("name", objModel.getValueAt(i, 1) == null ? "" : objModel.getValueAt(i, 1).toString())
+                        .replace("migrateResult", objModel.getValueAt(i, 2) == null ? "" : objModel.getValueAt(i, 2).toString())
+                        .replace("compareResult", objModel.getValueAt(i, 3) == null ? "" : objModel.getValueAt(i, 3).toString())
+                        .replace("syncResult", objModel.getValueAt(i, 4) == null ? "" : objModel.getValueAt(i, 4).toString()));
+            }
+            ReportUtil.createMigrateReport(getSourceDB().getUser(), rows.toString());
+        } catch (Exception ex)
+        {
+            logger.error(ex.getMessage());
+            JOptionPane.showMessageDialog(this, ex.getMessage(),
+                    constBundle.getString("error"), JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace(System.out);
+        }
+    }
     
-    
+     
     //convert
     private void btnOpenConvertActionPerformed(ActionEvent e)
     {
         logger.debug("Enter:" + e.getActionCommand());
         tbMain.removeAll();
         tbMain.add(constBundle.getString("convertTitle"), pnlConvert);
+        tfStatus.setText(constBundle.getString("convertTitle"));
         //filleTbSQLObject();
     }
-    
+    private void cbbObjTypeActionPerformed(ActionEvent e)
+    {
+        logger.debug(e.getActionCommand());
+
+    }
+    private void cbbObjectsActionPerformed(ActionEvent e)
+    {
+        logger.debug(e.getActionCommand());
+        Object obj = cbbObjects.getSelectedItem();
+        if(obj == null)
+        {
+            logger.warn("Selected object is null, do nothing and return.");
+            return;
+        }
+        
+        
+    }
     
     public static void main(String args[])
     {
@@ -678,18 +747,15 @@ public class MainView extends JFrame
     private javax.swing.JButton btnOpenDatatype;
     private javax.swing.JButton btnOpenMigrate;
     private javax.swing.JButton btnOpenWelcome;
-    private javax.swing.JButton btnResport;
+    private javax.swing.JButton btnReport;
     private javax.swing.JButton btnSync;
     private javax.swing.ButtonGroup btngChooseObj;
-    private javax.swing.JComboBox cbbObjList;
     private javax.swing.JComboBox cbbObjType;
+    private javax.swing.JComboBox cbbObjects;
     private javax.swing.JComboBox cbbSourceDB;
     private javax.swing.JComboBox cbbTargetDB;
-    private javax.swing.JEditorPane jEditorPane3;
-    private javax.swing.JEditorPane jEditorPane4;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JSplitPane jSplitPane1;
+    private javax.swing.JEditorPane epPG;
+    private javax.swing.JEditorPane epSource;
     private javax.swing.JPanel pnlConvert;
     private javax.swing.JPanel pnlDatatype;
     private javax.swing.JPanel pnlMigrate;
@@ -698,12 +764,16 @@ public class MainView extends JFrame
     private javax.swing.JRadioButton rbtnNone;
     private javax.swing.JRadioButton rbtnReverse;
     private javax.swing.JScrollPane spDatatype;
+    private javax.swing.JSplitPane spEditor;
     private javax.swing.JScrollPane spObject;
+    private javax.swing.JScrollPane spPG;
+    private javax.swing.JScrollPane spSource;
     private javax.swing.JScrollPane spWelcome;
     private javax.swing.JTextArea taWelcome;
     private javax.swing.JTable tbDatatype;
     private javax.swing.JTabbedPane tbMain;
     private javax.swing.JTable tbObject;
+    private javax.swing.JTextField tfStatus;
     private javax.swing.JToolBar toolBar;
     // End of variables declaration//GEN-END:variables
 }

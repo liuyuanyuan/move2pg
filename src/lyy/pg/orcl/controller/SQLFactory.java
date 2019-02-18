@@ -2,8 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package lyy.pg.orcl.util;
+package lyy.pg.orcl.controller;
 
+import lyy.pg.orcl.util.Enum;
 import lyy.pg.orcl.util.Enum.DBObject;
 import lyy.pg.orcl.util.Enum.TabObject;
 import org.apache.log4j.LogManager;

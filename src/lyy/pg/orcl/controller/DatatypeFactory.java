@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package lyy.pg.orcl.util;
+package lyy.pg.orcl.controller;
 
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -18,6 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import lyy.pg.orcl.model.DatatypeMapping;
+import lyy.pg.orcl.util.Enum;
 
 /**
  * @author Liu Yuanyuan 
