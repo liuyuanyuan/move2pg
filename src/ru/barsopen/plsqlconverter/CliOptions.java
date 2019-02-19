@@ -59,7 +59,7 @@ public class CliOptions {
 	}
 
 	public static CliOptions parseCliOptions(String[] args) throws Exception {
-		logger.debug("Enter:" + Main.arrayToString(args));
+		logger.debug("Enter:" + ConvertMain.arrayToString(args));
 		CliOptions result = new CliOptions();
 		int i = 0;
 		while (i < args.length) {

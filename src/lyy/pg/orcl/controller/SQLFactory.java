@@ -7,6 +7,7 @@ package lyy.pg.orcl.controller;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +38,33 @@ public class SQLFactory
 
     private static final Logger logger = LogManager.getLogger(SQLFactory.class);
 
+    public static boolean executeSQL(DBSource pgdb, String pgsql) throws Exception
+    {
+        logger.info("Enter:SQL = " + pgsql);
+        boolean success = false;
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        try
+        {
+            conn = JdbcUtil.getConnection(pgdb);
+            pstmt = conn.prepareStatement(pgsql);
+            pstmt.executeUpdate();
+            success = true;
+        } catch (SQLException | ClassNotFoundException ex)
+        {
+            success = false;
+            logger.error(ex.getMessage());
+            //ex.printStackTrace(System.out);
+            throw ex;
+        } finally
+        {
+            JdbcUtil.close(pstmt);
+            JdbcUtil.close(conn);
+        }
+        return success;
+    }
+    
+    
     public static List<ObjInfo> getTypedObjects(DBSource dbsource, DBObject objType) throws Exception
     {
         logger.debug("Enter:db=" + dbsource + ",objType=" + objType);

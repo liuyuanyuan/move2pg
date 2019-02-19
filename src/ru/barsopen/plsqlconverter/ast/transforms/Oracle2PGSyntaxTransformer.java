@@ -9,7 +9,7 @@ package ru.barsopen.plsqlconverter.ast.transforms;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.barsopen.plsqlconverter.Main;
+import ru.barsopen.plsqlconverter.ConvertMain;
 import ru.barsopen.plsqlconverter.ast.typed._baseNode;
 import ru.barsopen.plsqlconverter.ast.typed.expression_element_standard_fn;
 import ru.barsopen.plsqlconverter.ast.typed.general_element;
@@ -29,7 +29,7 @@ import ru.barsopen.plsqlconverter.ast.typed.standard_function_count;
  */
 public class Oracle2PGSyntaxTransformer
 {
-    private static Logger logger = LoggerFactory.getLogger(Main.class);
+    private static Logger logger = LoggerFactory.getLogger(ConvertMain.class);
 
     public static void transformDiffs(_baseNode tree) throws Exception
     {
@@ -115,16 +115,19 @@ public class Oracle2PGSyntaxTransformer
             {
                 continue;
             }
-            general_element_id geid = (general_element_id) gei;
-            if (geid._parent instanceof general_element
-                    && ((general_element) geid._parent)._parent instanceof into_clause)
-            {                
-                continue;
-            }
-            logger.debug("id value=" + geid.id.value);
-            if (geid.id.value.equalsIgnoreCase("rowid"))
+            if(gei instanceof general_element_id)
             {
-                geid.id.set_value("ctid");
+                general_element_id geid = (general_element_id) gei;
+                if (geid._parent instanceof general_element
+                        && ((general_element) geid._parent)._parent instanceof into_clause)
+                {
+                    continue;
+                }
+                logger.debug("id value=" + geid.id.value);
+                if (geid.id.value.equalsIgnoreCase("rowid"))
+                {
+                    geid.id.set_value("ctid");
+                }
             }
         }
        

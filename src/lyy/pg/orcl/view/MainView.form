@@ -4,6 +4,31 @@
   <NonVisualComponents>
     <Component class="javax.swing.ButtonGroup" name="btngChooseObj">
     </Component>
+    <Container class="javax.swing.JScrollPane" name="spSource">
+      <AccessibilityProperties>
+        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value=""/>
+      </AccessibilityProperties>
+      <AuxValues>
+        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+      </AuxValues>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JEditorPane" name="epSource">
+        </Component>
+      </SubComponents>
+    </Container>
+    <Container class="javax.swing.JScrollPane" name="spPG">
+      <AuxValues>
+        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+      </AuxValues>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JEditorPane" name="epPG">
+        </Component>
+      </SubComponents>
+    </Container>
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
@@ -371,7 +396,7 @@
                       <EmptySpace pref="195" max="32767" attributes="0"/>
                       <Component id="btnConvert" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btnExecute" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnExecutePGSQL" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                       <Component id="btnCheck" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -386,7 +411,7 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="cbbObjType" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="cbbObjects" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnExecute" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnExecutePGSQL" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnConvert" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnCheck" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -411,7 +436,7 @@
             </Component>
             <Component class="javax.swing.JComboBox" name="cbbObjects">
             </Component>
-            <Component class="javax.swing.JButton" name="btnExecute">
+            <Component class="javax.swing.JButton" name="btnExecutePGSQL">
               <Properties>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="constBundle.getString(&quot;execute&quot;)" type="code"/>
@@ -432,40 +457,6 @@
               </Properties>
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout"/>
-              <SubComponents>
-                <Container class="javax.swing.JScrollPane" name="spSource">
-                  <AuxValues>
-                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-                  </AuxValues>
-                  <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout$JSplitPaneConstraintsDescription">
-                      <JSplitPaneConstraints position="left"/>
-                    </Constraint>
-                  </Constraints>
-
-                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-                  <SubComponents>
-                    <Component class="javax.swing.JEditorPane" name="epSource">
-                    </Component>
-                  </SubComponents>
-                </Container>
-                <Container class="javax.swing.JScrollPane" name="spPG">
-                  <AuxValues>
-                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-                  </AuxValues>
-                  <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout$JSplitPaneConstraintsDescription">
-                      <JSplitPaneConstraints position="right"/>
-                    </Constraint>
-                  </Constraints>
-
-                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-                  <SubComponents>
-                    <Component class="javax.swing.JEditorPane" name="epPG">
-                    </Component>
-                  </SubComponents>
-                </Container>
-              </SubComponents>
             </Container>
             <Component class="javax.swing.JButton" name="btnCheck">
               <Properties>

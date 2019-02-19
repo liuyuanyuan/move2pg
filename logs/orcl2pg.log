@@ -1340,3 +1340,669 @@ begin
 end;
 $$
 language plpgsql;
+2019-02-19 09:04:40.131 DEBUG [MainView.<init>:45] Enter
+2019-02-19 09:08:57.250 DEBUG [MainView.<init>:45] Enter
+2019-02-19 09:09:00.519 DEBUG [MainView.dbActionPerformed:548] comboBoxChanged
+2019-02-19 09:09:00.519 DEBUG [MainView.dbActionPerformed:562] <源端Oracle数据源>
+2019-02-19 09:09:00.785 DEBUG [HistoryPropUtil.<clinit>:57] E:\Netbean-Project\orcl2pg\History\\DatasourceHistory.properties
+2019-02-19 09:09:00.785 DEBUG [HistoryPropUtil.readHistory:114] dbType=Oracle
+2019-02-19 09:09:01.439 DEBUG [HistoryPropUtil.readHistory:187] Return
+2019-02-19 09:09:04.629 DEBUG [DBConfigDialog.btnOKActionPerformed:284] 确定
+2019-02-19 09:09:04.631 DEBUG [JdbcUtil.getConnection:83] oracle.jdbc.driver.OracleDriver
+2019-02-19 09:09:04.632 DEBUG [JdbcUtil.getConnection:84] jdbc:oracle:thin:@192.168.136.128:1521/orcl
+2019-02-19 09:09:05.316 DEBUG [DBConfigDialog.btnOKActionPerformed:298] Connected
+2019-02-19 09:09:05.316 DEBUG [HistoryPropUtil.saveHistory:62] Enter:dbsource=lyy@192.168.136.128:1521/orcl, savePwd=true
+2019-02-19 09:09:05.324 DEBUG [DBConfigDialog.btnOKActionPerformed:300] Saved History
+2019-02-19 09:09:05.332 DEBUG [MainView.dbActionPerformed:567] response=0
+2019-02-19 09:09:06.414 DEBUG [MainView.btnOpenConvertActionPerformed:706] Enter:
+2019-02-19 09:09:08.334 DEBUG [MainView.cbbObjTypeActionPerformed:713] comboBoxChanged
+2019-02-19 09:09:08.335 DEBUG [SQLFactory.getTypedObjects:42] Enter:db=lyy@192.168.136.128:1521/orcl,objType=Function
+2019-02-19 09:09:08.336 DEBUG [JdbcUtil.getConnection:83] oracle.jdbc.driver.OracleDriver
+2019-02-19 09:09:08.336 DEBUG [JdbcUtil.getConnection:84] jdbc:oracle:thin:@192.168.136.128:1521/orcl
+2019-02-19 09:09:08.405  INFO [SQLFactory.getShowObjSQL:139] Enter:dbType = Oracle,objType = Function
+2019-02-19 09:09:08.406 DEBUG [SQLFactory.getTypedObjects:58] sql=SELECT DISTINCT user,name FROM user_source WHERE type = 'FUNCTION'
+2019-02-19 09:09:08.421 DEBUG [SQLFactory.getTypedObjects:81] Return: size=4
+2019-02-19 09:09:10.278 DEBUG [MainView.cbbObjectsActionPerformed:739] comboBoxChanged
+2019-02-19 09:09:10.278 DEBUG [SQLFactory.getDDL:93] Type=Function,schema=LYY,objName=MD5
+2019-02-19 09:09:10.279 DEBUG [JdbcUtil.getConnection:83] oracle.jdbc.driver.OracleDriver
+2019-02-19 09:09:10.279 DEBUG [JdbcUtil.getConnection:84] jdbc:oracle:thin:@192.168.136.128:1521/orcl
+2019-02-19 09:09:10.341  INFO [SQLFactory.getSelectSQL:198] Enter:dbType = Oracle,objType = Function
+2019-02-19 09:09:10.342  INFO [SQLFactory.getSelectSQL:264] Return: sql = SELECT text from user_source WHERE user = ?  AND name = ?  AND type = 'FUNCTION' ORDER BY line
+2019-02-19 09:09:10.400 DEBUG [SQLFactory.getDDL:117] oraSql=CREATE OR REPLACE FUNCTION LYY.MD5(str IN VARCHAR) RETURN VARCHAR2 IS 
+retval varchar2(4000); BEGIN
+retval := utl_raw.cast_to_raw(DBMS_OBFUSCATION_TOOLKIT.MD5(INPUT_STRING => str)); RETURN retval; END;
+2019-02-19 09:09:10.402 DEBUG [SQLFactory.getDDL:133] Return
+2019-02-19 09:09:11.270 DEBUG [MainView.btnConvertActionPerformed:764] 转换
+2019-02-19 09:09:11.272 DEBUG [ConvertMain.execute:188] Enter
+2019-02-19 09:09:11.273 DEBUG [ConvertMain.execute:196] inArgs=--tree-type sql_script --input-sql * --output-sql * --convert --use-pgsql --debug 
+2019-02-19 09:09:11.273 DEBUG [ConvertMain.execute:197] inSql=CREATE OR REPLACE FUNCTION LYY.MD5(str IN VARCHAR) RETURN VARCHAR2 IS 
+retval varchar2(4000); BEGIN
+retval := utl_raw.cast_to_raw(DBMS_OBFUSCATION_TOOLKIT.MD5(INPUT_STRING => str)); RETURN retval; END;
+2019-02-19 09:09:11.273 DEBUG [CliOptions.parseCliOptions:62] Enter:--tree-type sql_script --input-sql * --output-sql * --convert --use-pgsql --debug 
+2019-02-19 09:09:11.274 DEBUG [ConvertMain.readInputSql:555] Enter
+2019-02-19 09:09:11.274 DEBUG [ConvertMain.readInputSql:576] inputContent=CREATE OR REPLACE FUNCTION LYY.MD5(str IN VARCHAR) RETURN VARCHAR2 IS 
+retval varchar2(4000); BEGIN
+retval := utl_raw.cast_to_raw(DBMS_OBFUSCATION_TOOLKIT.MD5(INPUT_STRING => str)); RETURN retval; END;
+2019-02-19 09:09:11.275 DEBUG [AstParser.parseTreeFromString:31] Enter: printTokens=false, treeType=sql_script
+2019-02-19 09:09:11.301 DEBUG [AstParser.parseTreeFromString:71] After Tokens=[[@0,0:5='CREATE',<113>,1:0], [@1,6:6=' ',<97>,channel=99,1:6], [@2,7:8='OR',<146>,1:7], [@3,9:9=' ',<97>,channel=99,1:9], [@4,10:16='REPLACE',<92>,1:10], [@5,17:17=' ',<97>,channel=99,1:17], [@6,18:25='FUNCTION',<92>,1:18], [@7,26:26=' ',<97>,channel=99,1:26], [@8,27:29='LYY',<92>,1:27], [@9,30:30='.',<54>,1:30], [@10,31:33='MD5',<92>,1:31], [@11,34:34='(',<42>,1:34], [@12,35:37='str',<92>,1:35], [@13,38:38=' ',<97>,channel=99,1:38], [@14,39:40='IN',<135>,1:39], [@15,41:41=' ',<97>,channel=99,1:41], [@16,42:48='VARCHAR',<92>,1:42], [@17,49:49=')',<94>,1:49], [@18,50:50=' ',<97>,channel=99,1:50], [@19,51:56='RETURN',<92>,1:51], [@20,57:57=' ',<97>,channel=99,1:57], [@21,58:65='VARCHAR2',<92>,1:58], [@22,66:66=' ',<97>,channel=99,1:66], [@23,67:68='IS',<139>,1:67], [@24,69:70=' \n',<97>,channel=99,1:69], [@25,71:76='retval',<92>,2:0], [@26,77:77=' ',<97>,channel=99,2:6], [@27,78:85='varchar2',<92>,2:7], [@28,86:86='(',<42>,2:15], [@29,87:90='4000',<172>,2:16], [@30,91:91=')',<94>,2:20], [@31,92:92=';',<96>,2:21], [@32,93:93=' ',<97>,channel=99,2:22], [@33,94:98='BEGIN',<107>,2:23], [@34,99:99='\n',<97>,channel=99,2:28], [@35,100:105='retval',<92>,3:0], [@36,106:106=' ',<97>,channel=99,3:6], [@37,107:108=':=',<7>,3:7], [@38,109:109=' ',<97>,channel=99,3:9], [@39,110:116='utl_raw',<92>,3:10], [@40,117:117='.',<54>,3:17], [@41,118:128='cast_to_raw',<92>,3:18], [@42,129:129='(',<42>,3:29], [@43,130:153='DBMS_OBFUSCATION_TOOLKIT',<92>,3:30], [@44,154:154='.',<54>,3:54], [@45,155:157='MD5',<92>,3:55], [@46,158:158='(',<42>,3:58], [@47,159:170='INPUT_STRING',<92>,3:59], [@48,171:171=' ',<97>,channel=99,3:71], [@49,172:172='=',<27>,3:72], [@50,173:173='>',<32>,3:73], [@51,174:174=' ',<97>,channel=99,3:74], [@52,175:177='str',<92>,3:75], [@53,178:178=')',<94>,3:78], [@54,179:179=')',<94>,3:79], [@55,180:180=';',<96>,3:80], [@56,181:181=' ',<97>,channel=99,3:81], [@57,182:187='RETURN',<92>,3:82], [@58,188:188=' ',<97>,channel=99,3:88], [@59,189:194='retval',<92>,3:89], [@60,195:195=';',<96>,3:95], [@61,196:196=' ',<97>,channel=99,3:96], [@62,197:199='END',<124>,3:97], [@63,200:200=';',<96>,3:100], [@64,201:201='<EOF>',<-1>,3:101]]
+2019-02-19 09:09:11.852 DEBUG [ReflectionUtil.callMethod:14] Enter: obj=ru.barsopen.plsqlconverter.ast.DerivedSqlParser@792dd5e5, methodName=sql_script
+2019-02-19 09:09:11.871 DEBUG [ReflectionUtil.callMethod:17] Return: br.com.porcelli.parser.plsql.PLSQLParser$sql_script_return@628b6ddf
+2019-02-19 09:09:11.871 DEBUG [ReflectionUtil.callMethod:14] Enter: obj=br.com.porcelli.parser.plsql.PLSQLParser$sql_script_return@628b6ddf, methodName=getTree
+2019-02-19 09:09:11.871 DEBUG [ReflectionUtil.callMethod:17] Return: SQL_SCRIPT
+2019-02-19 09:09:11.872 DEBUG [AstParser.parseTreeFromString:84] Return:ru.barsopen.plsqlconverter.ast.transforms.ParseResult@ac1ffd7
+2019-02-19 09:09:11.946 DEBUG [ConvertMain.readInputSql:616] Return
+2019-02-19 09:09:11.949 DEBUG [ConvertMain.execute:228] tokens=[[@0,0:5='CREATE',<113>,1:0], [@1,6:6=' ',<97>,channel=99,1:6], [@2,7:8='OR',<146>,1:7], [@3,9:9=' ',<97>,channel=99,1:9], [@4,10:16='REPLACE',<92>,1:10], [@5,17:17=' ',<97>,channel=99,1:17], [@6,18:25='FUNCTION',<92>,1:18], [@7,26:26=' ',<97>,channel=99,1:26], [@8,27:29='LYY',<92>,1:27], [@9,30:30='.',<54>,1:30], [@10,31:33='MD5',<92>,1:31], [@11,34:34='(',<42>,1:34], [@12,35:37='str',<92>,1:35], [@13,38:38=' ',<97>,channel=99,1:38], [@14,39:40='IN',<135>,1:39], [@15,41:41=' ',<97>,channel=99,1:41], [@16,42:48='VARCHAR',<92>,1:42], [@17,49:49=')',<94>,1:49], [@18,50:50=' ',<97>,channel=99,1:50], [@19,51:56='RETURN',<92>,1:51], [@20,57:57=' ',<97>,channel=99,1:57], [@21,58:65='VARCHAR2',<92>,1:58], [@22,66:66=' ',<97>,channel=99,1:66], [@23,67:68='IS',<139>,1:67], [@24,69:70=' \n',<97>,channel=99,1:69], [@25,71:76='retval',<92>,2:0], [@26,77:77=' ',<97>,channel=99,2:6], [@27,78:85='varchar2',<92>,2:7], [@28,86:86='(',<42>,2:15], [@29,87:90='4000',<172>,2:16], [@30,91:91=')',<94>,2:20], [@31,92:92=';',<96>,2:21], [@32,93:93=' ',<97>,channel=99,2:22], [@33,94:98='BEGIN',<107>,2:23], [@34,99:99='\n',<97>,channel=99,2:28], [@35,100:105='retval',<92>,3:0], [@36,106:106=' ',<97>,channel=99,3:6], [@37,107:108=':=',<7>,3:7], [@38,109:109=' ',<97>,channel=99,3:9], [@39,110:116='utl_raw',<92>,3:10], [@40,117:117='.',<54>,3:17], [@41,118:128='cast_to_raw',<92>,3:18], [@42,129:129='(',<42>,3:29], [@43,130:153='DBMS_OBFUSCATION_TOOLKIT',<92>,3:30], [@44,154:154='.',<54>,3:54], [@45,155:157='MD5',<92>,3:55], [@46,158:158='(',<42>,3:58], [@47,159:170='INPUT_STRING',<92>,3:59], [@48,171:171=' ',<97>,channel=99,3:71], [@49,172:172='=',<27>,3:72], [@50,173:173='>',<32>,3:73], [@51,174:174=' ',<97>,channel=99,3:74], [@52,175:177='str',<92>,3:75], [@53,178:178=')',<94>,3:78], [@54,179:179=')',<94>,3:79], [@55,180:180=';',<96>,3:80], [@56,181:181=' ',<97>,channel=99,3:81], [@57,182:187='RETURN',<92>,3:82], [@58,188:188=' ',<97>,channel=99,3:88], [@59,189:194='retval',<92>,3:89], [@60,195:195=';',<96>,3:95], [@61,196:196=' ',<97>,channel=99,3:96], [@62,197:199='END',<124>,3:97], [@63,200:200=';',<96>,3:100], [@64,201:201='<EOF>',<-1>,3:101], [@65,201:201='<EOF>',<-1>,3:101]], tree=SQL_SCRIPT
+2019-02-19 09:09:12.099 DEBUG [ConvertMain.execute:233] ast=ru.barsopen.plsqlconverter.ast.typed.sql_script@1dbcfcab
+2019-02-19 09:09:12.203 DEBUG [ConvertMain.execute:238] validateReparse=false
+2019-02-19 09:09:12.204  INFO [ConvertMain.execute:256] doing nested functions...
+2019-02-19 09:09:12.208  INFO [ConvertMain.execute:258] doing procedure to function...
+2019-02-19 09:09:12.209  INFO [ConvertMain.execute:262] doing misc conversion...
+2019-02-19 09:09:12.211  INFO [ConvertMain.execute:264] doing outer joins...
+2019-02-19 09:09:12.211  INFO [ConvertMain.execute:266] doing oracle2pg syntax transform...
+2019-02-19 09:09:12.211 DEBUG [ConvertMain.transformDiffs:36] Enter:tree=ru.barsopen.plsqlconverter.ast.typed.sql_script@1dbcfcab
+2019-02-19 09:09:12.212 DEBUG [ConvertMain.removeOrderbyForSelectCountWithoutGroupBy:50] select_statements=0
+2019-02-19 09:09:12.212 DEBUG [ConvertMain.replaceRowidWithCtid:111] general_element_items=9
+2019-02-19 09:09:12.212 DEBUG [ConvertMain.replaceRowidWithCtid:124] id value=retval
+2019-02-19 09:09:12.212 DEBUG [ConvertMain.replaceRowidWithCtid:124] id value=utl_raw
+2019-02-19 09:09:12.212 DEBUG [ConvertMain.replaceRowidWithCtid:124] id value=cast_to_raw
+2019-02-19 09:09:12.212 ERROR [MainView.btnConvertActionPerformed:775] ru.barsopen.plsqlconverter.ast.typed.function_argument cannot be cast to ru.barsopen.plsqlconverter.ast.typed.general_element_id
+2019-02-19 09:11:18.507 DEBUG [MainView.<init>:45] Enter
+2019-02-19 09:11:25.302 DEBUG [MainView.<init>:45] Enter
+2019-02-19 09:11:27.565 DEBUG [MainView.dbActionPerformed:548] comboBoxChanged
+2019-02-19 09:11:27.566 DEBUG [MainView.dbActionPerformed:562] <源端Oracle数据源>
+2019-02-19 09:11:27.591 DEBUG [HistoryPropUtil.<clinit>:57] E:\Netbean-Project\orcl2pg\History\\DatasourceHistory.properties
+2019-02-19 09:11:27.592 DEBUG [HistoryPropUtil.readHistory:114] dbType=Oracle
+2019-02-19 09:11:27.783 DEBUG [HistoryPropUtil.readHistory:187] Return
+2019-02-19 09:11:30.933 DEBUG [DBConfigDialog.btnOKActionPerformed:284] 确定
+2019-02-19 09:11:30.934 DEBUG [JdbcUtil.getConnection:83] oracle.jdbc.driver.OracleDriver
+2019-02-19 09:11:30.934 DEBUG [JdbcUtil.getConnection:84] jdbc:oracle:thin:@192.168.136.128:1521/orcl
+2019-02-19 09:11:31.287 DEBUG [DBConfigDialog.btnOKActionPerformed:298] Connected
+2019-02-19 09:11:31.288 DEBUG [HistoryPropUtil.saveHistory:62] Enter:dbsource=lyy@192.168.136.128:1521/orcl, savePwd=true
+2019-02-19 09:11:31.312 DEBUG [DBConfigDialog.btnOKActionPerformed:300] Saved History
+2019-02-19 09:11:31.331 DEBUG [MainView.dbActionPerformed:567] response=0
+2019-02-19 09:11:32.636 DEBUG [MainView.btnOpenConvertActionPerformed:706] Enter:
+2019-02-19 09:11:34.469 DEBUG [MainView.cbbObjTypeActionPerformed:713] comboBoxChanged
+2019-02-19 09:11:34.471 DEBUG [SQLFactory.getTypedObjects:42] Enter:db=lyy@192.168.136.128:1521/orcl,objType=Function
+2019-02-19 09:11:34.472 DEBUG [JdbcUtil.getConnection:83] oracle.jdbc.driver.OracleDriver
+2019-02-19 09:11:34.472 DEBUG [JdbcUtil.getConnection:84] jdbc:oracle:thin:@192.168.136.128:1521/orcl
+2019-02-19 09:11:34.854  INFO [SQLFactory.getShowObjSQL:139] Enter:dbType = Oracle,objType = Function
+2019-02-19 09:11:34.855 DEBUG [SQLFactory.getTypedObjects:58] sql=SELECT DISTINCT user,name FROM user_source WHERE type = 'FUNCTION'
+2019-02-19 09:11:34.902 DEBUG [SQLFactory.getTypedObjects:81] Return: size=4
+2019-02-19 09:11:36.518 DEBUG [MainView.cbbObjectsActionPerformed:739] comboBoxChanged
+2019-02-19 09:11:36.518 DEBUG [SQLFactory.getDDL:93] Type=Function,schema=LYY,objName=MD5
+2019-02-19 09:11:36.518 DEBUG [JdbcUtil.getConnection:83] oracle.jdbc.driver.OracleDriver
+2019-02-19 09:11:36.518 DEBUG [JdbcUtil.getConnection:84] jdbc:oracle:thin:@192.168.136.128:1521/orcl
+2019-02-19 09:11:36.569  INFO [SQLFactory.getSelectSQL:198] Enter:dbType = Oracle,objType = Function
+2019-02-19 09:11:36.569  INFO [SQLFactory.getSelectSQL:264] Return: sql = SELECT text from user_source WHERE user = ?  AND name = ?  AND type = 'FUNCTION' ORDER BY line
+2019-02-19 09:11:36.618 DEBUG [SQLFactory.getDDL:117] oraSql=CREATE OR REPLACE FUNCTION LYY.MD5(str IN VARCHAR) RETURN VARCHAR2 IS 
+retval varchar2(4000); BEGIN
+retval := utl_raw.cast_to_raw(DBMS_OBFUSCATION_TOOLKIT.MD5(INPUT_STRING => str)); RETURN retval; END;
+2019-02-19 09:11:36.662 DEBUG [SQLFactory.getDDL:133] Return
+2019-02-19 09:11:39.077 DEBUG [MainView.btnConvertActionPerformed:764] 转换
+2019-02-19 09:11:39.080 DEBUG [ConvertMain.execute:188] Enter
+2019-02-19 09:11:39.080 DEBUG [ConvertMain.execute:196] inArgs=--tree-type sql_script --input-sql * --output-sql * --convert --use-pgsql --debug 
+2019-02-19 09:11:39.080 DEBUG [ConvertMain.execute:197] inSql=CREATE OR REPLACE FUNCTION LYY.MD5(str IN VARCHAR) RETURN VARCHAR2 IS 
+retval varchar2(4000); BEGIN
+retval := utl_raw.cast_to_raw(DBMS_OBFUSCATION_TOOLKIT.MD5(INPUT_STRING => str)); RETURN retval; END;
+2019-02-19 09:11:39.081 DEBUG [CliOptions.parseCliOptions:62] Enter:--tree-type sql_script --input-sql * --output-sql * --convert --use-pgsql --debug 
+2019-02-19 09:11:39.081 DEBUG [ConvertMain.readInputSql:555] Enter
+2019-02-19 09:11:39.081 DEBUG [ConvertMain.readInputSql:576] inputContent=CREATE OR REPLACE FUNCTION LYY.MD5(str IN VARCHAR) RETURN VARCHAR2 IS 
+retval varchar2(4000); BEGIN
+retval := utl_raw.cast_to_raw(DBMS_OBFUSCATION_TOOLKIT.MD5(INPUT_STRING => str)); RETURN retval; END;
+2019-02-19 09:11:39.082 DEBUG [AstParser.parseTreeFromString:31] Enter: printTokens=false, treeType=sql_script
+2019-02-19 09:11:39.097 DEBUG [AstParser.parseTreeFromString:71] After Tokens=[[@0,0:5='CREATE',<113>,1:0], [@1,6:6=' ',<97>,channel=99,1:6], [@2,7:8='OR',<146>,1:7], [@3,9:9=' ',<97>,channel=99,1:9], [@4,10:16='REPLACE',<92>,1:10], [@5,17:17=' ',<97>,channel=99,1:17], [@6,18:25='FUNCTION',<92>,1:18], [@7,26:26=' ',<97>,channel=99,1:26], [@8,27:29='LYY',<92>,1:27], [@9,30:30='.',<54>,1:30], [@10,31:33='MD5',<92>,1:31], [@11,34:34='(',<42>,1:34], [@12,35:37='str',<92>,1:35], [@13,38:38=' ',<97>,channel=99,1:38], [@14,39:40='IN',<135>,1:39], [@15,41:41=' ',<97>,channel=99,1:41], [@16,42:48='VARCHAR',<92>,1:42], [@17,49:49=')',<94>,1:49], [@18,50:50=' ',<97>,channel=99,1:50], [@19,51:56='RETURN',<92>,1:51], [@20,57:57=' ',<97>,channel=99,1:57], [@21,58:65='VARCHAR2',<92>,1:58], [@22,66:66=' ',<97>,channel=99,1:66], [@23,67:68='IS',<139>,1:67], [@24,69:70=' \n',<97>,channel=99,1:69], [@25,71:76='retval',<92>,2:0], [@26,77:77=' ',<97>,channel=99,2:6], [@27,78:85='varchar2',<92>,2:7], [@28,86:86='(',<42>,2:15], [@29,87:90='4000',<172>,2:16], [@30,91:91=')',<94>,2:20], [@31,92:92=';',<96>,2:21], [@32,93:93=' ',<97>,channel=99,2:22], [@33,94:98='BEGIN',<107>,2:23], [@34,99:99='\n',<97>,channel=99,2:28], [@35,100:105='retval',<92>,3:0], [@36,106:106=' ',<97>,channel=99,3:6], [@37,107:108=':=',<7>,3:7], [@38,109:109=' ',<97>,channel=99,3:9], [@39,110:116='utl_raw',<92>,3:10], [@40,117:117='.',<54>,3:17], [@41,118:128='cast_to_raw',<92>,3:18], [@42,129:129='(',<42>,3:29], [@43,130:153='DBMS_OBFUSCATION_TOOLKIT',<92>,3:30], [@44,154:154='.',<54>,3:54], [@45,155:157='MD5',<92>,3:55], [@46,158:158='(',<42>,3:58], [@47,159:170='INPUT_STRING',<92>,3:59], [@48,171:171=' ',<97>,channel=99,3:71], [@49,172:172='=',<27>,3:72], [@50,173:173='>',<32>,3:73], [@51,174:174=' ',<97>,channel=99,3:74], [@52,175:177='str',<92>,3:75], [@53,178:178=')',<94>,3:78], [@54,179:179=')',<94>,3:79], [@55,180:180=';',<96>,3:80], [@56,181:181=' ',<97>,channel=99,3:81], [@57,182:187='RETURN',<92>,3:82], [@58,188:188=' ',<97>,channel=99,3:88], [@59,189:194='retval',<92>,3:89], [@60,195:195=';',<96>,3:95], [@61,196:196=' ',<97>,channel=99,3:96], [@62,197:199='END',<124>,3:97], [@63,200:200=';',<96>,3:100], [@64,201:201='<EOF>',<-1>,3:101]]
+2019-02-19 09:11:39.603 DEBUG [ReflectionUtil.callMethod:14] Enter: obj=ru.barsopen.plsqlconverter.ast.DerivedSqlParser@508512ba, methodName=sql_script
+2019-02-19 09:11:39.621 DEBUG [ReflectionUtil.callMethod:17] Return: br.com.porcelli.parser.plsql.PLSQLParser$sql_script_return@380b5a57
+2019-02-19 09:11:39.621 DEBUG [ReflectionUtil.callMethod:14] Enter: obj=br.com.porcelli.parser.plsql.PLSQLParser$sql_script_return@380b5a57, methodName=getTree
+2019-02-19 09:11:39.621 DEBUG [ReflectionUtil.callMethod:17] Return: SQL_SCRIPT
+2019-02-19 09:11:39.621 DEBUG [AstParser.parseTreeFromString:84] Return:ru.barsopen.plsqlconverter.ast.transforms.ParseResult@e230b01
+2019-02-19 09:11:39.623 DEBUG [ConvertMain.readInputSql:616] Return
+2019-02-19 09:11:39.624 DEBUG [ConvertMain.execute:228] tokens=[[@0,0:5='CREATE',<113>,1:0], [@1,6:6=' ',<97>,channel=99,1:6], [@2,7:8='OR',<146>,1:7], [@3,9:9=' ',<97>,channel=99,1:9], [@4,10:16='REPLACE',<92>,1:10], [@5,17:17=' ',<97>,channel=99,1:17], [@6,18:25='FUNCTION',<92>,1:18], [@7,26:26=' ',<97>,channel=99,1:26], [@8,27:29='LYY',<92>,1:27], [@9,30:30='.',<54>,1:30], [@10,31:33='MD5',<92>,1:31], [@11,34:34='(',<42>,1:34], [@12,35:37='str',<92>,1:35], [@13,38:38=' ',<97>,channel=99,1:38], [@14,39:40='IN',<135>,1:39], [@15,41:41=' ',<97>,channel=99,1:41], [@16,42:48='VARCHAR',<92>,1:42], [@17,49:49=')',<94>,1:49], [@18,50:50=' ',<97>,channel=99,1:50], [@19,51:56='RETURN',<92>,1:51], [@20,57:57=' ',<97>,channel=99,1:57], [@21,58:65='VARCHAR2',<92>,1:58], [@22,66:66=' ',<97>,channel=99,1:66], [@23,67:68='IS',<139>,1:67], [@24,69:70=' \n',<97>,channel=99,1:69], [@25,71:76='retval',<92>,2:0], [@26,77:77=' ',<97>,channel=99,2:6], [@27,78:85='varchar2',<92>,2:7], [@28,86:86='(',<42>,2:15], [@29,87:90='4000',<172>,2:16], [@30,91:91=')',<94>,2:20], [@31,92:92=';',<96>,2:21], [@32,93:93=' ',<97>,channel=99,2:22], [@33,94:98='BEGIN',<107>,2:23], [@34,99:99='\n',<97>,channel=99,2:28], [@35,100:105='retval',<92>,3:0], [@36,106:106=' ',<97>,channel=99,3:6], [@37,107:108=':=',<7>,3:7], [@38,109:109=' ',<97>,channel=99,3:9], [@39,110:116='utl_raw',<92>,3:10], [@40,117:117='.',<54>,3:17], [@41,118:128='cast_to_raw',<92>,3:18], [@42,129:129='(',<42>,3:29], [@43,130:153='DBMS_OBFUSCATION_TOOLKIT',<92>,3:30], [@44,154:154='.',<54>,3:54], [@45,155:157='MD5',<92>,3:55], [@46,158:158='(',<42>,3:58], [@47,159:170='INPUT_STRING',<92>,3:59], [@48,171:171=' ',<97>,channel=99,3:71], [@49,172:172='=',<27>,3:72], [@50,173:173='>',<32>,3:73], [@51,174:174=' ',<97>,channel=99,3:74], [@52,175:177='str',<92>,3:75], [@53,178:178=')',<94>,3:78], [@54,179:179=')',<94>,3:79], [@55,180:180=';',<96>,3:80], [@56,181:181=' ',<97>,channel=99,3:81], [@57,182:187='RETURN',<92>,3:82], [@58,188:188=' ',<97>,channel=99,3:88], [@59,189:194='retval',<92>,3:89], [@60,195:195=';',<96>,3:95], [@61,196:196=' ',<97>,channel=99,3:96], [@62,197:199='END',<124>,3:97], [@63,200:200=';',<96>,3:100], [@64,201:201='<EOF>',<-1>,3:101], [@65,201:201='<EOF>',<-1>,3:101]], tree=SQL_SCRIPT
+2019-02-19 09:11:39.759 DEBUG [ConvertMain.execute:233] ast=ru.barsopen.plsqlconverter.ast.typed.sql_script@72582299
+2019-02-19 09:11:39.856 DEBUG [ConvertMain.execute:238] validateReparse=false
+2019-02-19 09:11:39.857  INFO [ConvertMain.execute:256] doing nested functions...
+2019-02-19 09:11:39.860  INFO [ConvertMain.execute:258] doing procedure to function...
+2019-02-19 09:11:39.862  INFO [ConvertMain.execute:262] doing misc conversion...
+2019-02-19 09:11:39.863  INFO [ConvertMain.execute:264] doing outer joins...
+2019-02-19 09:11:39.863  INFO [ConvertMain.execute:266] doing oracle2pg syntax transform...
+2019-02-19 09:11:39.864 DEBUG [ConvertMain.transformDiffs:36] Enter:tree=ru.barsopen.plsqlconverter.ast.typed.sql_script@72582299
+2019-02-19 09:11:39.864 DEBUG [ConvertMain.removeOrderbyForSelectCountWithoutGroupBy:50] select_statements=0
+2019-02-19 09:11:39.864 DEBUG [ConvertMain.replaceRowidWithCtid:111] general_element_items=9
+2019-02-19 09:11:39.864 DEBUG [ConvertMain.replaceRowidWithCtid:126] id value=retval
+2019-02-19 09:11:39.864 DEBUG [ConvertMain.replaceRowidWithCtid:126] id value=utl_raw
+2019-02-19 09:11:39.864 DEBUG [ConvertMain.replaceRowidWithCtid:126] id value=cast_to_raw
+2019-02-19 09:11:39.865 DEBUG [ConvertMain.replaceRowidWithCtid:126] id value=DBMS_OBFUSCATION_TOOLKIT
+2019-02-19 09:11:39.865 DEBUG [ConvertMain.replaceRowidWithCtid:126] id value=MD5
+2019-02-19 09:11:39.865 DEBUG [ConvertMain.replaceRowidWithCtid:126] id value=str
+2019-02-19 09:11:39.865 DEBUG [ConvertMain.replaceRowidWithCtid:126] id value=retval
+2019-02-19 09:11:39.865  INFO [ConvertMain.execute:268] doing packages...
+2019-02-19 09:11:39.866  INFO [ConvertMain.execute:270] doing datatypes...
+2019-02-19 09:11:39.867  INFO [ConvertMain.execute:272] doing perform...
+2019-02-19 09:11:39.868 DEBUG [ConvertMain.execute:282] splitOutput=false
+2019-02-19 09:11:40.005 DEBUG [AstPrinter.printTreeToPostgresqlString:91] Enter:treeType=sql_script
+2019-02-19 09:11:40.005 DEBUG [AstPrinter.printTreeToPostgresqlString:92] theTree:text=SQL_SCRIPT, Line=1, CharPositionInLine=18
+2019-02-19 09:11:40.056 DEBUG [ReflectionUtil.callMethod:14] Enter: obj=ru.barsopen.plsqlconverter.ast.DerivedSqlPrinter@16b1d92c, methodName=sql_script
+2019-02-19 09:11:40.079 DEBUG [ReflectionUtil.callMethod:17] Return: 
+create or replace function LYY.MD5 (str IN varchar)
+returns varchar
+
+as $$
+#variable_conflict use_column
+declare
+  retval varchar(4000);
+begin
+  retval := utl_raw.cast_to_raw(DBMS_OBFUSCATION_TOOLKIT.MD5(INPUT_STRING := str));
+  return retval;
+end;
+$$
+language plpgsql;
+
+2019-02-19 09:11:40.080 DEBUG [AstPrinter.printTreeToPostgresqlString:103] Return:
+create or replace function LYY.MD5 (str IN varchar)
+returns varchar
+
+as $$
+#variable_conflict use_column
+declare
+  retval varchar(4000);
+begin
+  retval := utl_raw.cast_to_raw(DBMS_OBFUSCATION_TOOLKIT.MD5(INPUT_STRING := str));
+  return retval;
+end;
+$$
+language plpgsql;
+
+2019-02-19 09:11:40.080 DEBUG [ConvertMain.execute:290] Return: 
+create or replace function LYY.MD5 (str IN varchar)
+returns varchar
+
+as $$
+#variable_conflict use_column
+declare
+  retval varchar(4000);
+begin
+  retval := utl_raw.cast_to_raw(DBMS_OBFUSCATION_TOOLKIT.MD5(INPUT_STRING := str));
+  return retval;
+end;
+$$
+language plpgsql;
+
+2019-02-19 09:44:52.225 DEBUG [MainView.<init>:45] Enter
+2019-02-19 09:44:55.084 DEBUG [MainView.dbActionPerformed:556] comboBoxChanged
+2019-02-19 09:44:55.085 DEBUG [MainView.dbActionPerformed:570] <源端Oracle数据源>
+2019-02-19 09:44:55.112 DEBUG [HistoryPropUtil.<clinit>:57] E:\Netbean-Project\orcl2pg\History\\DatasourceHistory.properties
+2019-02-19 09:44:55.112 DEBUG [HistoryPropUtil.readHistory:114] dbType=Oracle
+2019-02-19 09:44:55.313 DEBUG [HistoryPropUtil.readHistory:187] Return
+2019-02-19 09:44:58.581 DEBUG [DBConfigDialog.btnOKActionPerformed:284] 确定
+2019-02-19 09:44:58.583 DEBUG [JdbcUtil.getConnection:83] oracle.jdbc.driver.OracleDriver
+2019-02-19 09:44:58.583 DEBUG [JdbcUtil.getConnection:84] jdbc:oracle:thin:@192.168.136.128:1521/orcl
+2019-02-19 09:44:58.887 DEBUG [DBConfigDialog.btnOKActionPerformed:298] Connected
+2019-02-19 09:44:58.888 DEBUG [HistoryPropUtil.saveHistory:62] Enter:dbsource=lyy@192.168.136.128:1521/orcl, savePwd=true
+2019-02-19 09:44:58.894 DEBUG [DBConfigDialog.btnOKActionPerformed:300] Saved History
+2019-02-19 09:44:58.901 DEBUG [MainView.dbActionPerformed:575] response=0
+2019-02-19 09:45:00.029 DEBUG [MainView.btnOpenConvertActionPerformed:714] Enter:
+2019-02-19 09:45:02.293 DEBUG [MainView.cbbObjTypeActionPerformed:721] comboBoxChanged
+2019-02-19 09:45:02.294 DEBUG [SQLFactory.getTypedObjects:70] Enter:db=lyy@192.168.136.128:1521/orcl,objType=Function
+2019-02-19 09:45:02.295 DEBUG [JdbcUtil.getConnection:83] oracle.jdbc.driver.OracleDriver
+2019-02-19 09:45:02.295 DEBUG [JdbcUtil.getConnection:84] jdbc:oracle:thin:@192.168.136.128:1521/orcl
+2019-02-19 09:45:02.392  INFO [SQLFactory.getShowObjSQL:167] Enter:dbType = Oracle,objType = Function
+2019-02-19 09:45:02.394 DEBUG [SQLFactory.getTypedObjects:86] sql=SELECT DISTINCT user,name FROM user_source WHERE type = 'FUNCTION'
+2019-02-19 09:45:02.410 DEBUG [SQLFactory.getTypedObjects:109] Return: size=4
+2019-02-19 09:45:02.411 DEBUG [MainView.cbbObjectsActionPerformed:748] comboBoxChanged
+2019-02-19 09:45:02.411 ERROR [MainView.cbbObjectsActionPerformed:765] 不允许选中的对象为空！
+2019-02-19 09:45:08.533 DEBUG [MainView.cbbObjTypeActionPerformed:721] comboBoxChanged
+2019-02-19 09:45:08.533 DEBUG [SQLFactory.getTypedObjects:70] Enter:db=lyy@192.168.136.128:1521/orcl,objType=Function
+2019-02-19 09:45:08.533 DEBUG [JdbcUtil.getConnection:83] oracle.jdbc.driver.OracleDriver
+2019-02-19 09:45:08.533 DEBUG [JdbcUtil.getConnection:84] jdbc:oracle:thin:@192.168.136.128:1521/orcl
+2019-02-19 09:45:08.589  INFO [SQLFactory.getShowObjSQL:167] Enter:dbType = Oracle,objType = Function
+2019-02-19 09:45:08.589 DEBUG [SQLFactory.getTypedObjects:86] sql=SELECT DISTINCT user,name FROM user_source WHERE type = 'FUNCTION'
+2019-02-19 09:45:08.597 DEBUG [SQLFactory.getTypedObjects:109] Return: size=4
+2019-02-19 09:45:08.599 DEBUG [MainView.cbbObjectsActionPerformed:748] comboBoxChanged
+2019-02-19 09:45:08.600 ERROR [MainView.cbbObjectsActionPerformed:765] 不允许选中的对象为空！
+2019-02-19 09:45:45.141 DEBUG [MainView.cbbObjectsActionPerformed:748] comboBoxChanged
+2019-02-19 09:45:45.142 DEBUG [SQLFactory.getDDL:121] Type=Function,schema=LYY,objName=TEST_FUN
+2019-02-19 09:45:45.142 DEBUG [JdbcUtil.getConnection:83] oracle.jdbc.driver.OracleDriver
+2019-02-19 09:45:45.142 DEBUG [JdbcUtil.getConnection:84] jdbc:oracle:thin:@192.168.136.128:1521/orcl
+2019-02-19 09:45:45.203  INFO [SQLFactory.getSelectSQL:226] Enter:dbType = Oracle,objType = Function
+2019-02-19 09:45:45.204  INFO [SQLFactory.getSelectSQL:292] Return: sql = SELECT text from user_source WHERE user = ?  AND name = ?  AND type = 'FUNCTION' ORDER BY line
+2019-02-19 09:45:45.273 DEBUG [SQLFactory.getDDL:145] oraSql=CREATE OR REPLACE FUNCTION LYY.TEST_FUN(a int, b int) RETURN integer AS BEGIN RETURN a+b; End;
+2019-02-19 09:45:45.275 DEBUG [SQLFactory.getDDL:161] Return
+2019-02-19 09:45:47.381 DEBUG [MainView.cbbObjTypeActionPerformed:721] comboBoxChanged
+2019-02-19 09:45:47.381 DEBUG [SQLFactory.getTypedObjects:70] Enter:db=lyy@192.168.136.128:1521/orcl,objType=Procedure
+2019-02-19 09:45:47.382 DEBUG [JdbcUtil.getConnection:83] oracle.jdbc.driver.OracleDriver
+2019-02-19 09:45:47.382 DEBUG [JdbcUtil.getConnection:84] jdbc:oracle:thin:@192.168.136.128:1521/orcl
+2019-02-19 09:45:47.471  INFO [SQLFactory.getShowObjSQL:167] Enter:dbType = Oracle,objType = Procedure
+2019-02-19 09:45:47.472 DEBUG [SQLFactory.getTypedObjects:86] sql=SELECT DISTINCT user,name FROM user_source WHERE type = 'PROCEDURE'
+2019-02-19 09:45:47.510 DEBUG [SQLFactory.getTypedObjects:109] Return: size=2
+2019-02-19 09:45:47.510 DEBUG [MainView.cbbObjectsActionPerformed:748] comboBoxChanged
+2019-02-19 09:45:47.510 ERROR [MainView.cbbObjectsActionPerformed:765] 不允许选中的对象为空！
+2019-02-19 09:46:28.645 DEBUG [MainView.cbbObjTypeActionPerformed:721] comboBoxChanged
+2019-02-19 09:46:28.645 DEBUG [SQLFactory.getTypedObjects:70] Enter:db=lyy@192.168.136.128:1521/orcl,objType=Function
+2019-02-19 09:46:28.645 DEBUG [JdbcUtil.getConnection:83] oracle.jdbc.driver.OracleDriver
+2019-02-19 09:46:28.645 DEBUG [JdbcUtil.getConnection:84] jdbc:oracle:thin:@192.168.136.128:1521/orcl
+2019-02-19 09:46:28.705  INFO [SQLFactory.getShowObjSQL:167] Enter:dbType = Oracle,objType = Function
+2019-02-19 09:46:28.706 DEBUG [SQLFactory.getTypedObjects:86] sql=SELECT DISTINCT user,name FROM user_source WHERE type = 'FUNCTION'
+2019-02-19 09:46:28.711 DEBUG [SQLFactory.getTypedObjects:109] Return: size=4
+2019-02-19 09:46:28.712 DEBUG [MainView.cbbObjectsActionPerformed:748] comboBoxChanged
+2019-02-19 09:46:28.712 ERROR [MainView.cbbObjectsActionPerformed:765] 不允许选中的对象为空！
+2019-02-19 09:47:36.630 DEBUG [MainView.<init>:45] Enter
+2019-02-19 09:47:38.716 DEBUG [MainView.dbActionPerformed:556] comboBoxChanged
+2019-02-19 09:47:38.717 DEBUG [MainView.dbActionPerformed:570] <源端Oracle数据源>
+2019-02-19 09:47:38.743 DEBUG [HistoryPropUtil.<clinit>:57] E:\Netbean-Project\orcl2pg\History\\DatasourceHistory.properties
+2019-02-19 09:47:38.744 DEBUG [HistoryPropUtil.readHistory:114] dbType=Oracle
+2019-02-19 09:47:38.925 DEBUG [HistoryPropUtil.readHistory:187] Return
+2019-02-19 09:47:42.796 DEBUG [DBConfigDialog.btnOKActionPerformed:284] 确定
+2019-02-19 09:47:42.797 DEBUG [JdbcUtil.getConnection:83] oracle.jdbc.driver.OracleDriver
+2019-02-19 09:47:42.798 DEBUG [JdbcUtil.getConnection:84] jdbc:oracle:thin:@192.168.136.128:1521/orcl
+2019-02-19 09:47:43.120 DEBUG [DBConfigDialog.btnOKActionPerformed:298] Connected
+2019-02-19 09:47:43.121 DEBUG [HistoryPropUtil.saveHistory:62] Enter:dbsource=lyy@192.168.136.128:1521/orcl, savePwd=true
+2019-02-19 09:47:43.196 DEBUG [DBConfigDialog.btnOKActionPerformed:300] Saved History
+2019-02-19 09:47:43.221 DEBUG [MainView.dbActionPerformed:575] response=0
+2019-02-19 09:47:44.380 DEBUG [MainView.btnOpenConvertActionPerformed:714] Enter:
+2019-02-19 09:47:45.996 DEBUG [MainView.cbbObjTypeActionPerformed:721] comboBoxChanged
+2019-02-19 09:47:45.997 DEBUG [SQLFactory.getTypedObjects:70] Enter:db=lyy@192.168.136.128:1521/orcl,objType=Function
+2019-02-19 09:47:45.998 DEBUG [JdbcUtil.getConnection:83] oracle.jdbc.driver.OracleDriver
+2019-02-19 09:47:45.998 DEBUG [JdbcUtil.getConnection:84] jdbc:oracle:thin:@192.168.136.128:1521/orcl
+2019-02-19 09:47:46.079  INFO [SQLFactory.getShowObjSQL:167] Enter:dbType = Oracle,objType = Function
+2019-02-19 09:47:46.080 DEBUG [SQLFactory.getTypedObjects:86] sql=SELECT DISTINCT user,name FROM user_source WHERE type = 'FUNCTION'
+2019-02-19 09:47:46.098 DEBUG [SQLFactory.getTypedObjects:109] Return: size=4
+2019-02-19 09:47:46.099 DEBUG [MainView.cbbObjectsActionPerformed:748] comboBoxChanged
+2019-02-19 09:47:48.068 DEBUG [MainView.cbbObjectsActionPerformed:748] comboBoxChanged
+2019-02-19 09:47:48.069 DEBUG [SQLFactory.getDDL:121] Type=Function,schema=LYY,objName=MD5
+2019-02-19 09:47:48.069 DEBUG [JdbcUtil.getConnection:83] oracle.jdbc.driver.OracleDriver
+2019-02-19 09:47:48.069 DEBUG [JdbcUtil.getConnection:84] jdbc:oracle:thin:@192.168.136.128:1521/orcl
+2019-02-19 09:47:48.129  INFO [SQLFactory.getSelectSQL:226] Enter:dbType = Oracle,objType = Function
+2019-02-19 09:47:48.129  INFO [SQLFactory.getSelectSQL:292] Return: sql = SELECT text from user_source WHERE user = ?  AND name = ?  AND type = 'FUNCTION' ORDER BY line
+2019-02-19 09:47:48.210 DEBUG [SQLFactory.getDDL:145] oraSql=CREATE OR REPLACE FUNCTION LYY.MD5(str IN VARCHAR) RETURN VARCHAR2 IS 
+retval varchar2(4000); BEGIN
+retval := utl_raw.cast_to_raw(DBMS_OBFUSCATION_TOOLKIT.MD5(INPUT_STRING => str)); RETURN retval; END;
+2019-02-19 09:47:48.213 DEBUG [SQLFactory.getDDL:161] Return
+2019-02-19 09:47:49.020 DEBUG [MainView.btnConvertActionPerformed:777] 转换
+2019-02-19 09:47:49.023 DEBUG [ConvertMain.execute:188] Enter
+2019-02-19 09:47:49.023 DEBUG [ConvertMain.execute:196] inArgs=--tree-type sql_script --input-sql * --output-sql * --convert --use-pgsql --debug 
+2019-02-19 09:47:49.023 DEBUG [ConvertMain.execute:197] inSql=CREATE OR REPLACE FUNCTION LYY.MD5(str IN VARCHAR) RETURN VARCHAR2 IS 
+retval varchar2(4000); BEGIN
+retval := utl_raw.cast_to_raw(DBMS_OBFUSCATION_TOOLKIT.MD5(INPUT_STRING => str)); RETURN retval; END;
+2019-02-19 09:47:49.023 DEBUG [CliOptions.parseCliOptions:62] Enter:--tree-type sql_script --input-sql * --output-sql * --convert --use-pgsql --debug 
+2019-02-19 09:47:49.024 DEBUG [ConvertMain.readInputSql:555] Enter
+2019-02-19 09:47:49.024 DEBUG [ConvertMain.readInputSql:576] inputContent=CREATE OR REPLACE FUNCTION LYY.MD5(str IN VARCHAR) RETURN VARCHAR2 IS 
+retval varchar2(4000); BEGIN
+retval := utl_raw.cast_to_raw(DBMS_OBFUSCATION_TOOLKIT.MD5(INPUT_STRING => str)); RETURN retval; END;
+2019-02-19 09:47:49.025 DEBUG [AstParser.parseTreeFromString:31] Enter: printTokens=false, treeType=sql_script
+2019-02-19 09:47:49.039 DEBUG [AstParser.parseTreeFromString:71] After Tokens=[[@0,0:5='CREATE',<113>,1:0], [@1,6:6=' ',<97>,channel=99,1:6], [@2,7:8='OR',<146>,1:7], [@3,9:9=' ',<97>,channel=99,1:9], [@4,10:16='REPLACE',<92>,1:10], [@5,17:17=' ',<97>,channel=99,1:17], [@6,18:25='FUNCTION',<92>,1:18], [@7,26:26=' ',<97>,channel=99,1:26], [@8,27:29='LYY',<92>,1:27], [@9,30:30='.',<54>,1:30], [@10,31:33='MD5',<92>,1:31], [@11,34:34='(',<42>,1:34], [@12,35:37='str',<92>,1:35], [@13,38:38=' ',<97>,channel=99,1:38], [@14,39:40='IN',<135>,1:39], [@15,41:41=' ',<97>,channel=99,1:41], [@16,42:48='VARCHAR',<92>,1:42], [@17,49:49=')',<94>,1:49], [@18,50:50=' ',<97>,channel=99,1:50], [@19,51:56='RETURN',<92>,1:51], [@20,57:57=' ',<97>,channel=99,1:57], [@21,58:65='VARCHAR2',<92>,1:58], [@22,66:66=' ',<97>,channel=99,1:66], [@23,67:68='IS',<139>,1:67], [@24,69:70=' \n',<97>,channel=99,1:69], [@25,71:76='retval',<92>,2:0], [@26,77:77=' ',<97>,channel=99,2:6], [@27,78:85='varchar2',<92>,2:7], [@28,86:86='(',<42>,2:15], [@29,87:90='4000',<172>,2:16], [@30,91:91=')',<94>,2:20], [@31,92:92=';',<96>,2:21], [@32,93:93=' ',<97>,channel=99,2:22], [@33,94:98='BEGIN',<107>,2:23], [@34,99:99='\n',<97>,channel=99,2:28], [@35,100:105='retval',<92>,3:0], [@36,106:106=' ',<97>,channel=99,3:6], [@37,107:108=':=',<7>,3:7], [@38,109:109=' ',<97>,channel=99,3:9], [@39,110:116='utl_raw',<92>,3:10], [@40,117:117='.',<54>,3:17], [@41,118:128='cast_to_raw',<92>,3:18], [@42,129:129='(',<42>,3:29], [@43,130:153='DBMS_OBFUSCATION_TOOLKIT',<92>,3:30], [@44,154:154='.',<54>,3:54], [@45,155:157='MD5',<92>,3:55], [@46,158:158='(',<42>,3:58], [@47,159:170='INPUT_STRING',<92>,3:59], [@48,171:171=' ',<97>,channel=99,3:71], [@49,172:172='=',<27>,3:72], [@50,173:173='>',<32>,3:73], [@51,174:174=' ',<97>,channel=99,3:74], [@52,175:177='str',<92>,3:75], [@53,178:178=')',<94>,3:78], [@54,179:179=')',<94>,3:79], [@55,180:180=';',<96>,3:80], [@56,181:181=' ',<97>,channel=99,3:81], [@57,182:187='RETURN',<92>,3:82], [@58,188:188=' ',<97>,channel=99,3:88], [@59,189:194='retval',<92>,3:89], [@60,195:195=';',<96>,3:95], [@61,196:196=' ',<97>,channel=99,3:96], [@62,197:199='END',<124>,3:97], [@63,200:200=';',<96>,3:100], [@64,201:201='<EOF>',<-1>,3:101]]
+2019-02-19 09:47:49.556 DEBUG [ReflectionUtil.callMethod:14] Enter: obj=ru.barsopen.plsqlconverter.ast.DerivedSqlParser@87122ae, methodName=sql_script
+2019-02-19 09:47:49.574 DEBUG [ReflectionUtil.callMethod:17] Return: br.com.porcelli.parser.plsql.PLSQLParser$sql_script_return@7741436a
+2019-02-19 09:47:49.574 DEBUG [ReflectionUtil.callMethod:14] Enter: obj=br.com.porcelli.parser.plsql.PLSQLParser$sql_script_return@7741436a, methodName=getTree
+2019-02-19 09:47:49.574 DEBUG [ReflectionUtil.callMethod:17] Return: SQL_SCRIPT
+2019-02-19 09:47:49.575 DEBUG [AstParser.parseTreeFromString:84] Return:ru.barsopen.plsqlconverter.ast.transforms.ParseResult@afee005
+2019-02-19 09:47:49.576 DEBUG [ConvertMain.readInputSql:616] Return
+2019-02-19 09:47:49.577 DEBUG [ConvertMain.execute:228] tokens=[[@0,0:5='CREATE',<113>,1:0], [@1,6:6=' ',<97>,channel=99,1:6], [@2,7:8='OR',<146>,1:7], [@3,9:9=' ',<97>,channel=99,1:9], [@4,10:16='REPLACE',<92>,1:10], [@5,17:17=' ',<97>,channel=99,1:17], [@6,18:25='FUNCTION',<92>,1:18], [@7,26:26=' ',<97>,channel=99,1:26], [@8,27:29='LYY',<92>,1:27], [@9,30:30='.',<54>,1:30], [@10,31:33='MD5',<92>,1:31], [@11,34:34='(',<42>,1:34], [@12,35:37='str',<92>,1:35], [@13,38:38=' ',<97>,channel=99,1:38], [@14,39:40='IN',<135>,1:39], [@15,41:41=' ',<97>,channel=99,1:41], [@16,42:48='VARCHAR',<92>,1:42], [@17,49:49=')',<94>,1:49], [@18,50:50=' ',<97>,channel=99,1:50], [@19,51:56='RETURN',<92>,1:51], [@20,57:57=' ',<97>,channel=99,1:57], [@21,58:65='VARCHAR2',<92>,1:58], [@22,66:66=' ',<97>,channel=99,1:66], [@23,67:68='IS',<139>,1:67], [@24,69:70=' \n',<97>,channel=99,1:69], [@25,71:76='retval',<92>,2:0], [@26,77:77=' ',<97>,channel=99,2:6], [@27,78:85='varchar2',<92>,2:7], [@28,86:86='(',<42>,2:15], [@29,87:90='4000',<172>,2:16], [@30,91:91=')',<94>,2:20], [@31,92:92=';',<96>,2:21], [@32,93:93=' ',<97>,channel=99,2:22], [@33,94:98='BEGIN',<107>,2:23], [@34,99:99='\n',<97>,channel=99,2:28], [@35,100:105='retval',<92>,3:0], [@36,106:106=' ',<97>,channel=99,3:6], [@37,107:108=':=',<7>,3:7], [@38,109:109=' ',<97>,channel=99,3:9], [@39,110:116='utl_raw',<92>,3:10], [@40,117:117='.',<54>,3:17], [@41,118:128='cast_to_raw',<92>,3:18], [@42,129:129='(',<42>,3:29], [@43,130:153='DBMS_OBFUSCATION_TOOLKIT',<92>,3:30], [@44,154:154='.',<54>,3:54], [@45,155:157='MD5',<92>,3:55], [@46,158:158='(',<42>,3:58], [@47,159:170='INPUT_STRING',<92>,3:59], [@48,171:171=' ',<97>,channel=99,3:71], [@49,172:172='=',<27>,3:72], [@50,173:173='>',<32>,3:73], [@51,174:174=' ',<97>,channel=99,3:74], [@52,175:177='str',<92>,3:75], [@53,178:178=')',<94>,3:78], [@54,179:179=')',<94>,3:79], [@55,180:180=';',<96>,3:80], [@56,181:181=' ',<97>,channel=99,3:81], [@57,182:187='RETURN',<92>,3:82], [@58,188:188=' ',<97>,channel=99,3:88], [@59,189:194='retval',<92>,3:89], [@60,195:195=';',<96>,3:95], [@61,196:196=' ',<97>,channel=99,3:96], [@62,197:199='END',<124>,3:97], [@63,200:200=';',<96>,3:100], [@64,201:201='<EOF>',<-1>,3:101], [@65,201:201='<EOF>',<-1>,3:101]], tree=SQL_SCRIPT
+2019-02-19 09:47:49.715 DEBUG [ConvertMain.execute:233] ast=ru.barsopen.plsqlconverter.ast.typed.sql_script@17a594ed
+2019-02-19 09:47:49.814 DEBUG [ConvertMain.execute:238] validateReparse=false
+2019-02-19 09:47:49.815  INFO [ConvertMain.execute:256] doing nested functions...
+2019-02-19 09:47:49.818  INFO [ConvertMain.execute:258] doing procedure to function...
+2019-02-19 09:47:49.820  INFO [ConvertMain.execute:262] doing misc conversion...
+2019-02-19 09:47:49.821  INFO [ConvertMain.execute:264] doing outer joins...
+2019-02-19 09:47:49.821  INFO [ConvertMain.execute:266] doing oracle2pg syntax transform...
+2019-02-19 09:47:49.822 DEBUG [ConvertMain.transformDiffs:36] Enter:tree=ru.barsopen.plsqlconverter.ast.typed.sql_script@17a594ed
+2019-02-19 09:47:49.822 DEBUG [ConvertMain.removeOrderbyForSelectCountWithoutGroupBy:50] select_statements=0
+2019-02-19 09:47:49.822 DEBUG [ConvertMain.replaceRowidWithCtid:111] general_element_items=9
+2019-02-19 09:47:49.822 DEBUG [ConvertMain.replaceRowidWithCtid:126] id value=retval
+2019-02-19 09:47:49.822 DEBUG [ConvertMain.replaceRowidWithCtid:126] id value=utl_raw
+2019-02-19 09:47:49.823 DEBUG [ConvertMain.replaceRowidWithCtid:126] id value=cast_to_raw
+2019-02-19 09:47:49.823 DEBUG [ConvertMain.replaceRowidWithCtid:126] id value=DBMS_OBFUSCATION_TOOLKIT
+2019-02-19 09:47:49.823 DEBUG [ConvertMain.replaceRowidWithCtid:126] id value=MD5
+2019-02-19 09:47:49.823 DEBUG [ConvertMain.replaceRowidWithCtid:126] id value=str
+2019-02-19 09:47:49.823 DEBUG [ConvertMain.replaceRowidWithCtid:126] id value=retval
+2019-02-19 09:47:49.823  INFO [ConvertMain.execute:268] doing packages...
+2019-02-19 09:47:49.824  INFO [ConvertMain.execute:270] doing datatypes...
+2019-02-19 09:47:49.825  INFO [ConvertMain.execute:272] doing perform...
+2019-02-19 09:47:49.826 DEBUG [ConvertMain.execute:282] splitOutput=false
+2019-02-19 09:47:49.947 DEBUG [AstPrinter.printTreeToPostgresqlString:91] Enter:treeType=sql_script
+2019-02-19 09:47:49.947 DEBUG [AstPrinter.printTreeToPostgresqlString:92] theTree:text=SQL_SCRIPT, Line=1, CharPositionInLine=18
+2019-02-19 09:47:49.981 DEBUG [ReflectionUtil.callMethod:14] Enter: obj=ru.barsopen.plsqlconverter.ast.DerivedSqlPrinter@15203cdb, methodName=sql_script
+2019-02-19 09:47:50.005 DEBUG [ReflectionUtil.callMethod:17] Return: 
+create or replace function LYY.MD5 (str IN varchar)
+returns varchar
+
+as $$
+#variable_conflict use_column
+declare
+  retval varchar(4000);
+begin
+  retval := utl_raw.cast_to_raw(DBMS_OBFUSCATION_TOOLKIT.MD5(INPUT_STRING := str));
+  return retval;
+end;
+$$
+language plpgsql;
+
+2019-02-19 09:47:50.006 DEBUG [AstPrinter.printTreeToPostgresqlString:103] Return:
+create or replace function LYY.MD5 (str IN varchar)
+returns varchar
+
+as $$
+#variable_conflict use_column
+declare
+  retval varchar(4000);
+begin
+  retval := utl_raw.cast_to_raw(DBMS_OBFUSCATION_TOOLKIT.MD5(INPUT_STRING := str));
+  return retval;
+end;
+$$
+language plpgsql;
+
+2019-02-19 09:47:50.006 DEBUG [ConvertMain.execute:290] Return: 
+create or replace function LYY.MD5 (str IN varchar)
+returns varchar
+
+as $$
+#variable_conflict use_column
+declare
+  retval varchar(4000);
+begin
+  retval := utl_raw.cast_to_raw(DBMS_OBFUSCATION_TOOLKIT.MD5(INPUT_STRING := str));
+  return retval;
+end;
+$$
+language plpgsql;
+
+2019-02-19 09:47:52.108 DEBUG [MainView.btnExecutePGSQLActionPerformed:796] 执行
+2019-02-19 09:47:52.108 ERROR [MainView.btnExecutePGSQLActionPerformed:817] 请先配置数据源！
+2019-02-19 09:47:55.613 DEBUG [MainView.dbActionPerformed:556] comboBoxChanged
+2019-02-19 09:47:55.613 DEBUG [MainView.dbActionPerformed:570] <目标端PG数据源>
+2019-02-19 09:47:55.627 DEBUG [HistoryPropUtil.readHistory:114] dbType=PostgreSQL
+2019-02-19 09:47:55.627  WARN [HistoryPropUtil.readHistory:148] PostgreSQL Datasource History are all null, then return null.
+2019-02-19 09:48:13.131 DEBUG [DBConfigDialog.btnOKActionPerformed:284] 确定
+2019-02-19 09:48:13.132 DEBUG [JdbcUtil.getConnection:83] org.postgresql.Driver
+2019-02-19 09:48:13.132 DEBUG [JdbcUtil.getConnection:84] jdbc:postgresql://127.0.0.1:5432/postgres
+2019-02-19 09:48:14.371 ERROR [DBConfigDialog.btnOKActionPerformed:306] Connection to 127.0.0.1:5432 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.
+2019-02-19 09:48:20.652 DEBUG [DBConfigDialog.btnOKActionPerformed:284] 确定
+2019-02-19 09:48:20.653 DEBUG [JdbcUtil.getConnection:83] org.postgresql.Driver
+2019-02-19 09:48:20.653 DEBUG [JdbcUtil.getConnection:84] jdbc:postgresql://127.0.0.1:5433/postgres
+2019-02-19 09:48:21.104 DEBUG [DBConfigDialog.btnOKActionPerformed:298] Connected
+2019-02-19 09:48:21.104 DEBUG [HistoryPropUtil.saveHistory:62] Enter:dbsource=postgres@127.0.0.1:5433/postgres, savePwd=true
+2019-02-19 09:48:21.109 DEBUG [DBConfigDialog.btnOKActionPerformed:300] Saved History
+2019-02-19 09:48:21.115 DEBUG [MainView.dbActionPerformed:575] response=0
+2019-02-19 09:48:23.124 DEBUG [MainView.btnExecutePGSQLActionPerformed:796] 执行
+2019-02-19 09:48:23.125  INFO [SQLFactory.executeSQL:43] Enter:SQL = create or replace function LYY.MD5 (str IN varchar)
+returns varchar
+
+as $$
+#variable_conflict use_column
+declare
+  retval varchar(4000);
+begin
+  retval := utl_raw.cast_to_raw(DBMS_OBFUSCATION_TOOLKIT.MD5(INPUT_STRING := str));
+  return retval;
+end;
+$$
+language plpgsql;
+2019-02-19 09:48:23.125 DEBUG [JdbcUtil.getConnection:83] org.postgresql.Driver
+2019-02-19 09:48:23.125 DEBUG [JdbcUtil.getConnection:84] jdbc:postgresql://127.0.0.1:5433/postgres
+2019-02-19 10:11:38.126 DEBUG [MainView.<init>:55] Enter
+2019-02-19 10:14:10.166 DEBUG [MainView.dbActionPerformed:566] comboBoxChanged
+2019-02-19 10:14:10.166 DEBUG [MainView.dbActionPerformed:580] <源端Oracle数据源>
+2019-02-19 10:14:10.204 DEBUG [HistoryPropUtil.<clinit>:57] E:\Netbean-Project\orcl2pg\History\\DatasourceHistory.properties
+2019-02-19 10:14:10.204 DEBUG [HistoryPropUtil.readHistory:114] dbType=Oracle
+2019-02-19 10:14:10.403 DEBUG [HistoryPropUtil.readHistory:187] Return
+2019-02-19 10:14:13.885 DEBUG [DBConfigDialog.btnOKActionPerformed:284] 确定
+2019-02-19 10:14:13.887 DEBUG [JdbcUtil.getConnection:83] oracle.jdbc.driver.OracleDriver
+2019-02-19 10:14:13.888 DEBUG [JdbcUtil.getConnection:84] jdbc:oracle:thin:@192.168.136.128:1521/orcl
+2019-02-19 10:14:14.630 DEBUG [DBConfigDialog.btnOKActionPerformed:298] Connected
+2019-02-19 10:14:14.630 DEBUG [HistoryPropUtil.saveHistory:62] Enter:dbsource=lyy@192.168.136.128:1521/orcl, savePwd=true
+2019-02-19 10:14:14.655 DEBUG [DBConfigDialog.btnOKActionPerformed:300] Saved History
+2019-02-19 10:14:14.663 DEBUG [MainView.dbActionPerformed:585] response=0
+2019-02-19 10:14:15.966 DEBUG [MainView.btnOpenConvertActionPerformed:751] Enter:
+2019-02-19 10:14:17.982 DEBUG [MainView.cbbObjTypeActionPerformed:758] comboBoxChanged
+2019-02-19 10:14:17.984 DEBUG [SQLFactory.getTypedObjects:70] Enter:db=lyy@192.168.136.128:1521/orcl,objType=Function
+2019-02-19 10:14:17.985 DEBUG [JdbcUtil.getConnection:83] oracle.jdbc.driver.OracleDriver
+2019-02-19 10:14:17.985 DEBUG [JdbcUtil.getConnection:84] jdbc:oracle:thin:@192.168.136.128:1521/orcl
+2019-02-19 10:14:18.287  INFO [SQLFactory.getShowObjSQL:167] Enter:dbType = Oracle,objType = Function
+2019-02-19 10:14:18.288 DEBUG [SQLFactory.getTypedObjects:86] sql=SELECT DISTINCT user,name FROM user_source WHERE type = 'FUNCTION'
+2019-02-19 10:14:18.304 DEBUG [SQLFactory.getTypedObjects:109] Return: size=4
+2019-02-19 10:14:18.304 DEBUG [MainView.cbbObjectsActionPerformed:785] comboBoxChanged
+2019-02-19 10:14:20.190 DEBUG [MainView.cbbObjectsActionPerformed:785] comboBoxChanged
+2019-02-19 10:14:20.190 DEBUG [SQLFactory.getDDL:121] Type=Function,schema=LYY,objName=TEST_FUN
+2019-02-19 10:14:20.190 DEBUG [JdbcUtil.getConnection:83] oracle.jdbc.driver.OracleDriver
+2019-02-19 10:14:20.191 DEBUG [JdbcUtil.getConnection:84] jdbc:oracle:thin:@192.168.136.128:1521/orcl
+2019-02-19 10:14:20.360  INFO [SQLFactory.getSelectSQL:226] Enter:dbType = Oracle,objType = Function
+2019-02-19 10:14:20.360  INFO [SQLFactory.getSelectSQL:292] Return: sql = SELECT text from user_source WHERE user = ?  AND name = ?  AND type = 'FUNCTION' ORDER BY line
+2019-02-19 10:14:20.389 DEBUG [SQLFactory.getDDL:145] oraSql=CREATE OR REPLACE FUNCTION LYY.TEST_FUN(a int, b int) RETURN integer AS BEGIN RETURN a+b; End;
+2019-02-19 10:14:20.393 DEBUG [SQLFactory.getDDL:161] Return
+2019-02-19 10:17:53.192 DEBUG [MainView.<init>:55] Enter
+2019-02-19 10:20:43.989 DEBUG [MainView.<init>:55] Enter
+2019-02-19 10:22:23.258 DEBUG [MainView.<init>:55] Enter
+2019-02-19 10:23:17.944 DEBUG [MainView.<init>:55] Enter
+2019-02-19 10:56:52.998 DEBUG [MainView.<init>:54] Enter
+2019-02-19 10:57:06.143 DEBUG [MainView.<init>:54] Enter
+2019-02-19 10:57:17.189 DEBUG [MainView.<init>:54] Enter
+2019-02-19 10:58:58.790 DEBUG [MainView.<init>:54] Enter
+2019-02-19 10:59:52.694 DEBUG [MainView.<init>:54] Enter
+2019-02-19 11:00:14.239 DEBUG [MainView.<init>:54] Enter
+2019-02-19 11:03:53.851 DEBUG [MainView.<init>:54] Enter
+2019-02-19 11:04:10.538 DEBUG [MainView.dbActionPerformed:523] comboBoxChanged
+2019-02-19 11:04:10.538 DEBUG [MainView.dbActionPerformed:537] <源端Oracle数据源>
+2019-02-19 11:04:10.560 DEBUG [HistoryPropUtil.<clinit>:57] E:\Netbean-Project\orcl2pg\History\\DatasourceHistory.properties
+2019-02-19 11:04:10.561 DEBUG [HistoryPropUtil.readHistory:114] dbType=Oracle
+2019-02-19 11:04:10.714 DEBUG [HistoryPropUtil.readHistory:187] Return
+2019-02-19 11:04:13.410 DEBUG [DBConfigDialog.btnOKActionPerformed:284] 确定
+2019-02-19 11:04:13.411 DEBUG [JdbcUtil.getConnection:83] oracle.jdbc.driver.OracleDriver
+2019-02-19 11:04:13.412 DEBUG [JdbcUtil.getConnection:84] jdbc:oracle:thin:@192.168.136.128:1521/orcl
+2019-02-19 11:04:13.769 DEBUG [DBConfigDialog.btnOKActionPerformed:298] Connected
+2019-02-19 11:04:13.770 DEBUG [HistoryPropUtil.saveHistory:62] Enter:dbsource=lyy@192.168.136.128:1521/orcl, savePwd=true
+2019-02-19 11:04:13.797 DEBUG [DBConfigDialog.btnOKActionPerformed:300] Saved History
+2019-02-19 11:04:13.827 DEBUG [MainView.dbActionPerformed:542] response=0
+2019-02-19 11:04:15.097 DEBUG [MainView.btnOpenConvertActionPerformed:753] Enter:
+2019-02-19 11:09:38.606 DEBUG [MainView.<init>:56] Enter
+2019-02-19 11:09:55.960 DEBUG [MainView.dbActionPerformed:525] comboBoxChanged
+2019-02-19 11:09:55.960 DEBUG [MainView.dbActionPerformed:539] <源端Oracle数据源>
+2019-02-19 11:09:55.986 DEBUG [HistoryPropUtil.<clinit>:57] E:\Netbean-Project\orcl2pg\History\\DatasourceHistory.properties
+2019-02-19 11:09:55.986 DEBUG [HistoryPropUtil.readHistory:114] dbType=Oracle
+2019-02-19 11:09:56.143 DEBUG [HistoryPropUtil.readHistory:187] Return
+2019-02-19 11:09:59.033 DEBUG [DBConfigDialog.btnOKActionPerformed:284] 确定
+2019-02-19 11:09:59.035 DEBUG [JdbcUtil.getConnection:83] oracle.jdbc.driver.OracleDriver
+2019-02-19 11:09:59.035 DEBUG [JdbcUtil.getConnection:84] jdbc:oracle:thin:@192.168.136.128:1521/orcl
+2019-02-19 11:09:59.326 DEBUG [DBConfigDialog.btnOKActionPerformed:298] Connected
+2019-02-19 11:09:59.326 DEBUG [HistoryPropUtil.saveHistory:62] Enter:dbsource=lyy@192.168.136.128:1521/orcl, savePwd=true
+2019-02-19 11:09:59.334 DEBUG [DBConfigDialog.btnOKActionPerformed:300] Saved History
+2019-02-19 11:09:59.340 DEBUG [MainView.dbActionPerformed:544] response=0
+2019-02-19 11:10:00.136 DEBUG [MainView.btnOpenConvertActionPerformed:760] Enter:
+2019-02-19 11:10:38.835 DEBUG [MainView.<init>:56] Enter
+2019-02-19 11:10:40.376 DEBUG [MainView.btnOpenConvertActionPerformed:760] Enter:
+2019-02-19 11:13:41.291 DEBUG [MainView.<init>:56] Enter
+2019-02-19 11:13:43.367 DEBUG [MainView.btnOpenConvertActionPerformed:761] Enter:
+2019-02-19 11:18:13.596 DEBUG [MainView.<init>:56] Enter
+2019-02-19 11:18:20.310 DEBUG [MainView.btnOpenConvertActionPerformed:759] Enter:
+2019-02-19 11:18:25.776 DEBUG [MainView.<init>:56] Enter
+2019-02-19 11:18:27.669 DEBUG [MainView.btnOpenConvertActionPerformed:759] Enter:
+2019-02-19 11:18:40.403 DEBUG [MainView.<init>:56] Enter
+2019-02-19 11:18:42.149 DEBUG [MainView.btnOpenConvertActionPerformed:759] Enter:
+2019-02-19 11:20:04.718 DEBUG [MainView.<init>:56] Enter
+2019-02-19 11:20:06.317 DEBUG [MainView.btnOpenConvertActionPerformed:778] Enter:
+2019-02-19 11:21:43.114 DEBUG [MainView.<init>:56] Enter
+2019-02-19 11:21:44.924 DEBUG [MainView.btnOpenConvertActionPerformed:798] Enter:
+2019-02-19 11:29:29.168 DEBUG [MainView.<init>:56] Enter
+2019-02-19 11:30:07.814 DEBUG [MainView.<init>:56] Enter
+2019-02-19 11:30:24.259 DEBUG [MainView.btnOpenConvertActionPerformed:787] Enter:
+2019-02-19 11:30:26.661 DEBUG [MainView.dbActionPerformed:525] comboBoxChanged
+2019-02-19 11:30:26.661 DEBUG [MainView.dbActionPerformed:539] <源端Oracle数据源>
+2019-02-19 11:30:26.681 DEBUG [HistoryPropUtil.<clinit>:57] E:\Netbean-Project\orcl2pg\History\\DatasourceHistory.properties
+2019-02-19 11:30:26.681 DEBUG [HistoryPropUtil.readHistory:114] dbType=Oracle
+2019-02-19 11:30:26.829 DEBUG [HistoryPropUtil.readHistory:187] Return
+2019-02-19 11:30:30.547 DEBUG [DBConfigDialog.btnOKActionPerformed:284] 确定
+2019-02-19 11:30:30.549 DEBUG [JdbcUtil.getConnection:83] oracle.jdbc.driver.OracleDriver
+2019-02-19 11:30:30.549 DEBUG [JdbcUtil.getConnection:84] jdbc:oracle:thin:@192.168.136.128:1521/orcl
+2019-02-19 11:30:30.838 DEBUG [DBConfigDialog.btnOKActionPerformed:298] Connected
+2019-02-19 11:30:30.838 DEBUG [HistoryPropUtil.saveHistory:62] Enter:dbsource=lyy@192.168.136.128:1521/orcl, savePwd=true
+2019-02-19 11:30:30.846 DEBUG [DBConfigDialog.btnOKActionPerformed:300] Saved History
+2019-02-19 11:30:30.852 DEBUG [MainView.dbActionPerformed:544] response=0
+2019-02-19 11:30:32.540 DEBUG [MainView.cbbObjTypeActionPerformed:794] comboBoxChanged
+2019-02-19 11:30:32.540 DEBUG [SQLFactory.getTypedObjects:70] Enter:db=lyy@192.168.136.128:1521/orcl,objType=Function
+2019-02-19 11:30:32.541 DEBUG [JdbcUtil.getConnection:83] oracle.jdbc.driver.OracleDriver
+2019-02-19 11:30:32.541 DEBUG [JdbcUtil.getConnection:84] jdbc:oracle:thin:@192.168.136.128:1521/orcl
+2019-02-19 11:30:32.627  INFO [SQLFactory.getShowObjSQL:167] Enter:dbType = Oracle,objType = Function
+2019-02-19 11:30:32.628 DEBUG [SQLFactory.getTypedObjects:86] sql=SELECT DISTINCT user,name FROM user_source WHERE type = 'FUNCTION'
+2019-02-19 11:30:32.642 DEBUG [SQLFactory.getTypedObjects:109] Return: size=4
+2019-02-19 11:30:32.643 DEBUG [MainView.cbbObjectsActionPerformed:821] comboBoxChanged
+2019-02-19 11:30:34.892 DEBUG [MainView.cbbObjectsActionPerformed:821] comboBoxChanged
+2019-02-19 11:30:34.893 DEBUG [SQLFactory.getDDL:121] Type=Function,schema=LYY,objName=MD5
+2019-02-19 11:30:34.893 DEBUG [JdbcUtil.getConnection:83] oracle.jdbc.driver.OracleDriver
+2019-02-19 11:30:34.893 DEBUG [JdbcUtil.getConnection:84] jdbc:oracle:thin:@192.168.136.128:1521/orcl
+2019-02-19 11:30:34.928  INFO [SQLFactory.getSelectSQL:226] Enter:dbType = Oracle,objType = Function
+2019-02-19 11:30:34.929  INFO [SQLFactory.getSelectSQL:292] Return: sql = SELECT text from user_source WHERE user = ?  AND name = ?  AND type = 'FUNCTION' ORDER BY line
+2019-02-19 11:30:34.962 DEBUG [SQLFactory.getDDL:145] oraSql=CREATE OR REPLACE FUNCTION LYY.MD5(str IN VARCHAR) RETURN VARCHAR2 IS 
+retval varchar2(4000); BEGIN
+retval := utl_raw.cast_to_raw(DBMS_OBFUSCATION_TOOLKIT.MD5(INPUT_STRING => str)); RETURN retval; END;
+2019-02-19 11:30:34.963 DEBUG [SQLFactory.getDDL:161] Return
+2019-02-19 11:32:42.389 DEBUG [MainView.<init>:56] Enter
+2019-02-19 11:32:44.963 DEBUG [MainView.btnOpenConvertActionPerformed:763] Enter:
+2019-02-19 11:32:46.522 DEBUG [MainView.dbActionPerformed:525] comboBoxChanged
+2019-02-19 11:32:46.522 DEBUG [MainView.dbActionPerformed:539] <源端Oracle数据源>
+2019-02-19 11:32:46.543 DEBUG [HistoryPropUtil.<clinit>:57] E:\Netbean-Project\orcl2pg\History\\DatasourceHistory.properties
+2019-02-19 11:32:46.543 DEBUG [HistoryPropUtil.readHistory:114] dbType=Oracle
+2019-02-19 11:32:46.702 DEBUG [HistoryPropUtil.readHistory:187] Return
+2019-02-19 11:32:50.130 DEBUG [DBConfigDialog.btnOKActionPerformed:284] 确定
+2019-02-19 11:32:50.132 DEBUG [JdbcUtil.getConnection:83] oracle.jdbc.driver.OracleDriver
+2019-02-19 11:32:50.132 DEBUG [JdbcUtil.getConnection:84] jdbc:oracle:thin:@192.168.136.128:1521/orcl
+2019-02-19 11:32:50.525 DEBUG [DBConfigDialog.btnOKActionPerformed:298] Connected
+2019-02-19 11:32:50.525 DEBUG [HistoryPropUtil.saveHistory:62] Enter:dbsource=lyy@192.168.136.128:1521/orcl, savePwd=true
+2019-02-19 11:32:50.533 DEBUG [DBConfigDialog.btnOKActionPerformed:300] Saved History
+2019-02-19 11:32:50.541 DEBUG [MainView.dbActionPerformed:544] response=0
+2019-02-19 11:32:52.691 DEBUG [MainView.cbbObjTypeActionPerformed:770] comboBoxChanged
+2019-02-19 11:32:52.692 DEBUG [SQLFactory.getTypedObjects:70] Enter:db=lyy@192.168.136.128:1521/orcl,objType=Function
+2019-02-19 11:32:52.693 DEBUG [JdbcUtil.getConnection:83] oracle.jdbc.driver.OracleDriver
+2019-02-19 11:32:52.693 DEBUG [JdbcUtil.getConnection:84] jdbc:oracle:thin:@192.168.136.128:1521/orcl
+2019-02-19 11:32:52.764  INFO [SQLFactory.getShowObjSQL:167] Enter:dbType = Oracle,objType = Function
+2019-02-19 11:32:52.765 DEBUG [SQLFactory.getTypedObjects:86] sql=SELECT DISTINCT user,name FROM user_source WHERE type = 'FUNCTION'
+2019-02-19 11:32:52.813 DEBUG [SQLFactory.getTypedObjects:109] Return: size=4
+2019-02-19 11:32:52.814 DEBUG [MainView.cbbObjectsActionPerformed:797] comboBoxChanged
+2019-02-19 11:32:55.307 DEBUG [MainView.cbbObjectsActionPerformed:797] comboBoxChanged
+2019-02-19 11:32:55.307 DEBUG [SQLFactory.getDDL:121] Type=Function,schema=LYY,objName=MD5
+2019-02-19 11:32:55.307 DEBUG [JdbcUtil.getConnection:83] oracle.jdbc.driver.OracleDriver
+2019-02-19 11:32:55.307 DEBUG [JdbcUtil.getConnection:84] jdbc:oracle:thin:@192.168.136.128:1521/orcl
+2019-02-19 11:32:55.378  INFO [SQLFactory.getSelectSQL:226] Enter:dbType = Oracle,objType = Function
+2019-02-19 11:32:55.379  INFO [SQLFactory.getSelectSQL:292] Return: sql = SELECT text from user_source WHERE user = ?  AND name = ?  AND type = 'FUNCTION' ORDER BY line
+2019-02-19 11:32:55.481 DEBUG [SQLFactory.getDDL:145] oraSql=CREATE OR REPLACE FUNCTION LYY.MD5(str IN VARCHAR) RETURN VARCHAR2 IS 
+retval varchar2(4000); BEGIN
+retval := utl_raw.cast_to_raw(DBMS_OBFUSCATION_TOOLKIT.MD5(INPUT_STRING => str)); RETURN retval; END;
+2019-02-19 11:32:55.482 DEBUG [SQLFactory.getDDL:161] Return
+2019-02-19 11:33:09.786 DEBUG [MainView.btnConvertActionPerformed:826] 转换
+2019-02-19 11:33:09.789 DEBUG [ConvertMain.execute:188] Enter
+2019-02-19 11:33:09.789 DEBUG [ConvertMain.execute:196] inArgs=--tree-type sql_script --input-sql * --output-sql * --convert --use-pgsql --debug 
+2019-02-19 11:33:09.789 DEBUG [ConvertMain.execute:197] inSql=CREATE OR REPLACE FUNCTION LYY.MD5(str IN VARCHAR) RETURN VARCHAR2 IS 
+retval varchar2(4000); BEGIN
+retval := utl_raw.cast_to_raw(DBMS_OBFUSCATION_TOOLKIT.MD5(INPUT_STRING => str)); RETURN retval; END;
+2019-02-19 11:33:09.790 DEBUG [CliOptions.parseCliOptions:62] Enter:--tree-type sql_script --input-sql * --output-sql * --convert --use-pgsql --debug 
+2019-02-19 11:33:09.790 DEBUG [ConvertMain.readInputSql:555] Enter
+2019-02-19 11:33:09.790 DEBUG [ConvertMain.readInputSql:576] inputContent=CREATE OR REPLACE FUNCTION LYY.MD5(str IN VARCHAR) RETURN VARCHAR2 IS 
+retval varchar2(4000); BEGIN
+retval := utl_raw.cast_to_raw(DBMS_OBFUSCATION_TOOLKIT.MD5(INPUT_STRING => str)); RETURN retval; END;
+2019-02-19 11:33:09.791 DEBUG [AstParser.parseTreeFromString:31] Enter: printTokens=false, treeType=sql_script
+2019-02-19 11:33:09.805 DEBUG [AstParser.parseTreeFromString:71] After Tokens=[[@0,0:5='CREATE',<113>,1:0], [@1,6:6=' ',<97>,channel=99,1:6], [@2,7:8='OR',<146>,1:7], [@3,9:9=' ',<97>,channel=99,1:9], [@4,10:16='REPLACE',<92>,1:10], [@5,17:17=' ',<97>,channel=99,1:17], [@6,18:25='FUNCTION',<92>,1:18], [@7,26:26=' ',<97>,channel=99,1:26], [@8,27:29='LYY',<92>,1:27], [@9,30:30='.',<54>,1:30], [@10,31:33='MD5',<92>,1:31], [@11,34:34='(',<42>,1:34], [@12,35:37='str',<92>,1:35], [@13,38:38=' ',<97>,channel=99,1:38], [@14,39:40='IN',<135>,1:39], [@15,41:41=' ',<97>,channel=99,1:41], [@16,42:48='VARCHAR',<92>,1:42], [@17,49:49=')',<94>,1:49], [@18,50:50=' ',<97>,channel=99,1:50], [@19,51:56='RETURN',<92>,1:51], [@20,57:57=' ',<97>,channel=99,1:57], [@21,58:65='VARCHAR2',<92>,1:58], [@22,66:66=' ',<97>,channel=99,1:66], [@23,67:68='IS',<139>,1:67], [@24,69:70=' \n',<97>,channel=99,1:69], [@25,71:76='retval',<92>,2:0], [@26,77:77=' ',<97>,channel=99,2:6], [@27,78:85='varchar2',<92>,2:7], [@28,86:86='(',<42>,2:15], [@29,87:90='4000',<172>,2:16], [@30,91:91=')',<94>,2:20], [@31,92:92=';',<96>,2:21], [@32,93:93=' ',<97>,channel=99,2:22], [@33,94:98='BEGIN',<107>,2:23], [@34,99:99='\n',<97>,channel=99,2:28], [@35,100:105='retval',<92>,3:0], [@36,106:106=' ',<97>,channel=99,3:6], [@37,107:108=':=',<7>,3:7], [@38,109:109=' ',<97>,channel=99,3:9], [@39,110:116='utl_raw',<92>,3:10], [@40,117:117='.',<54>,3:17], [@41,118:128='cast_to_raw',<92>,3:18], [@42,129:129='(',<42>,3:29], [@43,130:153='DBMS_OBFUSCATION_TOOLKIT',<92>,3:30], [@44,154:154='.',<54>,3:54], [@45,155:157='MD5',<92>,3:55], [@46,158:158='(',<42>,3:58], [@47,159:170='INPUT_STRING',<92>,3:59], [@48,171:171=' ',<97>,channel=99,3:71], [@49,172:172='=',<27>,3:72], [@50,173:173='>',<32>,3:73], [@51,174:174=' ',<97>,channel=99,3:74], [@52,175:177='str',<92>,3:75], [@53,178:178=')',<94>,3:78], [@54,179:179=')',<94>,3:79], [@55,180:180=';',<96>,3:80], [@56,181:181=' ',<97>,channel=99,3:81], [@57,182:187='RETURN',<92>,3:82], [@58,188:188=' ',<97>,channel=99,3:88], [@59,189:194='retval',<92>,3:89], [@60,195:195=';',<96>,3:95], [@61,196:196=' ',<97>,channel=99,3:96], [@62,197:199='END',<124>,3:97], [@63,200:200=';',<96>,3:100], [@64,201:201='<EOF>',<-1>,3:101]]
+2019-02-19 11:33:10.306 DEBUG [ReflectionUtil.callMethod:14] Enter: obj=ru.barsopen.plsqlconverter.ast.DerivedSqlParser@2dbc3280, methodName=sql_script
+2019-02-19 11:33:10.326 DEBUG [ReflectionUtil.callMethod:17] Return: br.com.porcelli.parser.plsql.PLSQLParser$sql_script_return@6a14d3cd
+2019-02-19 11:33:10.326 DEBUG [ReflectionUtil.callMethod:14] Enter: obj=br.com.porcelli.parser.plsql.PLSQLParser$sql_script_return@6a14d3cd, methodName=getTree
+2019-02-19 11:33:10.326 DEBUG [ReflectionUtil.callMethod:17] Return: SQL_SCRIPT
+2019-02-19 11:33:10.327 DEBUG [AstParser.parseTreeFromString:84] Return:ru.barsopen.plsqlconverter.ast.transforms.ParseResult@5c922d16
+2019-02-19 11:33:10.329 DEBUG [ConvertMain.readInputSql:616] Return
+2019-02-19 11:33:10.330 DEBUG [ConvertMain.execute:228] tokens=[[@0,0:5='CREATE',<113>,1:0], [@1,6:6=' ',<97>,channel=99,1:6], [@2,7:8='OR',<146>,1:7], [@3,9:9=' ',<97>,channel=99,1:9], [@4,10:16='REPLACE',<92>,1:10], [@5,17:17=' ',<97>,channel=99,1:17], [@6,18:25='FUNCTION',<92>,1:18], [@7,26:26=' ',<97>,channel=99,1:26], [@8,27:29='LYY',<92>,1:27], [@9,30:30='.',<54>,1:30], [@10,31:33='MD5',<92>,1:31], [@11,34:34='(',<42>,1:34], [@12,35:37='str',<92>,1:35], [@13,38:38=' ',<97>,channel=99,1:38], [@14,39:40='IN',<135>,1:39], [@15,41:41=' ',<97>,channel=99,1:41], [@16,42:48='VARCHAR',<92>,1:42], [@17,49:49=')',<94>,1:49], [@18,50:50=' ',<97>,channel=99,1:50], [@19,51:56='RETURN',<92>,1:51], [@20,57:57=' ',<97>,channel=99,1:57], [@21,58:65='VARCHAR2',<92>,1:58], [@22,66:66=' ',<97>,channel=99,1:66], [@23,67:68='IS',<139>,1:67], [@24,69:70=' \n',<97>,channel=99,1:69], [@25,71:76='retval',<92>,2:0], [@26,77:77=' ',<97>,channel=99,2:6], [@27,78:85='varchar2',<92>,2:7], [@28,86:86='(',<42>,2:15], [@29,87:90='4000',<172>,2:16], [@30,91:91=')',<94>,2:20], [@31,92:92=';',<96>,2:21], [@32,93:93=' ',<97>,channel=99,2:22], [@33,94:98='BEGIN',<107>,2:23], [@34,99:99='\n',<97>,channel=99,2:28], [@35,100:105='retval',<92>,3:0], [@36,106:106=' ',<97>,channel=99,3:6], [@37,107:108=':=',<7>,3:7], [@38,109:109=' ',<97>,channel=99,3:9], [@39,110:116='utl_raw',<92>,3:10], [@40,117:117='.',<54>,3:17], [@41,118:128='cast_to_raw',<92>,3:18], [@42,129:129='(',<42>,3:29], [@43,130:153='DBMS_OBFUSCATION_TOOLKIT',<92>,3:30], [@44,154:154='.',<54>,3:54], [@45,155:157='MD5',<92>,3:55], [@46,158:158='(',<42>,3:58], [@47,159:170='INPUT_STRING',<92>,3:59], [@48,171:171=' ',<97>,channel=99,3:71], [@49,172:172='=',<27>,3:72], [@50,173:173='>',<32>,3:73], [@51,174:174=' ',<97>,channel=99,3:74], [@52,175:177='str',<92>,3:75], [@53,178:178=')',<94>,3:78], [@54,179:179=')',<94>,3:79], [@55,180:180=';',<96>,3:80], [@56,181:181=' ',<97>,channel=99,3:81], [@57,182:187='RETURN',<92>,3:82], [@58,188:188=' ',<97>,channel=99,3:88], [@59,189:194='retval',<92>,3:89], [@60,195:195=';',<96>,3:95], [@61,196:196=' ',<97>,channel=99,3:96], [@62,197:199='END',<124>,3:97], [@63,200:200=';',<96>,3:100], [@64,201:201='<EOF>',<-1>,3:101], [@65,201:201='<EOF>',<-1>,3:101]], tree=SQL_SCRIPT
+2019-02-19 11:33:10.531 DEBUG [ConvertMain.execute:233] ast=ru.barsopen.plsqlconverter.ast.typed.sql_script@4891d85f
+2019-02-19 11:33:10.628 DEBUG [ConvertMain.execute:238] validateReparse=false
+2019-02-19 11:33:10.629  INFO [ConvertMain.execute:256] doing nested functions...
+2019-02-19 11:33:10.632  INFO [ConvertMain.execute:258] doing procedure to function...
+2019-02-19 11:33:10.634  INFO [ConvertMain.execute:262] doing misc conversion...
+2019-02-19 11:33:10.635  INFO [ConvertMain.execute:264] doing outer joins...
+2019-02-19 11:33:10.635  INFO [ConvertMain.execute:266] doing oracle2pg syntax transform...
+2019-02-19 11:33:10.635 DEBUG [ConvertMain.transformDiffs:36] Enter:tree=ru.barsopen.plsqlconverter.ast.typed.sql_script@4891d85f
+2019-02-19 11:33:10.636 DEBUG [ConvertMain.removeOrderbyForSelectCountWithoutGroupBy:50] select_statements=0
+2019-02-19 11:33:10.636 DEBUG [ConvertMain.replaceRowidWithCtid:111] general_element_items=9
+2019-02-19 11:33:10.636 DEBUG [ConvertMain.replaceRowidWithCtid:126] id value=retval
+2019-02-19 11:33:10.636 DEBUG [ConvertMain.replaceRowidWithCtid:126] id value=utl_raw
+2019-02-19 11:33:10.636 DEBUG [ConvertMain.replaceRowidWithCtid:126] id value=cast_to_raw
+2019-02-19 11:33:10.636 DEBUG [ConvertMain.replaceRowidWithCtid:126] id value=DBMS_OBFUSCATION_TOOLKIT
+2019-02-19 11:33:10.636 DEBUG [ConvertMain.replaceRowidWithCtid:126] id value=MD5
+2019-02-19 11:33:10.636 DEBUG [ConvertMain.replaceRowidWithCtid:126] id value=str
+2019-02-19 11:33:10.637 DEBUG [ConvertMain.replaceRowidWithCtid:126] id value=retval
+2019-02-19 11:33:10.637  INFO [ConvertMain.execute:268] doing packages...
+2019-02-19 11:33:10.638  INFO [ConvertMain.execute:270] doing datatypes...
+2019-02-19 11:33:10.638  INFO [ConvertMain.execute:272] doing perform...
+2019-02-19 11:33:10.639 DEBUG [ConvertMain.execute:282] splitOutput=false
+2019-02-19 11:33:10.758 DEBUG [AstPrinter.printTreeToPostgresqlString:91] Enter:treeType=sql_script
+2019-02-19 11:33:10.758 DEBUG [AstPrinter.printTreeToPostgresqlString:92] theTree:text=SQL_SCRIPT, Line=1, CharPositionInLine=18
+2019-02-19 11:33:10.782 DEBUG [ReflectionUtil.callMethod:14] Enter: obj=ru.barsopen.plsqlconverter.ast.DerivedSqlPrinter@22b3ad82, methodName=sql_script
+2019-02-19 11:33:10.806 DEBUG [ReflectionUtil.callMethod:17] Return: 
+create or replace function LYY.MD5 (str IN varchar)
+returns varchar
+
+as $$
+#variable_conflict use_column
+declare
+  retval varchar(4000);
+begin
+  retval := utl_raw.cast_to_raw(DBMS_OBFUSCATION_TOOLKIT.MD5(INPUT_STRING := str));
+  return retval;
+end;
+$$
+language plpgsql;
+
+2019-02-19 11:33:10.807 DEBUG [AstPrinter.printTreeToPostgresqlString:103] Return:
+create or replace function LYY.MD5 (str IN varchar)
+returns varchar
+
+as $$
+#variable_conflict use_column
+declare
+  retval varchar(4000);
+begin
+  retval := utl_raw.cast_to_raw(DBMS_OBFUSCATION_TOOLKIT.MD5(INPUT_STRING := str));
+  return retval;
+end;
+$$
+language plpgsql;
+
+2019-02-19 11:33:10.807 DEBUG [ConvertMain.execute:290] Return: 
+create or replace function LYY.MD5 (str IN varchar)
+returns varchar
+
+as $$
+#variable_conflict use_column
+declare
+  retval varchar(4000);
+begin
+  retval := utl_raw.cast_to_raw(DBMS_OBFUSCATION_TOOLKIT.MD5(INPUT_STRING := str));
+  return retval;
+end;
+$$
+language plpgsql;
+
+2019-02-19 11:33:13.386 DEBUG [MainView.btnExecutePGSQLActionPerformed:844] 执行
+2019-02-19 11:33:13.387 ERROR [MainView.btnExecutePGSQLActionPerformed:865] 请先配置数据源！
+2019-02-19 11:33:15.867 DEBUG [MainView.dbActionPerformed:525] comboBoxChanged
+2019-02-19 11:33:15.867 DEBUG [MainView.dbActionPerformed:539] <目标端PG数据源>
+2019-02-19 11:33:15.880 DEBUG [HistoryPropUtil.readHistory:114] dbType=PostgreSQL
+2019-02-19 11:33:15.881 DEBUG [HistoryPropUtil.readHistory:187] Return
+2019-02-19 11:33:18.994 DEBUG [DBConfigDialog.btnOKActionPerformed:284] 确定
+2019-02-19 11:33:18.995 DEBUG [JdbcUtil.getConnection:83] org.postgresql.Driver
+2019-02-19 11:33:18.995 DEBUG [JdbcUtil.getConnection:84] jdbc:postgresql://127.0.0.1:5433/postgres
+2019-02-19 11:33:19.101 DEBUG [DBConfigDialog.btnOKActionPerformed:298] Connected
+2019-02-19 11:33:19.101 DEBUG [HistoryPropUtil.saveHistory:62] Enter:dbsource=postgres@127.0.0.1:5433/postgres, savePwd=true
+2019-02-19 11:33:19.107 DEBUG [DBConfigDialog.btnOKActionPerformed:300] Saved History
+2019-02-19 11:33:19.113 DEBUG [MainView.dbActionPerformed:544] response=0
+2019-02-19 11:33:20.378 DEBUG [MainView.btnExecutePGSQLActionPerformed:844] 执行
+2019-02-19 11:33:20.379  INFO [SQLFactory.executeSQL:43] Enter:SQL = create or replace function LYY.MD5 (str IN varchar)
+returns varchar
+
+as $$
+#variable_conflict use_column
+declare
+  retval varchar(4000);
+begin
+  retval := utl_raw.cast_to_raw(DBMS_OBFUSCATION_TOOLKIT.MD5(INPUT_STRING := str));
+  return retval;
+end;
+$$
+language plpgsql;
+2019-02-19 11:33:20.379 DEBUG [JdbcUtil.getConnection:83] org.postgresql.Driver
+2019-02-19 11:33:20.379 DEBUG [JdbcUtil.getConnection:84] jdbc:postgresql://127.0.0.1:5433/postgres
+2019-02-19 11:35:26.192 DEBUG [MainView.<init>:56] Enter
+2019-02-19 11:35:29.226 DEBUG [MainView.btnOpenConvertActionPerformed:763] Enter:
