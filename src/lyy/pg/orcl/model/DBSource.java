@@ -13,7 +13,7 @@ import lyy.pg.orcl.util.DBEnum;
  */
 public class DBSource
 {
-    private DBEnum type;
+    private DBEnum dbType;
     private String host;
     private int port;
     private DBEnum.ArgType argType;
@@ -54,14 +54,14 @@ public class DBSource
         return user + "@" + host + ":" + port + "/" + arg;
     }
 
-    public DBEnum getType()
+    public DBEnum getDBType()
     {
-        return type;
+        return dbType;
     }
 
-    public void setType(DBEnum type)
+    public void setDBType(DBEnum dbType)
     {
-        this.type = type;
+        this.dbType = dbType;
     }
 
     public String getHost()

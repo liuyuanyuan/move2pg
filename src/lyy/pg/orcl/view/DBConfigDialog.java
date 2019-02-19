@@ -289,7 +289,7 @@ public class DBConfigDialog extends javax.swing.JDialog
         try
         {
             dbSource = new DBSource();
-            dbSource.setType(type);
+            dbSource.setDBType(type);
             dbSource.setHost(checkEmpty(tfHost));
             dbSource.setPort(Integer.valueOf(checkEmpty(tfPort)));
             dbSource.setArgType((ArgType) cbbArgType.getSelectedItem());

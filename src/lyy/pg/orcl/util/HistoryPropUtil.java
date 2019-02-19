@@ -23,7 +23,7 @@ public class HistoryPropUtil
     public static void main(String[] args)
     {
         DBSource oraconnInfo = new DBSource();
-        oraconnInfo.setType(DBEnum.Oracle);
+        oraconnInfo.setDBType(DBEnum.Oracle);
         oraconnInfo.setHost("192.168.100.106");
         oraconnInfo.setPort(1521);
         oraconnInfo.setArgType(DBEnum.ArgType.Service);
@@ -86,7 +86,7 @@ public class HistoryPropUtil
             Properties props = new Properties();
             in = new FileInputStream(file);
             props.load(in);// load old config info (from previous page)
-            String header = dbsource.getType().toString() + ".";
+            String header = dbsource.getDBType().toString() + ".";
             props.put(header + "host", dbsource.getHost());
             props.put(header + "port", String.valueOf(dbsource.getPort()));
             props.put(header + "argType", dbsource.getArgType().toString());
@@ -149,7 +149,7 @@ public class HistoryPropUtil
                 return null;
             }
             dbsource = new DBSource();
-            dbsource.setType(dbType);
+            dbsource.setDBType(dbType);
             dbsource.setHost(props.getProperty(Header + "host"));
             if (props.getProperty(Header + "port") != null)
             {

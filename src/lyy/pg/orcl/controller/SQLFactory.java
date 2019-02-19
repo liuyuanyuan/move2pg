@@ -82,7 +82,7 @@ public class SQLFactory
         {
             conn = JdbcUtil.getConnection(dbsource);
             stmt = conn.createStatement();
-            String sql = SQLFactory.getShowObjSQL(dbsource.getType(), objType);
+            String sql = SQLFactory.getShowObjSQL(dbsource.getDBType(), objType);
             logger.debug("sql=" + sql);
             rtset = stmt.executeQuery(sql);
             while (rtset.next())
@@ -126,7 +126,7 @@ public class SQLFactory
         try
         {
             conn = JdbcUtil.getConnection(sourceDB);
-            String sql = getSelectSQL(sourceDB.getType(), obj.getType());
+            String sql = getSelectSQL(sourceDB.getDBType(), obj.getType());
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, obj.getSchema());
             pstmt.setString(2, obj.getName());
@@ -139,8 +139,8 @@ public class SQLFactory
             pstmt.clearParameters();
             pstmt.clearBatch();
 
-            String quotedSchemaAndName = KeywordFactory.getInstance().quotedName2PG(obj.getSchema(), sourceDB.getType())
-                    + "." + KeywordFactory.getInstance().quotedName2PG(obj.getName(), sourceDB.getType());
+            String quotedSchemaAndName = KeywordFactory.getInstance().quotedName2Pg(obj.getSchema(), sourceDB.getDBType())
+                    + "." + KeywordFactory.getInstance().quotedName2Pg(obj.getName(), sourceDB.getDBType());
             oraSql = oracleCreateSql.toString().replaceFirst("(?i)" + obj.getName(), quotedSchemaAndName);
             logger.debug("oraSql=" + oraSql);
             //Main converterMain = new Main();

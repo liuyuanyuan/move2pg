@@ -41,7 +41,7 @@ public class JdbcUtil
          System.out.println("defaultdir=" + defaultdir);
          */
         DBSource db = new DBSource();
-        db.setType(DBEnum.Oracle);
+        db.setDBType(DBEnum.Oracle);
         db.setHost("192.168.136.128");
         db.setPort(1521);
         db.setArgType(ArgType.Service);
@@ -65,7 +65,7 @@ public class JdbcUtil
     {
         String driver;
         String url;
-        switch (db.getType())
+        switch (db.getDBType())
         {
             case PostgreSQL:
                 driver = "org.postgresql.Driver";
@@ -78,7 +78,7 @@ public class JdbcUtil
                         + db.getArg();
                 break;
             default:
-                throw new Exception("Not support db type:" + db.getType());
+                throw new Exception("Not support db type:" + db.getDBType());
         }
         logger.debug(driver);
         logger.debug(url);

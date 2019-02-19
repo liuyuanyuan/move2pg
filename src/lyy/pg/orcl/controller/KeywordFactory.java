@@ -25,7 +25,7 @@ public class KeywordFactory
         String x = "222dd222";
         System.out.println(x.matches(".*(?=(.*[a-z]){1,}).*$"));
 
-        System.out.println(KeywordFactory.getInstance().quotedName2PG("DEFERRABLE", DBEnum.Oracle));
+        System.out.println(KeywordFactory.getInstance().quotedName2Pg("DEFERRABLE", DBEnum.Oracle));
         System.out.println(KeywordFactory.getInstance().quotedName4Oracle("Tab"));
     }
 
@@ -44,7 +44,7 @@ public class KeywordFactory
     }
 
     // for PG create sql by name from oracle/other db system table
-    public String quotedName2PG(String name, DBEnum dbType)
+    public String quotedName2Pg(String name, DBEnum dbType)
     {
         //logger.debug("db=" + dbType + ", name=" + name);		
         if (dbType == null || dbType != DBEnum.Oracle)

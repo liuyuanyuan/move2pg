@@ -46,9 +46,9 @@ public class MainView extends JFrame
     private final ResourceBundle constBundle = ResourceBundle.getBundle("constants");
 
     private RSyntaxTextArea rstaSource;
-    private RTextScrollPane rtspSource;
+    //private RTextScrollPane rtspSource;
     private RSyntaxTextArea rstaPG;
-    private RTextScrollPane rtspPG;
+    //private RTextScrollPane rtspPG;
 
     public MainView()
     {
@@ -701,9 +701,9 @@ public class MainView extends JFrame
     {
         //init
         rstaSource = getRSyntaxTextArea();
-        rtspSource = getRTextScrollPane(rstaSource);
+        //rtspSource = getRTextScrollPane(rstaSource);
         rstaPG = getRSyntaxTextArea();
-        rtspPG = getRTextScrollPane(rstaPG);
+        //rtspPG = getRTextScrollPane(rstaPG);
         //show
         spSource.setViewportView(rstaSource);
         spPG.setViewportView(rstaPG);        
