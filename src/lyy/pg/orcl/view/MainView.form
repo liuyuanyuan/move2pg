@@ -4,31 +4,6 @@
   <NonVisualComponents>
     <Component class="javax.swing.ButtonGroup" name="btngChooseObj">
     </Component>
-    <Container class="javax.swing.JScrollPane" name="spSource">
-      <AccessibilityProperties>
-        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value=""/>
-      </AccessibilityProperties>
-      <AuxValues>
-        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-      </AuxValues>
-
-      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-      <SubComponents>
-        <Component class="javax.swing.JEditorPane" name="epSource">
-        </Component>
-      </SubComponents>
-    </Container>
-    <Container class="javax.swing.JScrollPane" name="spPG">
-      <AuxValues>
-        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-      </AuxValues>
-
-      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-      <SubComponents>
-        <Component class="javax.swing.JEditorPane" name="epPG">
-        </Component>
-      </SubComponents>
-    </Container>
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
@@ -65,6 +40,9 @@
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
       <SubComponents>
         <Component class="javax.swing.JComboBox" name="cbbSourceDB">
+          <Properties>
+            <Property name="opaque" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JComboBox" name="cbbTargetDB">
         </Component>
@@ -457,6 +435,50 @@
               </Properties>
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout"/>
+              <SubComponents>
+                <Container class="javax.swing.JScrollPane" name="spSource">
+                  <Properties>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                        <TitledBorder position="1" title="&lt;&#x7528;&#x6237;&#x4ee3;&#x7801;&gt;">
+                          <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.CompoundBorderInfo">
+                            <CompoundBorder/>
+                          </Border>
+                          <Connection PropertyName="titleX" code="&quot;PLSQL&quot;" type="code"/>
+                        </TitledBorder>
+                      </Border>
+                    </Property>
+                  </Properties>
+                  <Constraints>
+                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout$JSplitPaneConstraintsDescription">
+                      <JSplitPaneConstraints position="left"/>
+                    </Constraint>
+                  </Constraints>
+
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                </Container>
+                <Container class="javax.swing.JScrollPane" name="spPG">
+                  <Properties>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                        <TitledBorder position="1" title="&lt;&#x7528;&#x6237;&#x4ee3;&#x7801;&gt;">
+                          <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.CompoundBorderInfo">
+                            <CompoundBorder/>
+                          </Border>
+                          <Connection PropertyName="titleX" code="&quot;PGSQL&quot;" type="code"/>
+                        </TitledBorder>
+                      </Border>
+                    </Property>
+                  </Properties>
+                  <Constraints>
+                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout$JSplitPaneConstraintsDescription">
+                      <JSplitPaneConstraints position="right"/>
+                    </Constraint>
+                  </Constraints>
+
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                </Container>
+              </SubComponents>
             </Container>
             <Component class="javax.swing.JButton" name="btnCheck">
               <Properties>

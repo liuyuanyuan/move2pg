@@ -5,6 +5,7 @@
  */
 package lyy.pg.orcl.view;
 
+import java.awt.Color;
 import java.awt.Frame;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -40,11 +41,12 @@ public class DBConfigDialog extends javax.swing.JDialog
     {
         super(parent, modal);
         initComponents();
-        this.type = type;        
+        this.type = type;
         
-        //config
         setTitle(constBundle.getString("configDB"));
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/lyy/pg/orcl/image/db_48px.png")));
+        getRootPane().setOpaque(false);
+        getContentPane().setBackground(Color.white);
         cbbType.setModel(new DefaultComboBoxModel(new Object[]
         {
             type
@@ -139,6 +141,7 @@ public class DBConfigDialog extends javax.swing.JDialog
 
         cbRememberPwd.setText(constBundle.getString("rememberPwd"));
         cbRememberPwd.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        cbRememberPwd.setOpaque(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

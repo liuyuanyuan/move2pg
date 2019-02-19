@@ -211,6 +211,7 @@
           <Connection code="constBundle.getString(&quot;rememberPwd&quot;)" type="code"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="4"/>
+        <Property name="opaque" type="boolean" value="false"/>
       </Properties>
     </Component>
   </SubComponents>

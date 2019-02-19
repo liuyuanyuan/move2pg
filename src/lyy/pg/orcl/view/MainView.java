@@ -8,13 +8,13 @@ package lyy.pg.orcl.view;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.ResourceBundle;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -33,7 +33,6 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
-import org.fife.ui.rtextarea.Gutter;
 import org.fife.ui.rtextarea.RTextScrollPane;
 import ru.barsopen.plsqlconverter.ConvertMain;
 
@@ -44,13 +43,13 @@ import ru.barsopen.plsqlconverter.ConvertMain;
 public class MainView extends JFrame
 {
     private Logger logger = LogManager.getLogger(getClass());
-    private ResourceBundle constBundle = ResourceBundle.getBundle("constants");
+    private final ResourceBundle constBundle = ResourceBundle.getBundle("constants");
 
     private RSyntaxTextArea rstaSource;
     private RTextScrollPane rtspSource;
     private RSyntaxTextArea rstaPG;
     private RTextScrollPane rtspPG;
-    
+
     public MainView()
     {
         logger.debug("Enter");
@@ -58,163 +57,35 @@ public class MainView extends JFrame
         setTitle(constBundle.getString("title"));
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/lyy/pg/orcl/image/orcl2pg.png")));
         //inital main view
-        tbMain.removeAll();        
-        tbMain.add(constBundle.getString("welcomeTitle"), pnlWelcome);        
+        tbMain.removeAll();
+        tbMain.add(constBundle.getString("welcomeTitle"), pnlWelcome);
         tfStatus.setText(constBundle.getString("welcomeTitle"));
-        //customize lookand feel
-        //cbbSourceDB.setBackground(Color.red);        
+
+        //customize look and feel       
+        //Color bgc = new Color(255, 250, 240);//(240,255,240);
+        //toolBar.setBackground(bgc);
+        cbbSourceDB.setOpaque(false);
+        cbbSourceDB.setBackground(Color.WHITE);
+        //cbbSourceDB.setBackground(Color.WHITE);//not work when set lookandfeel
+        //cbbTargetDB.setBackground(Color.WHITE);//not work when set lookandfeel
+        //btnOpenDatatype.setBackground(bgc);
+        //btnOpenMigrate.setBackground(bgc);
+        //btnOpenConvert.setBackground(bgc);
+        //btnOpenWelcome.setBackground(bgc);
         spDatatype.getViewport().setBackground(Color.WHITE);//make table's empty area white
         spObject.getViewport().setBackground(Color.WHITE);//make table's empty area white
-        //btnMigrate.setContentAreaFilled(false);//default is true
-        //btnMigrate.setOpaque(true);
-        //btnMigrate.setBackground(Color.WHITE);//not work
-        //btnMigrate.setForeground(Color.BLACK);//work
-        
-        
-        //welcome   
-        taWelcome.setText(constBundle.getString("welcomeText"));
-        btnOpenWelcome.addActionListener(new ActionListener()
-        {
-            @Override
-            public void actionPerformed(ActionEvent e)
-            {
-                btnOpenWelcomeActionPerformed(e);
-            }
-        });
-                
-        
+        //tfStatus.setBackground(bgc);
+
         //db source
-        cbbSourceDB.setModel(new DefaultComboBoxModel(new String[]
-        {
-            constBundle.getString("sourceDB")
-        }));
-        cbbTargetDB.setModel(new DefaultComboBoxModel(new String[]
-        {
-            constBundle.getString("targetDB")
-        }));
-        ActionListener dbActionListener = new ActionListener()
-        {
-            @Override
-            public void actionPerformed(ActionEvent e)
-            {
-                dbActionPerformed(e);
-            }
-        };
-        cbbSourceDB.addActionListener(dbActionListener);
-        cbbTargetDB.addActionListener(dbActionListener);
-
-        
+        initDatasource();
+        //welcome   
+        initPnlWelcome();
         //datatype
-        btnOpenDatatype.addActionListener(new ActionListener()
-        {
-            @Override
-            public void actionPerformed(ActionEvent e)
-            {
-                btnOpenDatatypeActionPerformed(e);
-            }
-        });
-        tbDatatype.setModel(new DefaultTableModel(
-                new Object[][]{},
-                new Object[]{DBEnum.Oracle, DBEnum.PostgreSQL})
-                {
-                    Class[] types = new Class[]
-                    {
-                        String.class, String.class,
-                    };
-                    boolean[] canEdit = new boolean[]
-                    {
-                        false, true,
-                    };
-                    @Override
-                    public Class getColumnClass(int columnIndex)
-                    {
-                        return types[columnIndex];
-                    }
-                    @Override
-                    public boolean isCellEditable(int rowIndex, int columnIndex)
-                    {
-                        return canEdit[columnIndex];
-                    }
-                });
-        
-                
+        initPnlDatatype();
         //migrate
-        btnOpenMigrate.addActionListener(new ActionListener()
-        {
-            @Override
-            public void actionPerformed(ActionEvent e)
-            {
-                btnOpenMigrateActionPerformed(e);
-            }
-        });
-        tbObject.setModel(new DefaultTableModel(
-                new Object[][]{},
-                new Object[]
-                {
-                    constBundle.getString("choose"),
-                    constBundle.getString("objName"),
-                    constBundle.getString("migrateResult"),
-                    constBundle.getString("compareResult"),
-                    constBundle.getString("syncResult")
-                })
-                {
-                    Class[] types = new Class[]
-                    {
-                        Boolean.class, Object.class, Object.class, Object.class, Object.class
-                    };
-                    boolean[] canEdit = new boolean[]
-                    {
-                        true, false, false, false, false
-                    };
-                    @Override
-                    public Class getColumnClass(int columnIndex)
-                    {
-                        return types[columnIndex];
-                    }
-                    @Override
-                    public boolean isCellEditable(int rowIndex, int columnIndex)
-                    {
-                        return canEdit[columnIndex];
-                    }
-                });
-        tbObject.getColumn(constBundle.getString("choose")).setMaxWidth(40);
-        
-        rbtnAll.addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e)
-            {
-               chooseObj(true, (DefaultTableModel)tbObject.getModel());
-            }
-        });
-        rbtnNone.addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e)
-            {
-               chooseObj(false, (DefaultTableModel)tbObject.getModel());
-            }
-        });
-        rbtnReverse.addActionListener(new ActionListener(){
-
-            @Override
-            public void actionPerformed(ActionEvent e)
-            {
-               chooseReverseObj((DefaultTableModel)tbObject.getModel());
-            }
-        });
-
-        btnReport.addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e)
-            {
-               btnReportActionPerformed(e);
-            }
-        });
-                
-        
+        initPnlMigrate();
         //convert
-        initPnlConvert();   
-        
-
+        initPnlConvert();
     }
 
     /**
@@ -228,10 +99,6 @@ public class MainView extends JFrame
     {
 
         btngChooseObj = new javax.swing.ButtonGroup();
-        spSource = new javax.swing.JScrollPane();
-        epSource = new javax.swing.JEditorPane();
-        spPG = new javax.swing.JScrollPane();
-        epPG = new javax.swing.JEditorPane();
         toolBar = new javax.swing.JToolBar();
         cbbSourceDB = new javax.swing.JComboBox();
         cbbTargetDB = new javax.swing.JComboBox();
@@ -262,18 +129,16 @@ public class MainView extends JFrame
         btnExecutePGSQL = new javax.swing.JButton();
         btnConvert = new javax.swing.JButton();
         spEditor = new javax.swing.JSplitPane();
+        spSource = new javax.swing.JScrollPane();
+        spPG = new javax.swing.JScrollPane();
         btnCheck = new javax.swing.JButton();
         tfStatus = new javax.swing.JTextField();
-
-        spSource.setViewportView(epSource);
-
-        spSource.getAccessibleContext().setAccessibleName("");
-
-        spPG.setViewportView(epPG);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         toolBar.setRollover(true);
+
+        cbbSourceDB.setOpaque(false);
         toolBar.add(cbbSourceDB);
         toolBar.add(cbbTargetDB);
 
@@ -449,6 +314,12 @@ public class MainView extends JFrame
         spEditor.setDividerSize(1);
         spEditor.setResizeWeight(0.5);
 
+        spSource.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createCompoundBorder(), "PLSQL", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP));
+        spEditor.setLeftComponent(spSource);
+
+        spPG.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createCompoundBorder(), "PGSQL", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP));
+        spEditor.setRightComponent(spPG);
+
         btnCheck.setText(constBundle.getString("check"));
 
         javax.swing.GroupLayout pnlConvertLayout = new javax.swing.GroupLayout(pnlConvert);
@@ -498,25 +369,37 @@ public class MainView extends JFrame
 
     private DBSource getSourceDB()
     {
-        return cbbSourceDB.getSelectedItem() instanceof DBSource?
-                (DBSource)cbbSourceDB.getSelectedItem() : null;                
+        return cbbSourceDB.getSelectedItem() instanceof DBSource
+                ? (DBSource) cbbSourceDB.getSelectedItem() : null;
     }
     private DBSource getTargetDB()
     {
-        return cbbTargetDB.getSelectedItem() instanceof DBSource?
-                (DBSource)cbbTargetDB.getSelectedItem() : null;                
+        return cbbTargetDB.getSelectedItem() instanceof DBSource
+                ? (DBSource) cbbTargetDB.getSelectedItem() : null;
     }
-    
-    //welcome
-    private void btnOpenWelcomeActionPerformed(ActionEvent e)
-    {
-        logger.debug(e.getActionCommand());
-        tbMain.removeAll();
-        tbMain.add(constBundle.getString("welcomeTitle"), pnlWelcome);
-        tfStatus.setText(constBundle.getString("welcomeTitle"));
-    }
-    
+
     //db source
+    private void initDatasource()
+    {
+        cbbSourceDB.setModel(new DefaultComboBoxModel(new String[]
+        {
+            constBundle.getString("sourceDB")
+        }));
+        cbbTargetDB.setModel(new DefaultComboBoxModel(new String[]
+        {
+            constBundle.getString("targetDB")
+        }));
+        ActionListener dbActionListener = new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                dbActionPerformed(e);
+            }
+        };
+        cbbSourceDB.addActionListener(dbActionListener);
+        cbbTargetDB.addActionListener(dbActionListener);
+    }
     private void dbActionPerformed(ActionEvent e)
     {
         logger.debug(e.getActionCommand());
@@ -547,8 +430,69 @@ public class MainView extends JFrame
         }
     }
 
-    
+    //welcome
+    private void initPnlWelcome()
+    {
+        taWelcome.setText(constBundle.getString("welcomeText"));
+        btnOpenWelcome.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                btnOpenWelcomeActionPerformed(e);
+            }
+        });
+    }
+    private void btnOpenWelcomeActionPerformed(ActionEvent e)
+    {
+        logger.debug(e.getActionCommand());
+        tbMain.removeAll();
+        tbMain.add(constBundle.getString("welcomeTitle"), pnlWelcome);
+        tfStatus.setText(constBundle.getString("welcomeTitle"));
+    }
+
     //datatype
+    private void initPnlDatatype()
+    {
+        btnOpenDatatype.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                btnOpenDatatypeActionPerformed(e);
+            }
+        });
+        tbDatatype.setModel(new DefaultTableModel(
+                new Object[][]
+                {
+                },
+                new Object[]
+                {
+                    DBEnum.Oracle, DBEnum.PostgreSQL
+                })
+                {
+                    Class[] types = new Class[]
+                    {
+                        String.class, String.class,
+                    };
+                    boolean[] canEdit = new boolean[]
+                    {
+                        false, true,
+                    };
+
+                    @Override
+                    public Class getColumnClass(int columnIndex)
+                    {
+                        return types[columnIndex];
+                    }
+
+                    @Override
+                    public boolean isCellEditable(int rowIndex, int columnIndex)
+                    {
+                        return canEdit[columnIndex];
+                    }
+                });
+    }
     private void btnOpenDatatypeActionPerformed(ActionEvent e)
     {
         logger.debug("Enter:" + e.getActionCommand());
@@ -583,8 +527,88 @@ public class MainView extends JFrame
         }
     }
 
-    
     //migrate
+    private void initPnlMigrate()
+    {
+        btnOpenMigrate.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                btnOpenMigrateActionPerformed(e);
+            }
+        });
+        tbObject.setModel(new DefaultTableModel(
+                new Object[][]
+                {
+                },
+                new Object[]
+                {
+                    constBundle.getString("choose"),
+                    constBundle.getString("objName"),
+                    constBundle.getString("migrateResult"),
+                    constBundle.getString("compareResult"),
+                    constBundle.getString("syncResult")
+                })
+                {
+                    Class[] types = new Class[]
+                    {
+                        Boolean.class, Object.class, Object.class, Object.class, Object.class
+                    };
+                    boolean[] canEdit = new boolean[]
+                    {
+                        true, false, false, false, false
+                    };
+
+                    @Override
+                    public Class getColumnClass(int columnIndex)
+                    {
+                        return types[columnIndex];
+                    }
+
+                    @Override
+                    public boolean isCellEditable(int rowIndex, int columnIndex)
+                    {
+                        return canEdit[columnIndex];
+                    }
+                });
+        tbObject.getColumn(constBundle.getString("choose")).setMaxWidth(40);
+
+        rbtnAll.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                chooseObj(true, (DefaultTableModel) tbObject.getModel());
+            }
+        });
+        rbtnNone.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                chooseObj(false, (DefaultTableModel) tbObject.getModel());
+            }
+        });
+        rbtnReverse.addActionListener(new ActionListener()
+        {
+
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                chooseReverseObj((DefaultTableModel) tbObject.getModel());
+            }
+        });
+
+        btnReport.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                btnReportActionPerformed(e);
+            }
+        });
+    }
     private void btnOpenMigrateActionPerformed(ActionEvent e)
     {
         logger.debug("Enter:" + e.getActionCommand());
@@ -610,7 +634,7 @@ public class MainView extends JFrame
         try
         {
             DBSource sdb = getSourceDB();
-            if(sdb == null)
+            if (sdb == null)
             {
                 throw new Exception(constBundle.getString("configDBSource"));
             }
@@ -629,7 +653,7 @@ public class MainView extends JFrame
             JOptionPane.showMessageDialog(this, ex.getMessage(),
                     constBundle.getString("error"), JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace(System.out);
-        }     
+        }
     }
     private void chooseObj(boolean choose, DefaultTableModel model)
     {
@@ -642,10 +666,9 @@ public class MainView extends JFrame
     {
         for (int i = 0; i < model.getRowCount(); i++)
         {
-            model.setValueAt(!(boolean)model.getValueAt(i, 0), i, 0);
+            model.setValueAt(!(boolean) model.getValueAt(i, 0), i, 0);
         }
     }
-    
     private void btnReportActionPerformed(ActionEvent e)
     {
         logger.debug(e.getActionCommand());
@@ -672,18 +695,21 @@ public class MainView extends JFrame
             ex.printStackTrace(System.out);
         }
     }
-    
-     
+
     //convert
     private void initPnlConvert()
     {
+        //init
         rstaSource = getRSyntaxTextArea();
         rtspSource = getRTextScrollPane(rstaSource);
         rstaPG = getRSyntaxTextArea();
         rtspPG = getRTextScrollPane(rstaPG);
-        spEditor.setLeftComponent(rtspSource);
-        spEditor.setRightComponent(rtspPG);
-                
+        //show
+        spSource.setViewportView(rstaSource);
+        spPG.setViewportView(rstaPG);        
+        //spSource.setViewportView(rtspSource);
+        //spPG.setViewportView(rtspPG);
+
         btnOpenConvert.addActionListener(new ActionListener()
         {
             @Override
@@ -694,11 +720,11 @@ public class MainView extends JFrame
         });
         cbbObjType.setModel(new DefaultComboBoxModel(new DBObject[]
         {
-            DBObject.Procedure, DBObject.Function, DBObject.Trigger, DBObject.Package
-            , DBObject.MView, DBObject.DBLink, DBObject.Synonym
+            DBObject.Procedure, DBObject.Function, DBObject.Trigger, DBObject.Package, DBObject.MView, DBObject.DBLink, DBObject.Synonym
         }));
         cbbObjType.setSelectedIndex(-1);
-        cbbObjType.addActionListener(new ActionListener(){
+        cbbObjType.addActionListener(new ActionListener()
+        {
 
             @Override
             public void actionPerformed(ActionEvent e)
@@ -706,58 +732,60 @@ public class MainView extends JFrame
                 cbbObjTypeActionPerformed(e);
             }
         });
-        cbbObjects.addActionListener(new ActionListener(){
+        cbbObjects.addActionListener(new ActionListener()
+        {
             @Override
             public void actionPerformed(ActionEvent e)
             {
                 cbbObjectsActionPerformed(e);
             }
         });
-        btnConvert.addActionListener(new ActionListener(){
+        btnConvert.addActionListener(new ActionListener()
+        {
             @Override
             public void actionPerformed(ActionEvent e)
             {
                 btnConvertActionPerformed(e);
             }
         });
-        btnExecutePGSQL.addActionListener(new ActionListener(){
+        btnExecutePGSQL.addActionListener(new ActionListener()
+        {
             @Override
             public void actionPerformed(ActionEvent e)
             {
                 btnExecutePGSQLActionPerformed(e);
             }
         });
-                
+
     }
     private RSyntaxTextArea getRSyntaxTextArea()
     {
         RSyntaxTextArea rsta = new RSyntaxTextArea();
         rsta.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_SQL);
         rsta.setCodeFoldingEnabled(true);
-        rsta.setBracketMatchingEnabled(false);;
+        rsta.setBracketMatchingEnabled(false);
+        //rsta.setWhitespaceVisible(true);
         rsta.setMinimumSize(new Dimension(2, 1));
-        //rsta.setFont(new Font());
-        //rsta.setForeground(new Color());        
-        //rsta.setText(initText)        
         return rsta;
     }
     private RTextScrollPane getRTextScrollPane(RSyntaxTextArea rsta)
     {
         RTextScrollPane rtsp = new RTextScrollPane(rsta, true);
-        
+        //rtsp.setPreferredSize(new Dimension(100, 50));
+        /*
         Gutter gt = rtsp.getGutter();
-        gt.setBorderColor(Color.green);
-        gt.setLineNumberColor(Color.red);
-        //gt.setActiveLineRangeColor(Color.yellow);//this is default setting
-        
-        //gt.setBookmarkingEnabled(true);
-        //ImageIcon errorLineIcon = new ImageIcon(Toolkit.getDefaultToolkit()
-        //        .getImage(getClass().getResource("/lyy/pg/orcl/image/ddnull.png")));
-        //gt.setBookmarkIcon(errorLineIcon);
-        
-        //rtsp.setPreferredSize(new Dimension(100, 50));//350，150
+        Color lightc = new Color(209, 196, 233);
+        Color wightc = new Color(20, 195, 91);
+        gt.setBorderColor(lightc);//Color.green
+        gt.setLineNumberColor(lightc);//Color.red
+        //gt.setActiveLineRangeColor(wightc);//not work, Color.yellow is default setting
+        gt.setBookmarkingEnabled(true);
+        ImageIcon errorLineIcon = new ImageIcon(Toolkit.getDefaultToolkit()
+                .getImage(getClass().getResource("/lyy/pg/orcl/image/ddnull.png")));
+        gt.setBookmarkIcon(errorLineIcon);
+        */        
         return rtsp;
-    }    
+    }
     private void btnOpenConvertActionPerformed(ActionEvent e)
     {
         logger.debug("Enter:" + e.getActionCommand());
@@ -768,19 +796,24 @@ public class MainView extends JFrame
     private void cbbObjTypeActionPerformed(ActionEvent e)
     {
         logger.debug(e.getActionCommand());
+        if (cbbObjType.getSelectedIndex() == -1)
+        {
+            return;
+        }
         try
-        {        
+        {
             DBSource sdb = getSourceDB();
-            if(sdb == null)
+            if (sdb == null)
             {
-                throw new Exception(constBundle.getString("configDBSource"));
+                cbbObjType.setSelectedIndex(-1);
+                throw new Exception(constBundle.getString("configDBSource"));                
             }
             DBEnum.DBObject type = (DBEnum.DBObject) cbbObjType.getSelectedItem();
             if (type == null)
             {
                 throw new Exception(constBundle.getString("nullItemNotAllowed"));
             }
-            List<ObjInfo> objectList = SQLFactory.getTypedObjects(sdb, type);            
+            List<ObjInfo> objectList = SQLFactory.getTypedObjects(sdb, type);
             cbbObjects.setModel(new DefaultComboBoxModel(objectList.toArray()));
             cbbObjects.setSelectedIndex(-1);
         } catch (Exception ex)
@@ -790,7 +823,7 @@ public class MainView extends JFrame
                     constBundle.getString("error"), JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace(System.out);
         }
-        
+
     }
     private void cbbObjectsActionPerformed(ActionEvent e)
     {
@@ -800,9 +833,9 @@ public class MainView extends JFrame
             return;
         }
         try
-        {            
+        {
             DBSource sdb = getSourceDB();
-            if(sdb == null)
+            if (sdb == null)
             {
                 throw new Exception(constBundle.getString("configDBSource"));
             }
@@ -825,7 +858,7 @@ public class MainView extends JFrame
     {
         logger.debug(e.getActionCommand());
         try
-        {            
+        {
             String sddl = rstaSource.getText();//epSource.getText();
             ConvertMain converterMain = new ConvertMain();
             String hgddl = converterMain.convert(sddl);
@@ -837,7 +870,7 @@ public class MainView extends JFrame
             JOptionPane.showMessageDialog(this, ex.getMessage(),
                     constBundle.getString("error"), JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace(System.out);
-        }        
+        }
     }
     private void btnExecutePGSQLActionPerformed(ActionEvent e)
     {
@@ -868,6 +901,7 @@ public class MainView extends JFrame
             ex.printStackTrace(System.out);
         }
     }
+
     
     public static void main(String args[])
     {
@@ -880,7 +914,7 @@ public class MainView extends JFrame
             System.err.println(ex.getMessage());
             ex.printStackTrace(System.out);
         }
-
+        
         /* Create and display the form */
         EventQueue.invokeLater(new Runnable()
         {
@@ -911,8 +945,6 @@ public class MainView extends JFrame
     private javax.swing.JComboBox cbbObjects;
     private javax.swing.JComboBox cbbSourceDB;
     private javax.swing.JComboBox cbbTargetDB;
-    private javax.swing.JEditorPane epPG;
-    private javax.swing.JEditorPane epSource;
     private javax.swing.JPanel pnlConvert;
     private javax.swing.JPanel pnlDatatype;
     private javax.swing.JPanel pnlMigrate;
