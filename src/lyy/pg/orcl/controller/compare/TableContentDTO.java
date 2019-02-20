@@ -1,4 +1,4 @@
-package com.highgo.admin.migrator.comparator.model;
+package lyy.pg.orcl.controller.compare;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -7,15 +7,15 @@ import java.util.Comparator;
 import java.util.List;
 
 import com.highgo.admin.migrator.comparator.controller.OracleNumberFormat;
-import com.highgo.admin.migrator.util.MigratorEnum;
-import com.highgo.admin.migrator.util.MigratorEnum.DB;
+import lyy.pg.orcl.util.DBEnum;
+
 
 /*
  for display Table Content Compare
  */
 public class TableContentDTO {	
 	
-	private DB db;
+	private DBEnum db;
 	private String name;//table
 	//Step1 for compare table content
 	private List<ColumnDTO> columns;//column name, data type, isPK
@@ -26,7 +26,7 @@ public class TableContentDTO {
 	
 	private TableContentDTO hgTableContent;
 
-	public TableContentDTO(DB db, String name) {
+	public TableContentDTO(DBEnum db, String name) {
 		this.db = db;
 		this.name = name;
 		this.columns = new ArrayList<ColumnDTO>();
@@ -62,7 +62,7 @@ public class TableContentDTO {
 			return  null;
 		}
 		StringBuilder joint = new StringBuilder();
-		if(DB.HIGHGO == db)
+		if(DBEnum.PostgreSQL == db)
 		{
 			for(ColumnDTO col : columns)//to_char(systimestamp,'YYYY-MM-DD HH24:MI:SS.US') 
 			{
@@ -158,23 +158,23 @@ public class TableContentDTO {
 
 	public String getShowCount(boolean isCount) {
 		if (isCount) {
-			return -1 == count ? MigratorEnum.NotApplicable : String.valueOf(count);
+			return -1 == count ? DBEnum.NotApplicable : String.valueOf(count);
 		} else {
-			return MigratorEnum.NotCompare;
+			return DBEnum.NotCompare;
 		}
 	}
 	public String getShowSum(boolean isSum) {
 		if (isSum) {
-			return sum == null ? MigratorEnum.NotApplicable : String.valueOf(sum);
+			return sum == null ? DBEnum.NotApplicable : String.valueOf(sum);
 		} else {
-			return MigratorEnum.NotCompare;
+			return DBEnum.NotCompare;
 		}
 	}
 	public String getShowMd5(boolean isMd5) {
 		if (isMd5) {
-			return -1 == md5 ? MigratorEnum.NotApplicable : String.valueOf(md5);
+			return -1 == md5 ? DBEnum.NotApplicable : String.valueOf(md5);
 		} else {
-			return MigratorEnum.NotCompare;
+			return DBEnum.NotCompare;
 		}
 	}
 	

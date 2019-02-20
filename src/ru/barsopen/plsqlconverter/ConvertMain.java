@@ -149,8 +149,8 @@ public class ConvertMain
             logger.debug("outSql = " + outSql);
         } catch (Exception e)
         {
-            e.printStackTrace();
             logger.error(e.getMessage());
+            e.printStackTrace();
             throw new Exception(e);
         }
     }

@@ -14,6 +14,8 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import lyy.pg.orcl.controller.KeywordFactory;
 import lyy.pg.orcl.model.DBSource;
+import lyy.pg.orcl.util.CommonUtils;
+import lyy.pg.orcl.util.DBEnum;
 import lyy.pg.orcl.util.JdbcUtil;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -27,7 +29,6 @@ public class ContentCompare extends BaseCompare
 
     public static void main(String[] args)
     {
-
         BigDecimal bd = new BigDecimal(0);
         bd = bd.add(new BigDecimal(12.12));
         bd = bd.add(new BigDecimal(10.1111));
@@ -35,26 +36,27 @@ public class ContentCompare extends BaseCompare
         System.out.println(new BigDecimal(10.1111));
 
         DBSource hgDB = new DBSource();
-        hgDB.setDBType(DB.HIGHGO);
+        hgDB.setDBType(DBEnum.PostgreSQL);
         hgDB.setHost("localhost");
-        hgDB.setPort("5867");
-        hgDB.setDb("lyy");
+        hgDB.setPort(5867);
+        hgDB.setArg("lyy");
         hgDB.setUser("lyy");
         hgDB.setPwd("lyy");
         SchemaDTO hgSchema = new SchemaDTO(16404, "lyy");
 
         DBSource sourceDB = new DBSource();
-        sourceDB.setDBType(DB.ORACLE);
+        sourceDB.setDBType(DBEnum.Oracle);
         sourceDB.setHost("192.168.100.106");
-        sourceDB.setPort("1521");
-        sourceDB.setDb("orcl");
+        sourceDB.setPort(1521);
+        sourceDB.setArgType(DBEnum.ArgType.Service);
+        sourceDB.setArg("orcl");
         sourceDB.setUser("lyy");
         sourceDB.setPwd("lyy");
         SchemaDTO sourceSchema = new SchemaDTO(0l, "LYY");
 
         List<ObjectDTO> list = new ArrayList<>();
-        ObjectDTO obj = new ObjectDTO(DB.ORACLE, "LYY");
-        obj.setSameHgObject(new ObjectDTO(DB.HIGHGO, "lyy"));
+        ObjectDTO obj = new ObjectDTO(DBEnum.Oracle, "LYY");
+        obj.setSameHgObject(new ObjectDTO(DBEnum.PostgreSQL, "lyy"));
         list.add(obj);
 
         try
@@ -367,14 +369,14 @@ public class ContentCompare extends BaseCompare
                 pstmt.clearParameters();
 
                 ObjectDTO hgTable = table.getSameHgObject();
-                TableContentDTO hgtc = new TableContentDTO(DB.HIGHGO, hgTable.getName());
+                TableContentDTO hgtc = new TableContentDTO(DBEnum.PostgreSQL, hgTable.getName());
                 hgpstmt.setLong(1, hgSchema.getId());
                 hgpstmt.setString(2, hgtc.getName());
                 hgrs = hgpstmt.executeQuery();
                 while (hgrs.next())
                 {
                     // 1 or '1' getBoolean=true, 0 or '0' getBoolean=false
-                    hgtc.addColumn(new ColumnDTO(DB.HIGHGO, hgrs.getString(1), hgrs.getString(2), hgrs.getInt(3), -1));
+                    hgtc.addColumn(new ColumnDTO(DBEnum.PostgreSQL, hgrs.getString(1), hgrs.getString(2), hgrs.getInt(3), -1));
                     // logger.debug("HG:" + hgrs.getString(1) + " " + hgrs.getBoolean(2) + " " + hgrs.getString(3) + " " + hgrs.getInt(4));
                 }
                 hgtc.sortColumns();
@@ -687,7 +689,7 @@ public class ContentCompare extends BaseCompare
         }
     }
 
-    private String getMd5Sql(SchemaDTO schema, TableContentDTO tc, boolean md5, DB db)
+    private String getMd5Sql(SchemaDTO schema, TableContentDTO tc, boolean md5, DBEnum db)
     {
         if (md5)
         {
@@ -697,12 +699,12 @@ public class ContentCompare extends BaseCompare
                 return null;
             } else
             {
-                String quoetdSchema = DB.HIGHGO == db ? KeywordFactory.getInstance().quotedName4Hgdb(schema.getName())
+                String quoetdSchema = DBEnum.PostgreSQL == db ? KeywordFactory.getInstance().quotedName4Pg(schema.getName())
                         : KeywordFactory.getInstance().quotedName4Oracle(schema.getName());
-                String quoetdTable = DB.HIGHGO == db ? KeywordFactory.getInstance().quotedName4Hgdb(tc.getName())
+                String quoetdTable = DBEnum.PostgreSQL == db ? KeywordFactory.getInstance().quotedName4Pg(tc.getName())
                         : KeywordFactory.getInstance().quotedName4Oracle(tc.getName());
 
-                String md5func = DB.HIGHGO == db ? "pg_catalog.md5" : quoetdSchema + "." + ORACLE_MD5_NAME;
+                String md5func = DBEnum.PostgreSQL == db ? "pg_catalog.md5" : quoetdSchema + "." + ORACLE_MD5_NAME;
                 String md5Sql = "SELECT " + md5func + "(" + columnJoint + ") FROM "
                         + quoetdSchema + "." + quoetdTable;
 
@@ -715,16 +717,16 @@ public class ContentCompare extends BaseCompare
         }
     }
 
-    private String getCountSumSql(SchemaDTO schema, TableContentDTO tc, boolean count, boolean sum, DB db)
+    private String getCountSumSql(SchemaDTO schema, TableContentDTO tc, boolean count, boolean sum, DBEnum db)
     {
         if (count || sum)
         {
-            String quoetdSchema = DB.HIGHGO == db ? KeywordFactory.getInstance().quotedName4Hgdb(schema.getName())
+            String quoetdSchema = DBEnum.PostgreSQL == db ? KeywordFactory.getInstance().quotedName4Pg(schema.getName())
                     : KeywordFactory.getInstance().quotedName4Oracle(schema.getName());
-            String quoetdTable = DB.HIGHGO == db ? KeywordFactory.getInstance().quotedName4Hgdb(tc.getName())
+            String quoetdTable = DBEnum.PostgreSQL == db ? KeywordFactory.getInstance().quotedName4Pg(tc.getName())
                     : KeywordFactory.getInstance().quotedName4Oracle(tc.getName());
 
-            String nvl_func = DB.HIGHGO == db ? "coalesce" : "NVL";//because HGDB NVL need pg_catalog
+            String nvl_func = DBEnum.PostgreSQL == db ? "coalesce" : "NVL";//because HGDB NVL need pg_catalog
 
             StringBuilder countSumSql = new StringBuilder("SELECT ");
             if (count)
@@ -848,127 +850,6 @@ public class ContentCompare extends BaseCompare
         logger.debug("pksize=" + pksize);
         return pksize;
     }
-	//prepare for record compare
-
-    /*unused
-     @Deprecated
-     public BlockingQueue<TableContentDTO> getTableColumns2(
-     DBSource sourceDB, DBSource hgDB, SchemaDTO sourceSchema, SchemaDTO hgSchema,
-     List<ObjectDTO> samelist) throws Exception
-     {
-     logger.debug("Enter:" + sourceDB.getDBType());		
-     BlockingQueue<TableContentDTO> list = new LinkedBlockingQueue<>();
-     if(samelist == null || samelist.isEmpty())
-     {
-     logger.warn("Nothing to compare, do nothing and return empty list.");
-     return list;
-     }
-	    
-     //	    long start = System.currentTimeMillis();
-     //	    //single thread 4342ms,
-     //		int allThread = samelist.size();
-     //		int initThread = allThread > CoreThread ? CoreThread : allThread;
-     //		ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(
-     //				initThread, allThread, 0L, TimeUnit.SECONDS,
-     //				new LinkedBlockingQueue<Runnable>());
-     //		CountDownLatch doneSignal = new CountDownLatch(allThread);
-     for (ObjectDTO table : samelist) 
-     {
-     //threadPoolExecutor.submit(() -> {
-     TableContentDTO tc = getSourceTableColumn(sourceDB, sourceSchema, table);
-     ObjectDTO hgTable = table.getSameHgObject();
-     tc.setHgTableContent(getHgTableColumn(hgDB, hgSchema, hgTable));
-     try {
-     list.put(tc);
-     } catch (InterruptedException e) {
-     e.printStackTrace();
-     }
-     //doneSignal.countDown();
-     //});
-     }
-		
-     //		doneSignal.await();
-     //		logger.debug("Cost:" + ((System.currentTimeMillis() - start) / 1000));
-     //		try {
-     //			threadPoolExecutor.shutdownNow();
-     //		} catch (Exception e) {
-     //			logger.error("Error waiting for ExecutorService shutdown:" + e.getMessage());
-     //			e.printStackTrace();
-     //		}
-
-     logger.debug("Return: size = " + list.size());
-     return list;
-     }
-     private TableContentDTO getHgTableColumn(DBSource hgDB, SchemaDTO hgSchema, ObjectDTO hgTable) 
-     {
-     logger.debug("Enter:" + hgTable.getName());
-		
-     TableContentDTO tabc = new TableContentDTO(DB.HIGHGO, hgTable.getName());
-     Connection hgconn = null;
-     PreparedStatement hgpstmt = null;
-     ResultSet hgrs = null;
-     try {
-     hgconn = JdbcUtil.getConnection(hgDB);
-     //logger.debug(hgdbSql);
-     hgpstmt = hgconn.prepareStatement(HgColumnSql);
-						
-     hgpstmt.setLong(1, hgSchema.getId());
-     hgpstmt.setString(2, hgTable.getName());
-     hgrs = hgpstmt.executeQuery();
-     while (hgrs.next()) {
-     // 1 or '1' getBoolean=true, 0 or '0' getBoolean=false
-     tabc.addColumn(new ColumnDTO(DB.HIGHGO, hgrs.getString(1), hgrs.getString(2),  hgrs.getInt(3), hgrs.getInt(4)));//hgrs.getBoolean(2), 
-     }
-     tabc.sortColumns();
-     hgpstmt.clearBatch();
-     hgpstmt.clearParameters();
-				
-     } catch (Exception ex) {
-     logger.error(ex.getMessage());
-     ex.printStackTrace(System.out);
-     } finally {
-     JdbcUtil.close(hgrs);
-     JdbcUtil.close(hgpstmt);
-     JdbcUtil.close(hgconn);
-     }
-
-     logger.debug(""+tabc.getColumns().size());
-     return tabc;
-     }
-     private TableContentDTO getSourceTableColumn(DBSource sourceDB, SchemaDTO sourceSchema, ObjectDTO table) 
-     {
-     logger.debug("Enter:" + table.getName());
-		
-     TableContentDTO tabc = new TableContentDTO(sourceDB.getDBType(), table.getName());
-     Connection conn = null;
-     PreparedStatement pstmt = null;
-     ResultSet rs = null;
-     try {
-     conn = JdbcUtil.getConnection(sourceDB);
-     logger.debug(OracleColumnSql);
-     pstmt = conn.prepareStatement(OracleColumnSql);
-			
-     pstmt.setString(1, sourceSchema.getName());
-     pstmt.setString(2, table.getName());
-     rs = pstmt.executeQuery();
-     while (rs.next()) {
-     // 1 or '1' getBoolean=true, 0 or '0' getBoolean=false
-     tabc.addColumn(new ColumnDTO(sourceDB.getDBType(), rs.getString(1), rs.getString(2), rs.getInt(3), rs.getInt(4)));//rs.getBoolean(2),
-     logger.debug(rs.getString(1) + " " + rs.getBoolean(2) + " " + rs.getString(3) + " " +rs.getInt(4));
-     }
-     tabc.sortColumns();
-     pstmt.clearParameters();
-		
-     } catch (Exception ex) {
-     logger.error(ex.getMessage());
-     ex.printStackTrace(System.out);
-     } finally {
-     JdbcUtil.close(rs);
-     JdbcUtil.close(pstmt);
-     JdbcUtil.close(conn);
-     }
-
-     return tabc;
-     }
-     unused*/
+    //prepare for record compare
+   
 }

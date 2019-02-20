@@ -1,19 +1,19 @@
-package com.highgo.admin.migrator.comparator.model;
+package lyy.pg.orcl.controller.compare;
 
-import com.highgo.admin.migrator.controller.KeyWordFactory;
-import com.highgo.admin.migrator.util.MigratorEnum.DB;
+import lyy.pg.orcl.controller.KeywordFactory;
+import lyy.pg.orcl.util.DBEnum;
 
 /*
  * now only for Table Name Compare
  */
 public class ObjectDTO extends Object {
 
-	private DB db;
+	private DBEnum db;
 	//private DBObject type;
 	private String name;//name came from Oracle/HGDB system table(originally never quoted)
 	private ObjectDTO sameHgObject;
 	
-	public ObjectDTO(DB db, String name)
+	public ObjectDTO(DBEnum db, String name)
 	{
 		this.db = db;
 		this.name = name;
@@ -35,7 +35,7 @@ public class ObjectDTO extends Object {
 		return name;
 	}
 	
-	public DB getDb() {
+	public DBEnum getDb() {
 		return db;
 	}
 
@@ -54,7 +54,7 @@ public class ObjectDTO extends Object {
 			ObjectDTO tab = (ObjectDTO) obj;
 			boolean flag = (this.hashCode()==tab.hashCode());
 			//for same table
-			if(DB.ORACLE==db && DB.HIGHGO==tab.getDb() && flag)
+			if(DBEnum.Oracle==db && DBEnum.PostgreSQL==tab.getDb() && flag)
 			{
 				sameHgObject = tab;
 			}
@@ -68,12 +68,12 @@ public class ObjectDTO extends Object {
 	
 	@Override
 	public int hashCode() {
-		if(DB.HIGHGO == db)
+		if(DBEnum.PostgreSQL == db)
 		{
 			return name.hashCode();
-		} else if(DB.ORACLE == db)
+		} else if(DBEnum.Oracle == db)
 		{
-			String quotedName = KeyWordFactory.getInstance().quotedName2Hg(name, db);
+			String quotedName = KeywordFactory.getInstance().quotedName2Pg(name, db);
 			if (quotedName.startsWith("\"") && quotedName.endsWith("\"")) 
 			{
 				return name.hashCode();
@@ -90,20 +90,20 @@ public class ObjectDTO extends Object {
 	//for display in UI
 	public String getSourceName() 
 	{
-		return DB.HIGHGO != db ? name : "";// null
+		return DBEnum.PostgreSQL != db ? name : "";// null
 	}
 	public String getSourceType() 
 	{
 		return getSourceName() != null && !getSourceName().isEmpty() ? "TABLE" : "";// null
 	}
 
-	public String getHgdbName() 
+	public String getPgdbName() 
 	{
-		return DB.HIGHGO == db ? name : "";// null
+		return DBEnum.PostgreSQL == db ? name : "";// null
 	}
 	public String getHgdbType() 
 	{
-		return getHgdbName() != null && !getHgdbName().isEmpty() ? "TABLE" : "";// null
+		return getPgdbName() != null && !getPgdbName().isEmpty() ? "TABLE" : "";// null
 	}
 	
 }

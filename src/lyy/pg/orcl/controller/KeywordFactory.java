@@ -116,7 +116,7 @@ public class KeywordFactory
     }
 
     //for comparator's PG select sql
-    public String quotedName4PG(String name)
+    public String quotedName4Pg(String name)
     {
         if (!name.matches(PgNamePattern))
         {

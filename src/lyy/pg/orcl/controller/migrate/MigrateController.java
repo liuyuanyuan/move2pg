@@ -5,10 +5,13 @@
  */
 package lyy.pg.orcl.controller.migrate;
 
+import com.alibaba.druid.pool.DruidPooledConnection;
+import com.alibaba.druid.pool.DruidPooledResultSet;
 import java.awt.Desktop;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -54,6 +57,7 @@ import lyy.pg.orcl.util.DBEnum.DBObject;
 import lyy.pg.orcl.util.DBEnum.MigrateStatus;
 import lyy.pg.orcl.util.DBEnum.TabObject;
 import lyy.pg.orcl.util.DBEnum.TableMode;
+import lyy.pg.orcl.util.DruidHelper;
 import lyy.pg.orcl.util.JdbcUtil;
 import lyy.pg.orcl.util.StreamUtil;
 import oracle.jdbc.OracleResultSet;
@@ -119,10 +123,10 @@ public class MigrateController
     }
     
         
-    public void startMigrateThread(List<String[]> migrateLog, String logPath, DBSource sourceDBInfo, DBSource hgDBInfo,
+    public void startMigrateThread(List<String[]> migrateLog, String logRoot, DBSource sourceDBInfo, DBSource hgDBInfo,
             List<ObjInfo> choosedObjects, HashMap<String, String> datatypeMaps, MigrateMode migrateMode)
     {
-        MigrateRunnable mRunnable = new MigrateRunnable(migrateLog, logPath, 
+        MigrateRunnable mRunnable = new MigrateRunnable(migrateLog, logRoot, 
         		sourceDBInfo, hgDBInfo, choosedObjects, datatypeMaps, migrateMode);
         Thread thread = new Thread(mRunnable);
         thread.start();
@@ -130,18 +134,18 @@ public class MigrateController
     private class MigrateRunnable implements Runnable
     {
     	private List<String[]> migrateLog;
-        private String logPath;
+        private String logRoot;
         private DBSource sourceDBInfo;
         private DBSource hgDBInfo;
         private List<ObjInfo> choosedObjects;
         private HashMap<String, String> datatypeMaps;
         private MigrateMode migrateMode;
 
-        public MigrateRunnable(List<String[]> migrateLog, String logPath, DBSource sourceDBInfo, DBSource hgDBInfo,
+        public MigrateRunnable(List<String[]> migrateLog, String logRoot, DBSource sourceDBInfo, DBSource hgDBInfo,
         		List<ObjInfo> choosedObjects, HashMap<String, String> datatypeMaps, MigrateMode migrateMode)
         {
         	this.migrateLog = migrateLog;
-            this.logPath = logPath;
+            this.logRoot = logRoot;
             this.sourceDBInfo = sourceDBInfo;
             this.hgDBInfo = hgDBInfo;
             this.choosedObjects = choosedObjects;
@@ -152,30 +156,30 @@ public class MigrateController
         @Override
         public void run()
         {
-            migrate(migrateLog, logPath, sourceDBInfo, hgDBInfo, choosedObjects, datatypeMaps, migrateMode);
+            migrate(migrateLog, logRoot, sourceDBInfo, hgDBInfo, choosedObjects, datatypeMaps, migrateMode);
         }
     }
     
     
-    private void migrate(List<String[]> migrateLog, String logPath, DBSource sourceDBInfo, DBSource hgDBInfo,
+    private void migrate(List<String[]> migrateLog, String logRoot, DBSource sourceDBInfo, DBSource hgDBInfo,
             List<ObjInfo> choosedObjects, HashMap<String, String> datatypeMaps, MigrateMode migrateMode)
     {
         logger.debug("Enter");
 
-        logPath = logPath + File.separator + "migrator";
-        File file = new File(logPath);
+        logRoot = logRoot + File.separator + "migrator";
+        File file = new File(logRoot);
         if (!file.exists())
         {
             file.mkdirs();
-            logger.info("Log directory doesn't exist then create: " + logPath);
+            logger.info("Log directory doesn't exist then create: " + logRoot);
         }
         String str = Time4FileName.format(new Date());
         // int str = Time.format(new Date()).hashCode(); str = str < 0 ? -str : str;     
-        String pathScript = logPath + File.separator + "manual_object_" + str + ".sql";
+        String pathScript = logRoot + File.separator + "manual_object_" + str + ".sql";
         logger.info("pathScript=" + pathScript);
-        String pathError = logPath + File.separator + "object_error_" + str + ".sql";
+        String pathError = logRoot + File.separator + "object_error_" + str + ".sql";
         logger.info("pathError=" + pathError);
-        String pathResult = logPath + File.separator + "migration_" + str + ".html";
+        String pathResult = logRoot + File.separator + "migration_" + str + ".html";
         logger.info("pathResult=" + pathError);
         BufferedWriter pwScript = null;
         BufferedWriter pwError = null;
@@ -276,7 +280,7 @@ public class MigrateController
             openFile(pathResult);
 
             //because maybe not used any more then clean
-            DruidHelper.cleanDataSource();
+            //DruidHelper.cleanDataSource();
 
             //delete all temp file
             deleteAllTempFiles();

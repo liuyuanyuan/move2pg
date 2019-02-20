@@ -2570,3 +2570,24 @@ language plpgsql;
 2019-02-19 15:24:13.636  INFO [MainView.fillTbObject:623] Enter
 2019-02-19 15:24:13.636 ERROR [MainView.fillTbObject:653] 请先配置数据源！
 2019-02-19 15:24:16.802 DEBUG [MainView.btnOpenConvertActionPerformed:792] Enter:
+2019-02-20 11:44:06.608 DEBUG [MainView.<init>:56] Enter
+2019-02-20 11:44:09.752 DEBUG [MainView.btnOpenDatatypeActionPerformed:499] Enter:
+2019-02-20 11:44:09.753  INFO [MainView.fillTbDatatype:507] Enter
+2019-02-20 11:44:09.759 DEBUG [DatatypeFactory.getDefaultDatatypeCasts:223] Enter: sourceDB=Oracle
+2019-02-20 11:44:09.760  INFO [MainView.fillTbDatatype:521] datatypeList.size = 21
+2019-02-20 11:44:10.672 DEBUG [MainView.btnOpenMigrateActionPerformed:631] Enter:
+2019-02-20 11:44:10.674  INFO [MainView.fillTbObject:639] Enter
+2019-02-20 11:44:10.674 ERROR [MainView.fillTbObject:669] 请先配置数据源！
+2019-02-20 11:44:13.008 DEBUG [MainView.btnOpenConvertActionPerformed:826] Enter:
+2019-02-20 11:44:28.816 DEBUG [MainView.btnOpenMigrateActionPerformed:631] Enter:
+2019-02-20 11:44:28.819  INFO [MainView.fillTbObject:639] Enter
+2019-02-20 11:44:28.819 ERROR [MainView.fillTbObject:669] 请先配置数据源！
+2019-02-20 11:46:24.232 DEBUG [MainView.<init>:56] Enter
+2019-02-20 11:46:26.024 DEBUG [MainView.btnOpenConvertActionPerformed:826] Enter:
+2019-02-20 11:46:27.656 DEBUG [MainView.btnConvertActionPerformed:894] 转换
+2019-02-20 11:46:27.659 DEBUG [ConvertMain.execute:188] Enter
+2019-02-20 11:46:27.659 ERROR [ConvertMain.execute:193] inArgs or inSql is null, do nothing and return null.
+2019-02-20 11:46:27.659 ERROR [MainView.btnConvertActionPerformed:904] 
+2019-02-20 13:14:40.306 DEBUG [MainView.btnExecutePGSQLActionPerformed:912] 执行
+2019-02-20 13:14:40.306 ERROR [MainView.btnExecutePGSQLActionPerformed:933] 目标端PGSQL为空
+2019-02-20 13:14:42.746 DEBUG [MainView.btnCheckActionPerformed:941] 校验

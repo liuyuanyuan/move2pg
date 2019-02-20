@@ -1,4 +1,4 @@
-package com.highgo.admin.migrator.comparator.model;
+package lyy.pg.orcl.controller.compare;
 
 public class SchemaDTO {
 
@@ -9,16 +9,17 @@ public class SchemaDTO {
 		this.id = id;
 		this.name = name;
 	}
+        
+        @Override
+	public String toString() {
+		return name;
+	}
 
 	public long getId() {
 		return id;
 	}
 
 	public String getName() {
-		return name;
-	}
-
-	public String toString() {
 		return name;
 	}
 

@@ -26,6 +26,7 @@ import lyy.pg.orcl.model.DatatypeMapping;
 import lyy.pg.orcl.model.ObjInfo;
 import lyy.pg.orcl.controller.DatatypeFactory;
 import lyy.pg.orcl.controller.SQLFactory;
+import lyy.pg.orcl.controller.check.CheckController;
 import lyy.pg.orcl.util.DBEnum;
 import lyy.pg.orcl.util.DBEnum.DBObject;
 import lyy.pg.orcl.util.ReportUtil;
@@ -42,7 +43,7 @@ import ru.barsopen.plsqlconverter.ConvertMain;
  */
 public class MainView extends JFrame
 {
-    private Logger logger = LogManager.getLogger(getClass());
+    private final Logger logger = LogManager.getLogger(getClass());
     private final ResourceBundle constBundle = ResourceBundle.getBundle("constants");
 
     private RSyntaxTextArea rstaSource;
@@ -600,6 +601,22 @@ public class MainView extends JFrame
             }
         });
 
+        btnMigrate.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                btnMigrateActionPerformed(e);
+            }
+        });
+        btnCompare.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                btnCompareActionPerformed(e);
+            }
+        });
         btnReport.addActionListener(new ActionListener()
         {
             @Override
@@ -668,6 +685,16 @@ public class MainView extends JFrame
         {
             model.setValueAt(!(boolean) model.getValueAt(i, 0), i, 0);
         }
+    }
+    private void btnMigrateActionPerformed(ActionEvent e)
+    {
+        logger.debug(e.getActionCommand());
+        //todo
+    }
+    private void btnCompareActionPerformed(ActionEvent e)
+    {
+        logger.debug(e.getActionCommand());
+        //todo
     }
     private void btnReportActionPerformed(ActionEvent e)
     {
@@ -754,6 +781,14 @@ public class MainView extends JFrame
             public void actionPerformed(ActionEvent e)
             {
                 btnExecutePGSQLActionPerformed(e);
+            }
+        });
+        btnCheck.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                btnCheckActionPerformed(e);
             }
         });
 
@@ -860,6 +895,10 @@ public class MainView extends JFrame
         try
         {
             String sddl = rstaSource.getText();//epSource.getText();
+            if(sddl.isEmpty())
+            {
+                throw new Exception(constBundle.getString("noSourceSQL"));
+            }
             ConvertMain converterMain = new ConvertMain();
             String hgddl = converterMain.convert(sddl);
             //+ " \r\n $$ LANGUAGE plpgsql;";
@@ -901,7 +940,41 @@ public class MainView extends JFrame
             ex.printStackTrace(System.out);
         }
     }
-
+    private void btnCheckActionPerformed(ActionEvent e)
+    {
+        logger.debug(e.getActionCommand());
+        DBObject type = cbbObjType.getSelectedIndex() == -1 ? null : (DBObject) cbbObjType.getSelectedItem();
+        if (type != DBObject.Function && type != DBObject.Procedure)
+        {
+            JOptionPane.showMessageDialog(this, constBundle.getString("checkOnlySupportFuncProc"),
+                    constBundle.getString("info"), JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        ObjInfo obj = cbbObjects.getSelectedIndex() == -1 ? null : (ObjInfo) cbbObjects.getSelectedItem();
+        if (obj == null)
+        {
+            JOptionPane.showMessageDialog(this, constBundle.getString("noObjToCheck"),
+                    constBundle.getString("info"), JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        try
+        {
+            DBSource tdb = getTargetDB();
+            if (tdb == null)
+            {
+                throw new Exception(constBundle.getString("configDBSource"));
+            }
+            String result = CheckController.check(null, obj);
+            JOptionPane.showMessageDialog(this, result,
+                    constBundle.getString("info"), JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception ex)
+        {
+            logger.error(ex.getMessage());
+            JOptionPane.showMessageDialog(this, ex.getMessage(),
+                    constBundle.getString("error"), JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace(System.out);
+        }
+    }
     
     public static void main(String args[])
     {

@@ -1,4 +1,4 @@
-package com.highgo.admin.migrator.comparator.controller;
+package lyy.pg.orcl.controller.compare;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
