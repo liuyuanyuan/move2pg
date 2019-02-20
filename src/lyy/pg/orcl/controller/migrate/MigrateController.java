@@ -165,13 +165,11 @@ public class MigrateController
             List<ObjInfo> choosedObjects, HashMap<String, String> datatypeMaps, MigrateMode migrateMode)
     {
         logger.debug("Enter");
-
-        logRoot = logRoot + File.separator + "migrator";
+        
         File file = new File(logRoot);
         if (!file.exists())
         {
-            file.mkdirs();
-            logger.info("Log directory doesn't exist then create: " + logRoot);
+            logger.info(logRoot + " doesn't exist then create: " + file.mkdirs());
         }
         String str = Time4FileName.format(new Date());
         // int str = Time.format(new Date()).hashCode(); str = str < 0 ? -str : str;     
@@ -180,7 +178,7 @@ public class MigrateController
         String pathError = logRoot + File.separator + "object_error_" + str + ".sql";
         logger.info("pathError=" + pathError);
         String pathResult = logRoot + File.separator + "migration_" + str + ".html";
-        logger.info("pathResult=" + pathError);
+        logger.info("pathResult=" + pathResult);
         BufferedWriter pwScript = null;
         BufferedWriter pwError = null;
         BufferedWriter pwResult = null;

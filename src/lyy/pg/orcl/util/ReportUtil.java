@@ -20,7 +20,7 @@ public class ReportUtil
 
     private static final Logger logger = LogManager.getLogger(ReportUtil.class);
     private final static SimpleDateFormat Time4FileName = new SimpleDateFormat("yyyyMMddHHmmss");
-    private final static String ReportRoot = new File("").getAbsoluteFile() + File.separator + "Reports" + File.separator;
+    public final static String ReportRoot = new File("").getAbsoluteFile() + File.separator + "MigrateResult" ;
 
     static
     {
@@ -38,7 +38,7 @@ public class ReportUtil
         BufferedWriter bwResport = null;
         try
         {
-            fileName = ReportRoot + "MigrateReport_" + Time4FileName.format(new Date()) + ".html";
+            fileName = ReportRoot + File.separator + "MigrateReport_" + Time4FileName.format(new Date()) + ".html";
             bwResport = new BufferedWriter(new FileWriter(fileName));
             writeLog(bwResport, ContentBefore.replace("SchemaName", schema) + rows + ContentAfter);
             openFile(fileName);

@@ -58,7 +58,6 @@ public class ContentCompare extends BaseCompare
         ObjectDTO obj = new ObjectDTO(DBEnum.Oracle, "LYY");
         obj.setSameHgObject(new ObjectDTO(DBEnum.PostgreSQL, "lyy"));
         list.add(obj);
-
         try
         {
             ContentCompare tc = new ContentCompare();
@@ -71,7 +70,7 @@ public class ContentCompare extends BaseCompare
 
     private final Logger logger = LogManager.getLogger(getClass());
 
-    private final String ORACLE_MD5_NAME = "MD5_HIGHGO";
+    private final String ORACLE_MD5_NAME = "MD5_ORACL2PG";
     private final String OracleColumnSql = "SELECT DISTINCT col.column_name \r\n"
             + ", col.data_type AS fulltypename, col.data_scale \r\n"
             + ", col.data_precision \r\n"
@@ -79,7 +78,7 @@ public class ContentCompare extends BaseCompare
             + " FROM dba_tab_columns col \r\n"
             + " WHERE col.owner=? AND col.table_name=? \r\n"
             + " ORDER BY lowername ASC";
-    private final String HgColumnSql = "SELECT DISTINCT pg_attribute.attname AS name \r\n"
+    private final String PgColumnSql = "SELECT DISTINCT pg_attribute.attname AS name \r\n"
             + " , pg_type.typname AS typename, pg_attribute.atttypmod AS scale \r\n"
             + " , format_type(pg_type.oid,pg_attribute.atttypmod) AS fulltypename \r\n"
             + " , lower(pg_attribute.attname) lowername \r\n"
@@ -121,7 +120,6 @@ public class ContentCompare extends BaseCompare
     private final int InitMd5Value = -1;
     private final long InitRowCount = -1;
     private final BigDecimal InitSumValue = null;
-
     private ThreadPoolExecutor threadPoolExecutor;
 
     public ContentCompare()
@@ -130,7 +128,7 @@ public class ContentCompare extends BaseCompare
     }
 
     //prepare for content compare
-    public boolean hasMD5_HIGHGO(DBSource sourceDB, SchemaDTO sourceSchema) throws Exception
+    public boolean hasMD5_ORCL2PG(DBSource sourceDB, SchemaDTO sourceSchema) throws Exception
     {
         int flag = 0;
         Connection conn = null;
@@ -162,7 +160,7 @@ public class ContentCompare extends BaseCompare
         return (1 == flag);
     }
 
-    public boolean createMD5_HIGHGO_4Oracle(DBSource sourceDB, SchemaDTO sourceSchema) throws Exception
+    public boolean createMD5_ORCL2PG_4Oracle(DBSource sourceDB, SchemaDTO sourceSchema) throws Exception
     {
         boolean created = false;
         Connection conn = null;
@@ -346,7 +344,7 @@ public class ContentCompare extends BaseCompare
 
             hgconn = JdbcUtil.getConnection(hgDB);
             //logger.debug("hgColumnSql=" + HgColumnSql);
-            hgpstmt = hgconn.prepareStatement(HgColumnSql);
+            hgpstmt = hgconn.prepareStatement(PgColumnSql);
             for (ObjectDTO table : samelist)
             {
                 if (stop.get())

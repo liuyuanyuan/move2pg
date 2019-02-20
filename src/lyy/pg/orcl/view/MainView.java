@@ -12,6 +12,9 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 import javax.swing.DefaultComboBoxModel;
@@ -27,8 +30,12 @@ import lyy.pg.orcl.model.ObjInfo;
 import lyy.pg.orcl.controller.DatatypeFactory;
 import lyy.pg.orcl.controller.SQLFactory;
 import lyy.pg.orcl.controller.check.CheckController;
+import lyy.pg.orcl.controller.migrate.MigrateController;
+import lyy.pg.orcl.model.MigrateMode;
 import lyy.pg.orcl.util.DBEnum;
 import lyy.pg.orcl.util.DBEnum.DBObject;
+import lyy.pg.orcl.util.DBEnum.DataMode;
+import lyy.pg.orcl.util.DBEnum.TableMode;
 import lyy.pg.orcl.util.ReportUtil;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -45,7 +52,7 @@ public class MainView extends JFrame
 {
     private final Logger logger = LogManager.getLogger(getClass());
     private final ResourceBundle constBundle = ResourceBundle.getBundle("constants");
-
+    
     private RSyntaxTextArea rstaSource;
     //private RTextScrollPane rtspSource;
     private RSyntaxTextArea rstaPG;
@@ -133,7 +140,9 @@ public class MainView extends JFrame
         spSource = new javax.swing.JScrollPane();
         spPG = new javax.swing.JScrollPane();
         btnCheck = new javax.swing.JButton();
+        pnlStatus = new javax.swing.JPanel();
         tfStatus = new javax.swing.JTextField();
+        progressBar = new javax.swing.JProgressBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -181,11 +190,11 @@ public class MainView extends JFrame
         pnlWelcome.setLayout(pnlWelcomeLayout);
         pnlWelcomeLayout.setHorizontalGroup(
             pnlWelcomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(spWelcome, javax.swing.GroupLayout.DEFAULT_SIZE, 695, Short.MAX_VALUE)
+            .addComponent(spWelcome, javax.swing.GroupLayout.DEFAULT_SIZE, 735, Short.MAX_VALUE)
         );
         pnlWelcomeLayout.setVerticalGroup(
             pnlWelcomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(spWelcome, javax.swing.GroupLayout.DEFAULT_SIZE, 393, Short.MAX_VALUE)
+            .addComponent(spWelcome, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
         );
 
         tbMain.addTab(constBundle.getString("welcomeTitle"), pnlWelcome);
@@ -208,11 +217,11 @@ public class MainView extends JFrame
         pnlDatatype.setLayout(pnlDatatypeLayout);
         pnlDatatypeLayout.setHorizontalGroup(
             pnlDatatypeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(spDatatype, javax.swing.GroupLayout.DEFAULT_SIZE, 695, Short.MAX_VALUE)
+            .addComponent(spDatatype, javax.swing.GroupLayout.DEFAULT_SIZE, 735, Short.MAX_VALUE)
         );
         pnlDatatypeLayout.setVerticalGroup(
             pnlDatatypeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(spDatatype, javax.swing.GroupLayout.DEFAULT_SIZE, 393, Short.MAX_VALUE)
+            .addComponent(spDatatype, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
         );
 
         tbMain.addTab(constBundle.getString("datatypeTitle"), pnlDatatype);
@@ -275,7 +284,7 @@ public class MainView extends JFrame
                 .addComponent(rbtnReverse)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(rbtnNone)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 132, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 172, Short.MAX_VALUE)
                 .addComponent(btnMigrate)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCompare)
@@ -288,7 +297,7 @@ public class MainView extends JFrame
         pnlMigrateLayout.setVerticalGroup(
             pnlMigrateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlMigrateLayout.createSequentialGroup()
-                .addComponent(spObject, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
+                .addComponent(spObject, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlMigrateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rbtnAll)
@@ -331,8 +340,8 @@ public class MainView extends JFrame
                 .addContainerGap()
                 .addComponent(cbbObjType, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbbObjects, 0, 43, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 195, Short.MAX_VALUE)
+                .addComponent(cbbObjects, 0, 64, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 214, Short.MAX_VALUE)
                 .addComponent(btnConvert)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnExecutePGSQL)
@@ -352,7 +361,7 @@ public class MainView extends JFrame
                     .addComponent(btnConvert)
                     .addComponent(btnCheck))
                 .addGap(9, 9, 9)
-                .addComponent(spEditor, javax.swing.GroupLayout.DEFAULT_SIZE, 351, Short.MAX_VALUE))
+                .addComponent(spEditor, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE))
         );
 
         tbMain.addTab(constBundle.getString("convertTitle"), pnlConvert);
@@ -360,10 +369,35 @@ public class MainView extends JFrame
         getContentPane().add(tbMain, java.awt.BorderLayout.CENTER);
         tbMain.getAccessibleContext().setAccessibleName(constBundle.getString("welcomeTitle"));
 
+        pnlStatus.setPreferredSize(new java.awt.Dimension(723, 24));
+
         tfStatus.setEditable(false);
-        tfStatus.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        tfStatus.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         tfStatus.setText("current status...");
-        getContentPane().add(tfStatus, java.awt.BorderLayout.PAGE_END);
+        tfStatus.setBorder(null);
+        tfStatus.setOpaque(false);
+
+        javax.swing.GroupLayout pnlStatusLayout = new javax.swing.GroupLayout(pnlStatus);
+        pnlStatus.setLayout(pnlStatusLayout);
+        pnlStatusLayout.setHorizontalGroup(
+            pnlStatusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlStatusLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(tfStatus, javax.swing.GroupLayout.DEFAULT_SIZE, 524, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        pnlStatusLayout.setVerticalGroup(
+            pnlStatusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(tfStatus)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlStatusLayout.createSequentialGroup()
+                .addGap(5, 5, 5)
+                .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(5, 5, 5))
+        );
+
+        getContentPane().add(pnlStatus, java.awt.BorderLayout.PAGE_END);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -527,6 +561,18 @@ public class MainView extends JFrame
             model.addRow(rowData);
         }
     }
+    private HashMap<String, String> getDatatypeMap()
+    {
+        HashMap<String, String> datatypeMaps = new HashMap();
+
+        DefaultTableModel model = (DefaultTableModel) tbDatatype.getModel();
+        for (int i = 0; i < model.getRowCount(); i++)
+        {
+            datatypeMaps.put(model.getValueAt(i, 0).toString(), model.getValueAt(i, 1).toString());
+        }
+        
+        return datatypeMaps;
+    }
 
     //migrate
     private void initPnlMigrate()
@@ -661,7 +707,7 @@ public class MainView extends JFrame
             {
                 Object[] rowData = new Object[5];
                 rowData[0] = false;
-                rowData[1] = obj.getName();
+                rowData[1] = obj;
                 model.addRow(rowData);
             }
         } catch (Exception ex)
@@ -686,10 +732,55 @@ public class MainView extends JFrame
             model.setValueAt(!(boolean) model.getValueAt(i, 0), i, 0);
         }
     }
+    private List<ObjInfo> getChoosedObject()
+    {
+        List<ObjInfo> choosedObjects = new ArrayList();
+
+        DefaultTableModel model = (DefaultTableModel) tbObject.getModel();
+        for (int i = 0; i < model.getRowCount(); i++)
+        {
+            if ((Boolean) model.getValueAt(i, 0))
+            {
+                choosedObjects.add((ObjInfo) model.getValueAt(i, 1));
+            }
+        }
+
+        return choosedObjects;
+    }
     private void btnMigrateActionPerformed(ActionEvent e)
     {
         logger.debug(e.getActionCommand());
-        //todo
+
+        List<String[]> migrateLog = new ArrayList<>();
+        String logRoot = ReportUtil.ReportRoot;
+        logger.debug("logRoot=" + logRoot);
+        DBSource sourceDBInfo = getSourceDB();
+        if (sourceDBInfo == null)
+        {
+            JOptionPane.showMessageDialog(this, constBundle.getString("noSourceDBConfiged"),
+                    constBundle.getString("warning"), JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        DBSource hgDBInfo = getTargetDB();
+        if (hgDBInfo == null)
+        {
+            JOptionPane.showMessageDialog(this, constBundle.getString("noTargetDBConfiged"),
+                    constBundle.getString("warning"), JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        List<ObjInfo> choosedObjects = getChoosedObject();
+        if (choosedObjects.isEmpty())
+        {
+            JOptionPane.showMessageDialog(this, constBundle.getString("noObjectChoosed"),
+                    constBundle.getString("warning"), JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        HashMap<String, String> datatypeMaps = getDatatypeMap();
+        MigrateMode migrateMode = new MigrateMode(TableMode.Generally, DataMode.Insert, 500, 500, "\"", ",");//unused
+
+        MigrateController mc = new MigrateController();
+        mc.startMigrateThread(migrateLog, logRoot, sourceDBInfo, hgDBInfo,
+                choosedObjects, datatypeMaps, migrateMode);
     }
     private void btnCompareActionPerformed(ActionEvent e)
     {
@@ -1021,7 +1112,9 @@ public class MainView extends JFrame
     private javax.swing.JPanel pnlConvert;
     private javax.swing.JPanel pnlDatatype;
     private javax.swing.JPanel pnlMigrate;
+    private javax.swing.JPanel pnlStatus;
     private javax.swing.JPanel pnlWelcome;
+    private javax.swing.JProgressBar progressBar;
     private javax.swing.JRadioButton rbtnAll;
     private javax.swing.JRadioButton rbtnNone;
     private javax.swing.JRadioButton rbtnReverse;
