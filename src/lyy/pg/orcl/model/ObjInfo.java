@@ -16,8 +16,17 @@ public class ObjInfo //implements Comparable
     private DBObject type;
     private String schema;
     private String name;
+    
+    private int tableRow;
     private boolean selected;
-
+    private String migrateStatus;
+    
+    public ObjInfo()
+    {
+        selected = false;
+        migrateStatus = "";
+    }
+    
     @Override
     public String toString()
     {
@@ -54,6 +63,16 @@ public class ObjInfo //implements Comparable
         this.schema = schema;
     }
 
+    public int getTableRow()
+    {
+        return tableRow;
+    }
+
+    public void setTableRow(int tableRow)
+    {
+        this.tableRow = tableRow;
+    }      
+    
     public boolean isSelected()
     {
         return selected;
@@ -63,7 +82,17 @@ public class ObjInfo //implements Comparable
     {
         this.selected = selected;
     }
+    
+    public String getMigrateStatus()
+    {
+        return migrateStatus;
+    }
 
+    public void setMigrateStatus(String migrateStatus)
+    {
+        this.migrateStatus = migrateStatus;
+    }
+    
 //    @Override
 //    public int compareTo(Object o)
 //    {

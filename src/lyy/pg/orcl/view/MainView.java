@@ -9,21 +9,35 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
+import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
 import javax.swing.UIManager;
+import javax.swing.event.HyperlinkEvent;
+import javax.swing.event.HyperlinkListener;
+import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.html.HTMLDocument;
+import javax.swing.text.html.HTMLEditorKit;
+import javax.swing.text.html.HTMLFrameHyperlinkEvent;
 import lyy.pg.orcl.model.DBSource;
 import lyy.pg.orcl.model.DatatypeMapping;
 import lyy.pg.orcl.model.ObjInfo;
@@ -32,6 +46,7 @@ import lyy.pg.orcl.controller.SQLFactory;
 import lyy.pg.orcl.controller.check.CheckController;
 import lyy.pg.orcl.controller.migrate.MigrateController;
 import lyy.pg.orcl.model.MigrateMode;
+import lyy.pg.orcl.model.ProgressDTO;
 import lyy.pg.orcl.util.DBEnum;
 import lyy.pg.orcl.util.DBEnum.DBObject;
 import lyy.pg.orcl.util.DBEnum.DataMode;
@@ -107,6 +122,8 @@ public class MainView extends JFrame
     {
 
         btngChooseObj = new javax.swing.ButtonGroup();
+        spWelcome = new javax.swing.JScrollPane();
+        taWelcome = new javax.swing.JTextArea();
         toolBar = new javax.swing.JToolBar();
         cbbSourceDB = new javax.swing.JComboBox();
         cbbTargetDB = new javax.swing.JComboBox();
@@ -116,8 +133,7 @@ public class MainView extends JFrame
         btnOpenWelcome = new javax.swing.JButton();
         tbMain = new javax.swing.JTabbedPane();
         pnlWelcome = new javax.swing.JPanel();
-        spWelcome = new javax.swing.JScrollPane();
-        taWelcome = new javax.swing.JTextArea();
+        epWelcome = new javax.swing.JEditorPane();
         pnlDatatype = new javax.swing.JPanel();
         spDatatype = new javax.swing.JScrollPane();
         tbDatatype = new javax.swing.JTable();
@@ -143,6 +159,12 @@ public class MainView extends JFrame
         pnlStatus = new javax.swing.JPanel();
         tfStatus = new javax.swing.JTextField();
         progressBar = new javax.swing.JProgressBar();
+
+        taWelcome.setEditable(false);
+        taWelcome.setColumns(20);
+        taWelcome.setRows(5);
+        taWelcome.setText("\n\t欢迎使用oracl2pg ^-^\n        \n        \n");
+        spWelcome.setViewportView(taWelcome);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -180,21 +202,19 @@ public class MainView extends JFrame
 
         pnlWelcome.setBackground(new java.awt.Color(255, 255, 255));
 
-        taWelcome.setEditable(false);
-        taWelcome.setColumns(20);
-        taWelcome.setRows(5);
-        taWelcome.setText("\n\t欢迎使用oracl2pg ^-^\n        \n        \n");
-        spWelcome.setViewportView(taWelcome);
-
         javax.swing.GroupLayout pnlWelcomeLayout = new javax.swing.GroupLayout(pnlWelcome);
         pnlWelcome.setLayout(pnlWelcomeLayout);
         pnlWelcomeLayout.setHorizontalGroup(
             pnlWelcomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(spWelcome, javax.swing.GroupLayout.DEFAULT_SIZE, 735, Short.MAX_VALUE)
+            .addGap(0, 735, Short.MAX_VALUE)
+            .addGroup(pnlWelcomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(epWelcome, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 735, Short.MAX_VALUE))
         );
         pnlWelcomeLayout.setVerticalGroup(
             pnlWelcomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(spWelcome, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
+            .addGap(0, 390, Short.MAX_VALUE)
+            .addGroup(pnlWelcomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(epWelcome, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE))
         );
 
         tbMain.addTab(constBundle.getString("welcomeTitle"), pnlWelcome);
@@ -377,6 +397,9 @@ public class MainView extends JFrame
         tfStatus.setBorder(null);
         tfStatus.setOpaque(false);
 
+        progressBar.setBackground(new java.awt.Color(255, 255, 255));
+        progressBar.setStringPainted(true);
+
         javax.swing.GroupLayout pnlStatusLayout = new javax.swing.GroupLayout(pnlStatus);
         pnlStatus.setLayout(pnlStatusLayout);
         pnlStatusLayout.setHorizontalGroup(
@@ -468,7 +491,22 @@ public class MainView extends JFrame
     //welcome
     private void initPnlWelcome()
     {
-        taWelcome.setText(constBundle.getString("welcomeText"));
+        epWelcome.setEditable(false);
+        epWelcome.setContentType("text/html");
+        try
+        {
+            HTMLEditorKit kit = new HTMLEditorKit();
+            epWelcome.setEditorKit(kit);
+            kit.read(this.getClass().getClassLoader().getResourceAsStream("welcome.html") //new FileInputStream(new File("welcome.html")),
+                    , (HTMLDocument) epWelcome.getDocument(), 0);
+            epWelcome.setPage("https://github.com/liuyuanyuan/orcl2pg");
+        } catch (IOException | BadLocationException ex)
+        {
+            logger.error(ex.getMessage());
+            JOptionPane.showMessageDialog(this, ex.getMessage(),
+                    constBundle.getString("error"), JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace(System.out);
+        }
         btnOpenWelcome.addActionListener(new ActionListener()
         {
             @Override
@@ -566,6 +604,7 @@ public class MainView extends JFrame
         HashMap<String, String> datatypeMaps = new HashMap();
 
         DefaultTableModel model = (DefaultTableModel) tbDatatype.getModel();
+        logger.debug("tbDatatype RowCount=" + model.getRowCount());
         for (int i = 0; i < model.getRowCount(); i++)
         {
             datatypeMaps.put(model.getValueAt(i, 0).toString(), model.getValueAt(i, 1).toString());
@@ -573,8 +612,12 @@ public class MainView extends JFrame
         
         return datatypeMaps;
     }
-
+ 
     //migrate
+    private List<ObjInfo> choosedObjects;
+    private Timer timer;
+    private MigrateController mc;
+    private ProgressDTO backProgress;    
     private void initPnlMigrate()
     {
         btnOpenMigrate.addActionListener(new ActionListener()
@@ -585,40 +628,40 @@ public class MainView extends JFrame
                 btnOpenMigrateActionPerformed(e);
             }
         });
-        tbObject.setModel(new DefaultTableModel(
-                new Object[][]
-                {
-                },
-                new Object[]
-                {
-                    constBundle.getString("choose"),
-                    constBundle.getString("objName"),
-                    constBundle.getString("migrateResult"),
-                    constBundle.getString("compareResult"),
-                    constBundle.getString("syncResult")
-                })
-                {
-                    Class[] types = new Class[]
-                    {
-                        Boolean.class, Object.class, Object.class, Object.class, Object.class
-                    };
-                    boolean[] canEdit = new boolean[]
-                    {
-                        true, false, false, false, false
-                    };
+        Object[][] migrateData = new Object[][]
+        {
+        };
+        Object[] columnNames = new Object[]
+        {
+            constBundle.getString("choose"),
+            constBundle.getString("objName"),
+            constBundle.getString("migrateResult"),
+            constBundle.getString("compareResult"),
+            constBundle.getString("syncResult")
+        };
+        tbObject.setModel(new DefaultTableModel(migrateData, columnNames)
+        {
+            Class[] types = new Class[]
+            {
+                Boolean.class, Object.class, Object.class, Object.class, Object.class
+            };
+            boolean[] canEdit = new boolean[]
+            {
+                true, false, false, false, false
+            };
 
-                    @Override
-                    public Class getColumnClass(int columnIndex)
-                    {
-                        return types[columnIndex];
-                    }
+            @Override
+            public Class getColumnClass(int columnIndex)
+            {
+                return types[columnIndex];
+            }
 
-                    @Override
-                    public boolean isCellEditable(int rowIndex, int columnIndex)
-                    {
-                        return canEdit[columnIndex];
-                    }
-                });
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex)
+            {
+                return canEdit[columnIndex];
+            }
+        });
         tbObject.getColumn(constBundle.getString("choose")).setMaxWidth(40);
 
         rbtnAll.addActionListener(new ActionListener()
@@ -646,7 +689,7 @@ public class MainView extends JFrame
                 chooseReverseObj((DefaultTableModel) tbObject.getModel());
             }
         });
-
+   
         btnMigrate.addActionListener(new ActionListener()
         {
             @Override
@@ -670,7 +713,7 @@ public class MainView extends JFrame
             {
                 btnReportActionPerformed(e);
             }
-        });
+        });     
     }
     private void btnOpenMigrateActionPerformed(ActionEvent e)
     {
@@ -706,8 +749,9 @@ public class MainView extends JFrame
             for (ObjInfo obj : objectList)
             {
                 Object[] rowData = new Object[5];
-                rowData[0] = false;
+                rowData[0] = obj.isSelected();
                 rowData[1] = obj;
+                rowData[2] = obj.getMigrateStatus();
                 model.addRow(rowData);
             }
         } catch (Exception ex)
@@ -741,17 +785,47 @@ public class MainView extends JFrame
         {
             if ((Boolean) model.getValueAt(i, 0))
             {
-                choosedObjects.add((ObjInfo) model.getValueAt(i, 1));
+                ObjInfo obj = (ObjInfo) model.getValueAt(i, 1);
+                obj.setTableRow(i);
+                choosedObjects.add(obj);
             }
         }
 
         return choosedObjects;
     }
+    private void migrateTimerActionPerformed(ActionEvent e)
+    {   
+        backProgress = mc.getProgress();
+        logger.debug("Timer run..." + backProgress.getValue() + "/" + progressBar.getMaximum());
+        
+        progressBar.setValue(backProgress.getValue());
+        Dimension d = progressBar.getSize();
+        Rectangle rect = new Rectangle(0, 0, d.width, d.height);
+        progressBar.paintImmediately(rect);
+        if (backProgress.getValue() > 0)
+        {
+            ObjInfo obj = choosedObjects.get(backProgress.getValue() - 1);
+            logger.debug(obj.getName() + "-----" + obj.getMigrateStatus());
+            tbObject.getModel().setValueAt(obj.getMigrateStatus(), obj.getTableRow(), 2);
+
+            tfStatus.setText(backProgress.getValue() + "/" + backProgress.getTotalCount() + " " + obj.toString() + " " + obj.getMigrateStatus());
+        }
+                
+        if (progressBar.getValue() == progressBar.getMaximum() && backProgress.getState() == 2)
+        {
+            logger.debug("Timer finish..." + backProgress.getValue() + "/" + progressBar.getMaximum());
+            timer.stop();    
+            // Notifies all listeners that all cell values may change  
+            ((AbstractTableModel)tbObject.getModel()).fireTableDataChanged();          
+            //tbObject.validate();
+	    //tbObject.updateUI();
+        }
+    }
     private void btnMigrateActionPerformed(ActionEvent e)
     {
         logger.debug(e.getActionCommand());
 
-        List<String[]> migrateLog = new ArrayList<>();
+//        List<String[]> migrateLog = new ArrayList<>();
         String logRoot = ReportUtil.ReportRoot;
         logger.debug("logRoot=" + logRoot);
         DBSource sourceDBInfo = getSourceDB();
@@ -768,19 +842,37 @@ public class MainView extends JFrame
                     constBundle.getString("warning"), JOptionPane.WARNING_MESSAGE);
             return;
         }
-        List<ObjInfo> choosedObjects = getChoosedObject();
+        HashMap<String, String> datatypeMaps = getDatatypeMap();
+        if (datatypeMaps.isEmpty())
+        {
+            JOptionPane.showMessageDialog(this, constBundle.getString("noDatatypeMapping"),
+                    constBundle.getString("warning"), JOptionPane.WARNING_MESSAGE);
+            return;
+        }        
+        choosedObjects = getChoosedObject();
         if (choosedObjects.isEmpty())
         {
             JOptionPane.showMessageDialog(this, constBundle.getString("noObjectChoosed"),
                     constBundle.getString("warning"), JOptionPane.WARNING_MESSAGE);
             return;
-        }
-        HashMap<String, String> datatypeMaps = getDatatypeMap();
-        MigrateMode migrateMode = new MigrateMode(TableMode.Generally, DataMode.Insert, 500, 500, "\"", ",");//unused
-
-        MigrateController mc = new MigrateController();
-        mc.startMigrateThread(migrateLog, logRoot, sourceDBInfo, hgDBInfo,
+        }        
+        MigrateMode migrateMode = new MigrateMode(TableMode.Generally, DataMode.Insert, 500, 500, "\"", ",");//unused        
+        mc = new MigrateController();        
+        mc.startMigrateThread(logRoot, sourceDBInfo, hgDBInfo,
                 choosedObjects, datatypeMaps, migrateMode);
+        
+        backProgress = new ProgressDTO();        
+        progressBar.setMaximum(choosedObjects.size());
+        progressBar.setValue(0);        
+        timer = new Timer(50, new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent evt)
+            {
+                migrateTimerActionPerformed(evt);
+            }
+        });
+        timer.start();
     }
     private void btnCompareActionPerformed(ActionEvent e)
     {
@@ -838,7 +930,12 @@ public class MainView extends JFrame
         });
         cbbObjType.setModel(new DefaultComboBoxModel(new DBObject[]
         {
-            DBObject.Procedure, DBObject.Function, DBObject.Trigger, DBObject.Package, DBObject.MView, DBObject.DBLink, DBObject.Synonym
+            DBObject.Procedure, DBObject.Function, 
+            DBObject.Package, //package -> schema
+            DBObject.PackageBody, //package body func -> func
+            DBObject.View,
+            DBObject.Trigger,
+            DBObject.MView, DBObject.DBLink, DBObject.Synonym
         }));
         cbbObjType.setSelectedIndex(-1);
         cbbObjType.addActionListener(new ActionListener()
@@ -1109,6 +1206,7 @@ public class MainView extends JFrame
     private javax.swing.JComboBox cbbObjects;
     private javax.swing.JComboBox cbbSourceDB;
     private javax.swing.JComboBox cbbTargetDB;
+    private javax.swing.JEditorPane epWelcome;
     private javax.swing.JPanel pnlConvert;
     private javax.swing.JPanel pnlDatatype;
     private javax.swing.JPanel pnlMigrate;

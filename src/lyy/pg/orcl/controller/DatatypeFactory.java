@@ -8,17 +8,15 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import lyy.pg.orcl.model.DatatypeMapping;
 import lyy.pg.orcl.util.DBEnum;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 /**
  * @author Liu Yuanyuan 
@@ -42,7 +40,7 @@ public class DatatypeFactory
         }
     }
 
-    private final Logger logger = LoggerFactory.getLogger(getClass());
+    private final Logger logger = LogManager.getLogger(getClass());
 
     public static DatatypeFactory getInstance()
     {
@@ -71,12 +69,12 @@ public class DatatypeFactory
                 case "CLOB":
                 case "NCLOB":
                 case "BFILE":
-                    String hgType = DatatypeFactory.getInstance().getPgTypeWithoutArgs(DBEnum.Oracle, type, datatypeMaps);
-                    switch (hgType)
+                    String pgType = DatatypeFactory.getInstance().getPgTypeWithoutArgs(DBEnum.Oracle, type, datatypeMaps);
+                    switch (pgType)
                     {
                         case "BYTEA":
                         case "OID":
-                            logger.warn("Table has datatype cast " + type + " -> " + hgType + ", directly use insert.");
+                            logger.warn("Table has datatype cast " + type + " -> " + pgType + ", directly use insert.");
                             return true;
                         default:
                             break;
@@ -94,45 +92,43 @@ public class DatatypeFactory
             String schema, String table, String column,
             String sourceDataType, String dataPrecision, String dataScale, int charLength)
     {
-        //logger.info("sourceDataType=" + sourceDataType);
+        //logger.debug("sourceDataType=" + sourceDataType);
 
-        String hgType = getPgTypeWithoutArgs(sourceDB, sourceDataType, datatypeMap);
-        //logger.info("HgTypeWithoutParameter=" + hgType);
-        hgType = castDataType(sourceDB, schema, table, column,
-                hgType, dataPrecision, dataScale, charLength);
-
-        //logger.info("FinalHgType=" + hgType);
-        return hgType;
+        String pgType = getPgTypeWithoutArgs(sourceDB, sourceDataType, datatypeMap);
+        //logger.debug("PgTypeWithoutArgs=" + pgType);
+        pgType = castDataType(sourceDB, schema, table, column,
+                pgType, dataPrecision, dataScale, charLength);
+        
+        //logger.info("FinalPgType=" + pgType);
+        return pgType;
     }
 
     public String getPgTypeWithoutArgs(DBEnum sourceDB, String sourceDatatype,
             HashMap<String, String> datatypeMap)
     {
         //logger.debug("sourceDatatype=" + sourceDatatype);
-        String hgType = null;
+        String pgType = null;
 
-        Iterator<Entry<String, String>> iter = datatypeMap.entrySet().iterator();
-        while (iter.hasNext())
+        for (Entry<String, String> entry : datatypeMap.entrySet())
         {
-            Entry<String, String> entery = iter.next();
-            Pattern pattern = Pattern.compile(entery.getKey(), Pattern.CASE_INSENSITIVE);
+            Pattern pattern = Pattern.compile(entry.getKey(), Pattern.CASE_INSENSITIVE);
             Matcher matcher = pattern.matcher(sourceDatatype);
+            //logger.debug(entry.getKey() + "*******************" + sourceDatatype + "***" + matcher.matches());
             if (matcher.matches())
             {
-                hgType = entery.getValue();
+                pgType = entry.getValue();
                 break;
             }
         }
-
-        if (hgType == null)
+        if (pgType == null)
         {
-            hgType = "TEXT";
-            logger.warn("Warn:Found no cast for source datatype = " + sourceDatatype
-                    + ",and set it's HG datatype to text");
+            pgType = "TEXT";
+            logger.warn("Found no cast for source datatype = " + sourceDatatype
+                    + ",and set it's PG datatype to text");
         }
 
-        //logger.debug("hgType=" + hgType.toUpperCase());
-        return hgType.toUpperCase();
+        //logger.debug("pgType=" + pgType.toUpperCase());
+        return pgType.toUpperCase();
     }
 
     
@@ -155,7 +151,7 @@ public class DatatypeFactory
                 break;
             case "NUMERIC":
                 //the following two special situations arise from
-                //oracle number datatype and highgo numric datatype 's parameter having
+                //oracle number datatype and PG numeric datatype 's parameter having
                 //different defination method and  different range of value
                 //1. number(*) or number--dataprecision=null,datascale=null,this has all scale and all precision
                 if (dataPrecision == null && dataScale == null)
@@ -173,7 +169,7 @@ public class DatatypeFactory
                                 + " ,datatype=" + pgDataType
                                 + " ,dataPrecision=" + dataPrecision
                                 + " ,dataScale=" + dataPrecision
-                                + ";here we convert this scale to 0 in HighGo DB.");
+                                + ";here we convert this scale to 0 in PG.");
                         dataScale = "0";
                     }
                     pgType = pgDataType + "(126," + dataScale + ")";
@@ -190,7 +186,7 @@ public class DatatypeFactory
                                 + " ,datatype=" + pgDataType
                                 + " ,dataPrecision=" + dataPrecision
                                 + " ,dataScale=" + dataPrecision
-                                + ";here we convert this scale to 0 in HGDB.");
+                                + ";here we convert this scale to 0 in PG.");
                         dataPrecision = String.valueOf((Integer.parseInt(dataPrecision) - Integer.parseInt(dataScale)));
                         dataScale = "0";
                     } //this because oracle support type like number(3,6)(can insert values <0.001,like 0.0009,0.000888 etc)
@@ -280,7 +276,6 @@ public class DatatypeFactory
         castList.add(cast);
 
 	//Oracle VARCHAR always convert to VARCHAR2
-        //HGDB VARCHAR2 Cannot be used(cause ERROR: 42P22: could not determine which collation to use for string comparison)
         cast = new DatatypeMapping("VARCHAR2");
         cast.setPgDatatype("VARCHAR");
         cast.addOptionalPgDatatype("VARCHAR");
@@ -295,7 +290,7 @@ public class DatatypeFactory
         cast.addOptionalPgDatatype("BOOLEAN");//0-false, 1-true
         castList.add(cast);
 
-		// no parameter
+	// no parameter
         // LONG can convert to CLOB in Oracle, both of them are TEXT in PG
         cast = new DatatypeMapping("LONG");
         cast.setPgDatatype("TEXT");

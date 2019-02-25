@@ -24,7 +24,7 @@ public enum DBEnum
         Schema, Table,
         Sequence, View, Index,
         Procedure, Function,
-        Trigger, Package, MView, DBLink, Synonym
+        Trigger, Package,PackageBody, MView, DBLink, Synonym
     }
 
     public enum TabObject

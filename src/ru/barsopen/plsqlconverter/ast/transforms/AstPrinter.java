@@ -95,11 +95,10 @@ public class AstPrinter {
 		printer.setTemplateLib(postgresqlStg);
 		printer.gPLSQLPrinter_DDL.setTemplateLib(postgresqlStg);
 		StringTemplate printedTemplate = (StringTemplate)ReflectionUtil.getField(ReflectionUtil.callMethod(printer, treeType), "st");
-		String printed = printedTemplate.toString();
 		PrintResult result = new PrintResult();
-		result.printErrors = printer.errors;
-		result.text = printed;
-		
+                result.printErrors = printer.errors;
+                result.text = printedTemplate == null ? "" : printedTemplate.toString();
+
 		logger.debug("Return:" + result.text);
 		return result;
 	}

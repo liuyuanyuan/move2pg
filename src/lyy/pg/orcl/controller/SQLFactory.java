@@ -15,6 +15,10 @@ import lyy.pg.orcl.model.DBSource;
 import lyy.pg.orcl.model.ObjInfo;
 import lyy.pg.orcl.util.DBEnum;
 import lyy.pg.orcl.util.DBEnum.DBObject;
+import static lyy.pg.orcl.util.DBEnum.DBObject.DBLink;
+import static lyy.pg.orcl.util.DBEnum.DBObject.MView;
+import static lyy.pg.orcl.util.DBEnum.DBObject.Synonym;
+import static lyy.pg.orcl.util.DBEnum.DBObject.View;
 import lyy.pg.orcl.util.DBEnum.TabObject;
 import lyy.pg.orcl.util.JdbcUtil;
 import org.apache.log4j.LogManager;
@@ -119,7 +123,7 @@ public class SQLFactory
         }
         
         logger.debug("Type=" + obj.getType() + ",schema=" + obj.getSchema() + ",objName=" + obj.getName());
-        String oraSql = null;
+        StringBuilder oraDDL = new StringBuilder();
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -128,21 +132,63 @@ public class SQLFactory
             conn = JdbcUtil.getConnection(sourceDB);
             String sql = getSelectSQL(sourceDB.getDBType(), obj.getType());
             pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, obj.getSchema());
-            pstmt.setString(2, obj.getName());
-            rs = pstmt.executeQuery();
-            StringBuilder oracleCreateSql = new StringBuilder("CREATE OR REPLACE ");
-            while (rs.next())
+            if (obj.getType() == MView)
             {
-                oracleCreateSql.append(rs.getString(1));
+                pstmt.setString(1, obj.getName());
+            } else
+            {
+                pstmt.setString(1, obj.getSchema());
+                pstmt.setString(2, obj.getName());
+            }
+            rs = pstmt.executeQuery();
+            
+            String quotedSchemaAndName = KeywordFactory.getInstance().quotedName2Pg(obj.getSchema(), sourceDB.getDBType())
+                    + "." + KeywordFactory.getInstance().quotedName2Pg(obj.getName(), sourceDB.getDBType());
+            if (obj.getType() == View)
+            {
+                oraDDL.append("CREATE OR REPLACE VIEW ").append(quotedSchemaAndName);
+                while (rs.next())
+                {
+                    //String query = rs.getString(3)
+                    //        .replaceAll("(?i)nvl", "coalesce")
+                    //        .replaceFirst("(?i)with read only", "").toLowerCase();
+                    oraDDL.append(" AS ").append(rs.getString(3));
+                }
+                oraDDL.append(";");
+            } else if (obj.getType() == DBLink)
+            {
+                //Syntax: CREATE [PUBLIC] DATABASE LINK db_link CONNECT TO username IDENTIFIED BY password(null always) USING 'host';
+                oraDDL.append("CREATE DATABASE LINK ").append(quotedSchemaAndName);
+                while (rs.next())
+                {
+                    oraDDL.append(" CONNECT TO ")
+                            .append(rs.getString(2)).append(" IDENTIFIED BY <password> USING '").append(rs.getString(3)).append("'");
+                }
+                oraDDL.append(";");
+            } else if (obj.getType() == Synonym)
+            {
+                //Syntax: CREATE OR REPLACE [PUBLIC] synonym_name FOR table_owner.table_name[@db_link];
+                oraDDL.append("CREATE OR REPLACE ").append(quotedSchemaAndName);
+                while (rs.next())
+                {
+                    oraDDL.append(" FOR ").append(rs.getString(2)).append(".").append(rs.getString(3))
+                            .append(rs.getString(4) == null ? "" : "@" + rs.getString(4));
+                }
+                oraDDL.append(";");
+            } else //Procedure, Function, Trigger, Package, Package Body
+            {
+                oraDDL = new StringBuilder(obj.getType() == MView ? "" : "CREATE OR REPLACE ");
+                while (rs.next())
+                {
+                    oraDDL.append(rs.getString(1));
+                }
+                oraDDL = new StringBuilder(oraDDL.toString().replaceFirst("(?i)" + obj.getName(), quotedSchemaAndName));
             }
             pstmt.clearParameters();
             pstmt.clearBatch();
-
-            String quotedSchemaAndName = KeywordFactory.getInstance().quotedName2Pg(obj.getSchema(), sourceDB.getDBType())
-                    + "." + KeywordFactory.getInstance().quotedName2Pg(obj.getName(), sourceDB.getDBType());
-            oraSql = oracleCreateSql.toString().replaceFirst("(?i)" + obj.getName(), quotedSchemaAndName);
-            logger.debug("oraSql=" + oraSql);
+            
+            logger.debug("oraDDL=" + oraDDL.toString());
+            
             //Main converterMain = new Main();
             //String hgCreateSQL =  converterMain.convert(newOraSql);
             // + " \r\n $$ LANGUAGE plpgsql;";
@@ -159,7 +205,7 @@ public class SQLFactory
             JdbcUtil.close(conn);
         }
         logger.debug("Return");
-        return oraSql;
+        return oraDDL.toString();
     }
 
     private static String getShowObjSQL(DBEnum db, DBObject obj)
@@ -201,6 +247,9 @@ public class SQLFactory
                     case Package:
                         sql.append("SELECT DISTINCT user,name FROM user_source WHERE type = '")
                                 .append(obj.toString().toUpperCase()).append("'");
+                        break;
+                    case PackageBody:
+                        sql.append("SELECT DISTINCT user,name FROM user_source WHERE type = 'PACKAGE BODY'");
                         break;
                     case DBLink://dba_db_links need dba privilege
                         sql.append("SELECT DISTINCT user,db_link FROM user_db_links");
@@ -261,6 +310,13 @@ public class SQLFactory
                         sql.append(" AND type = '").append(obj.toString().toUpperCase()).append("'");
                         sql.append(" ORDER BY line");// only generate script
                         break;
+                    case PackageBody:
+                        sql.append("SELECT text from user_source");
+                        sql.append(" WHERE user = ? ");
+                        sql.append(" AND name = ? ");
+                        sql.append(" AND type = 'PACKAGE BODY'");
+                        sql.append(" ORDER BY line");// only generate script
+                        break;
                     case MView:
                         //SELECT dbms_metadata.get_ddl('MATERIALIZED_VIEW', u.MVIEW_NAME) FROM USER_MVIEWS u;
                         sql.append("SELECT dbms_metadata.get_ddl('MATERIALIZED_VIEW', ?) FROM DUAL");
@@ -272,7 +328,7 @@ public class SQLFactory
                          define: CREATE [PUBLIC] DATABASE LINK db_link
                          CONNECT TO username IDENTIFIED BY password(null always) USING 'host';
                          */
-                        sql.append("SELECT db_link,username,host FROM user_db_links WHERE user = ? AND db_link = ?");
+                        sql.append("SELECT db_link, username, host FROM user_db_links WHERE user = ? AND db_link = ?");
                         break;
                     case Synonym:
                         //doc:https://docs.oracle.com/cd/B19306_01/server.102/b14200/statements_7001.htm

@@ -123,17 +123,17 @@ public class MigrateController
     }
     
         
-    public void startMigrateThread(List<String[]> migrateLog, String logRoot, DBSource sourceDBInfo, DBSource hgDBInfo,
+    public void startMigrateThread(String logRoot, DBSource sourceDBInfo, DBSource hgDBInfo,
             List<ObjInfo> choosedObjects, HashMap<String, String> datatypeMaps, MigrateMode migrateMode)
     {
-        MigrateRunnable mRunnable = new MigrateRunnable(migrateLog, logRoot, 
+        MigrateRunnable mRunnable = new MigrateRunnable(logRoot, 
         		sourceDBInfo, hgDBInfo, choosedObjects, datatypeMaps, migrateMode);
         Thread thread = new Thread(mRunnable);
         thread.start();
     }
     private class MigrateRunnable implements Runnable
     {
-    	private List<String[]> migrateLog;
+    	//private List<String[]> migrateLog;
         private String logRoot;
         private DBSource sourceDBInfo;
         private DBSource hgDBInfo;
@@ -141,10 +141,10 @@ public class MigrateController
         private HashMap<String, String> datatypeMaps;
         private MigrateMode migrateMode;
 
-        public MigrateRunnable(List<String[]> migrateLog, String logRoot, DBSource sourceDBInfo, DBSource hgDBInfo,
+        public MigrateRunnable(String logRoot, DBSource sourceDBInfo, DBSource hgDBInfo,
         		List<ObjInfo> choosedObjects, HashMap<String, String> datatypeMaps, MigrateMode migrateMode)
         {
-        	this.migrateLog = migrateLog;
+            //this.migrateLog = migrateLog;
             this.logRoot = logRoot;
             this.sourceDBInfo = sourceDBInfo;
             this.hgDBInfo = hgDBInfo;
@@ -156,12 +156,12 @@ public class MigrateController
         @Override
         public void run()
         {
-            migrate(migrateLog, logRoot, sourceDBInfo, hgDBInfo, choosedObjects, datatypeMaps, migrateMode);
+            migrate(logRoot, sourceDBInfo, hgDBInfo, choosedObjects, datatypeMaps, migrateMode);
         }
     }
     
     
-    private void migrate(List<String[]> migrateLog, String logRoot, DBSource sourceDBInfo, DBSource hgDBInfo,
+    private void migrate(String logRoot, DBSource sourceDBInfo, DBSource hgDBInfo,
             List<ObjInfo> choosedObjects, HashMap<String, String> datatypeMaps, MigrateMode migrateMode)
     {
         logger.debug("Enter");
@@ -173,13 +173,13 @@ public class MigrateController
         }
         String str = Time4FileName.format(new Date());
         // int str = Time.format(new Date()).hashCode(); str = str < 0 ? -str : str;     
-        String pathScript = logRoot + File.separator + "manual_object_" + str + ".sql";
-        logger.info("pathScript=" + pathScript);
+        //String pathScript = logRoot + File.separator + "manual_object_" + str + ".sql";
+        //logger.info("pathScript=" + pathScript);
         String pathError = logRoot + File.separator + "object_error_" + str + ".sql";
         logger.info("pathError=" + pathError);
         String pathResult = logRoot + File.separator + "migration_" + str + ".html";
         logger.info("pathResult=" + pathResult);
-        BufferedWriter pwScript = null;
+        //BufferedWriter pwScript = null;
         BufferedWriter pwError = null;
         BufferedWriter pwResult = null;
 
@@ -189,10 +189,10 @@ public class MigrateController
         if (totalCount == 0)
         {
             logger.info("No Object Need To Migrate, Do Nothing, And Return.");
-            migrateLog.add(new String[]
-            {
-                "Nothing to migrate.", Time.format(new Date())
-            });
+//            migrateLog.add(new String[]
+//            {
+//                "Nothing to migrate.", Time.format(new Date())
+//            });
             try
             {
                 pwResult = new BufferedWriter(new FileWriter(pathResult));
@@ -209,24 +209,24 @@ public class MigrateController
         List<FKConstrInfo> fkSqlList = new ArrayList<FKConstrInfo>();
         try
         {
-            pwScript = new BufferedWriter(new FileWriter(pathScript));
+           // pwScript = new BufferedWriter(new FileWriter(pathScript));
             pwError = new BufferedWriter(new FileWriter(pathError));
             pwResult = new BufferedWriter(new FileWriter(pathResult));
-            writeLog(pwScript, " -- Trigger, Package, MView, DBLink, Synonym Names for " + sourceDBInfo.getUser() + " -- ");
+            //writeLog(pwScript, " -- Trigger, Package, MView, DBLink, Synonym Names for " + sourceDBInfo.getUser() + " -- ");
             writeLog(pwError, " -- Errors -- ");
             writeLog(pwResult, " -- Result -- <br/>");
 
             //migrate
             writeLog(pwResult, "<br/>Total Objects: " + totalCount + " <br/>" + Time.format(new Date()));
-            migrateLog.add(new String[]
-            {
-                "Total Objects: " + totalCount, Time.format(new Date())
-            });
+//            migrateLog.add(new String[]
+//            {
+//                "Total Objects: " + totalCount, Time.format(new Date())
+//            });
+            
             progress.setValue(0);
-            AtomicInteger succObjs = new AtomicInteger(0);//LongAdder
-
+            AtomicInteger succObjs = new AtomicInteger(0);//LongAdder            
             migrateTableAndData(succObjs, choosedObjects, sourceDBInfo, hgDBInfo,
-                    datatypeMaps, fkSqlList, migrateMode, pwResult, pwError, migrateLog);
+                    datatypeMaps, fkSqlList, migrateMode, pwResult, pwError);
             /*
             //create schema before any others
             migrateDefination(succObjs, DBObject.Schema, choosedObjects.get(DBObject.Schema), sourceDBInfo, hgDBInfo, pwResult, pwError, migrateLog);
@@ -249,16 +249,16 @@ public class MigrateController
             
             writeLog(pwResult, "<br/>Objects: Successed(" + succObjs.get() + "), Failed("
                     + (totalCount - succObjs.get()) + ")<br/>" + Time.format(new Date()) + "<br/>");
-            migrateLog.add(new String[]
-            {
-                "Finish Objects: Successed(" + succObjs.get() + "), Failed(" + (totalCount - succObjs.get()) + ")",
-                Time.format(new Date())
-            });
+//            migrateLog.add(new String[]
+//            {
+//                "Finish Objects: Successed(" + succObjs.get() + "), Failed(" + (totalCount - succObjs.get()) + ")",
+//                Time.format(new Date())
+//            });
 
             //FK constraint
             if (migrateMode.getTableMode() != TableMode.OnlyData)
             {
-                migrateFKConstraint(fkSqlList, hgDBInfo, pwResult, pwError, migrateLog);
+                migrateFKConstraint(fkSqlList, hgDBInfo, pwResult, pwError);
             } else
             {
                 progress.setFkCount(-1);// needn't migrate fk
@@ -269,7 +269,7 @@ public class MigrateController
             ex.printStackTrace(System.out);
         } finally
         {
-            StreamUtil.close(pwScript);
+            //StreamUtil.close(pwScript);
             logger.debug("Close Resource");
 
             //migrate finish and open result.html
@@ -313,7 +313,7 @@ public class MigrateController
     }
     private void migrateTableAndData(AtomicInteger succObjs, List<ObjInfo> list, DBSource sourceDBInfo, DBSource hgDBInfo,
             HashMap<String, String> datatypeMaps, List<FKConstrInfo> fkSqlList, MigrateMode migrateMode,
-            BufferedWriter pwResult, BufferedWriter pwError, List<String[]> migrateLog)
+            BufferedWriter pwResult, BufferedWriter pwError)//, List<String[]> migrateLog
     {
         if (monitorStatus())
         {
@@ -341,13 +341,14 @@ public class MigrateController
             {
                 log, Migrating
             };
-            migrateLog.add(theLog);
+//            migrateLog.add(theLog);
 
             String result = migrateTable(obj.getSchema(), obj.getName(), sourceDBInfo, hgDBInfo,
                     datatypeMaps, fkSqlList, migrateMode,
                     pwResult, pwError);
 
-            progress.setValue(progress.getValue() + 1);
+            obj.setMigrateStatus(result);
+            progress.setValue(progress.getValue() + 1);            
             theLog[1] = result;
             logger.debug(log + " " + result);
             if (Successed.equals(result))
@@ -358,7 +359,7 @@ public class MigrateController
         logger.debug("Return");
     }
     private void migrateFKConstraint(List<FKConstrInfo> fkSqlList, DBSource hgDBInfo,
-            BufferedWriter pwResult, BufferedWriter pwError, List<String[]> migrateLog)
+            BufferedWriter pwResult, BufferedWriter pwError)//, List<String[]> migrateLog
     {
         if (monitorStatus())
         {
@@ -370,10 +371,10 @@ public class MigrateController
         logger.debug("Enter: FK(" + fkCount + ")");
 
         writeLog(pwResult, "<br/>Total Foreign Key Constraint: " + fkCount + "<br/>" + Time.format(new Date()));
-        migrateLog.add(new String[]
-        {
-            "Total Foreign Key Constraint: " + fkCount, Time.format(new Date())
-        });
+//        migrateLog.add(new String[]
+//        {
+//            "Total Foreign Key Constraint: " + fkCount, Time.format(new Date())
+//        });
 
         if (fkSqlList == null || fkSqlList.isEmpty())
         {
@@ -404,7 +405,7 @@ public class MigrateController
                 {
                     log, Migrating
                 };
-                migrateLog.add(theLog);
+//                migrateLog.add(theLog);
 
                 String result = addFKConstrList(pwResult, pwError, conn, fkConstr);
 
@@ -428,11 +429,11 @@ public class MigrateController
 
         writeLog(pwResult, "<br/>Foreign Key Constraint: Successed(" + succFK.get() + ") Failed("
                 + (fkCount - succFK.get()) + ")<br/>" + Time.format(new Date()));
-        migrateLog.add(new String[]
-        {
-            "Finish Foreign Key Constraint: Successed(" + succFK.get() + "), Failed("
-            + (fkCount - succFK.get()) + ")", Time.format(new Date())
-        });
+//        migrateLog.add(new String[]
+//        {
+//            "Finish Foreign Key Constraint: Successed(" + succFK.get() + "), Failed("
+//            + (fkCount - succFK.get()) + ")", Time.format(new Date())
+//        });
 
         logger.debug("Return");
     }
@@ -555,7 +556,7 @@ public class MigrateController
         } else
         {
             // batch insert -> single insert
-            if (!insertDataToHG(pwError, sourceDBInfo, hgDBInfo, tabSelectSQL.toString(), schema, table,
+            if (!insertDataToPG(pwError, sourceDBInfo, hgDBInfo, tabSelectSQL.toString(), schema, table,
                     datatypeMaps, migrateMode))
             {
                 isSuccess = Failed;
@@ -978,7 +979,7 @@ public class MigrateController
 
         
     //migrate data by Insert(for insert mode and table has binary(even copy mode))
-    private boolean insertDataToHG(BufferedWriter pwError, DBSource sourceDBInfo, DBSource hgDBInfo,
+    private boolean insertDataToPG(BufferedWriter pwError, DBSource sourceDBInfo, DBSource hgDBInfo,
             String tabSelectSQL, String schema, String table, HashMap<String, String> datatypeMaps, MigrateMode migrateMode)
     {
         logger.info("Enter:" + schema + "." + table);
@@ -1499,7 +1500,7 @@ public class MigrateController
         for (int k = 1; k <= colCount; k++)
         {
             String type = metaData.getColumnTypeName(k);
-            //logger.info("type = " + type);
+            logger.info("type = " + type);
             switch(type)
             {
                 case "CLOB":
@@ -1548,6 +1549,15 @@ public class MigrateController
                         strb.append(quoteChar).append(strl).append(quoteChar);
                         hasWarn = true;
                     }
+                    break;
+                case "BLOB":
+                    strb.append(rtset.getBytes(k) == null ? "" : "<BLOB_VALUE>");
+                    break;
+                case "LONG RAW":
+                    strb.append(rtset.getBytes(k) == null ? "" : "<LONGRAW_VALUE>");
+                    break;
+                case "RAW":
+                    strb.append(rtset.getBytes(k) == null ? "" : "<RAW_VALUE>");
                     break;
                 default://other type could get correct values by getString()
                     String str = rtset.getString(k);

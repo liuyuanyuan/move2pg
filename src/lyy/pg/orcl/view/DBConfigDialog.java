@@ -15,6 +15,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import lyy.pg.orcl.model.DBSource;
+import lyy.pg.orcl.util.CommonUtils;
 import lyy.pg.orcl.util.DBEnum;
 import lyy.pg.orcl.util.DBEnum.ArgType;
 import lyy.pg.orcl.util.HistoryPropUtil;
@@ -271,7 +272,7 @@ public class DBConfigDialog extends javax.swing.JDialog
                 tfArg.setText(hisDB.getArg());
                 tfUser.setText(hisDB.getUser());
                 tfPwd.setText(hisDB.getPwd());
-                return;
+                cbRememberPwd.setSelected(!CommonUtils.isEmpty(hisDB.getPwd()));                
             }
         } catch (Exception ex)
         {

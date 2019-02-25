@@ -604,14 +604,26 @@ public class ConvertMain
         if (parseResult.lexerErrors.size() > 0 || parseResult.parserErrors.size() > 0)
         {
             if (parseResult.lexerErrors.size() > 0)
-            {
-                throw new Exception(parseResult.lexerErrors.get(0));
+            {           
+                StringBuilder lexerErrorMsg = new StringBuilder("Lexer error, token and position:");
+                for (RecognitionException ex : parseResult.lexerErrors)
+                {
+                    lexerErrorMsg.append(System.lineSeparator())
+                            .append(ex.token.toString());
+                }
+                throw new Exception(lexerErrorMsg.toString());
             }
             if (parseResult.parserErrors.size() > 0)
             {
-                throw new Exception(parseResult.parserErrors.get(0));
+                StringBuilder lexerErrorMsg = new StringBuilder("Parser error, token and position:");
+                for (RecognitionException ex : parseResult.parserErrors)
+                {
+                    lexerErrorMsg.append(System.lineSeparator())
+                            .append(ex.token.toString());
+                }
+                throw new Exception(lexerErrorMsg.toString());
             }
-            //System.exit(1);
+            //System.exit(1);//exit all
         }
         logger.debug("Return");
         return parseResult;
