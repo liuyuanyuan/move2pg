@@ -15,10 +15,10 @@ import org.apache.log4j.Logger;
  * @author Liu Yuanyuan
  *
  */
-public class ReportUtil
+public class HTMLReportUtil
 {
 
-    private static final Logger logger = LogManager.getLogger(ReportUtil.class);
+    private static final Logger logger = LogManager.getLogger(HTMLReportUtil.class);
     private final static SimpleDateFormat Time4FileName = new SimpleDateFormat("yyyyMMddHHmmss");
     public final static String ReportRoot = new File("").getAbsoluteFile() + File.separator + "MigrateResult" ;
 
@@ -90,7 +90,7 @@ public class ReportUtil
             + "<html>\n"
             + "    <head>\n"
             + "        <title>report</title>\n"
-            + "        <meta charset=\"utf-8\"> "
+            + "        <meta charset=\"utf-8\">\n"
             + "        <style type=\"text/css\">\n"
             + "        table { \n"
             + "            border-collapse: collapse; \n"
@@ -129,11 +129,11 @@ public class ReportUtil
             + "                <th>同步结果</th>\n"
             + "            </tr>\n"
             + "            </thead>\n"
-            + "\n"
+            + "             \n"
             + "            <tbody>\n";
 
     private static final String ContentAfter
-            = "            </tbody>            \n"
+            = "            </tbody>\n"
             + "        </table>\n"
             + "    </body>\n"
             + "</html>";

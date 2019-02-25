@@ -119,7 +119,7 @@ public class DBConfigDialog extends javax.swing.JDialog
         cbRememberPwd = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(330, 260));
+        setPreferredSize(new java.awt.Dimension(370, 280));
         setResizable(false);
 
         lblType.setText(constBundle.getString("dbType"));
@@ -151,14 +151,14 @@ public class DBConfigDialog extends javax.swing.JDialog
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(11, Short.MAX_VALUE)
+                        .addContainerGap(31, Short.MAX_VALUE)
                         .addComponent(btnOK)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnCancle)
                         .addGap(10, 10, 10)
                         .addComponent(btnReset))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
+                        .addGap(30, 30, 30)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(lblType, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -185,12 +185,12 @@ public class DBConfigDialog extends javax.swing.JDialog
                                         .addComponent(tfPwd)
                                         .addGap(5, 5, 5)
                                         .addComponent(cbRememberPwd)))))))
-                .addContainerGap())
+                .addGap(30, 30, 30))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
+                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblType)
                     .addComponent(cbbType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -217,12 +217,12 @@ public class DBConfigDialog extends javax.swing.JDialog
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(tfPwd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(cbRememberPwd)))
-                .addGap(9, 9, 9)
+                .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnOK)
                     .addComponent(btnCancle)
                     .addComponent(btnReset))
-                .addContainerGap())
+                .addGap(20, 20, 20))
         );
 
         pack();

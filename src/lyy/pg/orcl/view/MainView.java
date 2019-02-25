@@ -51,7 +51,7 @@ import lyy.pg.orcl.util.DBEnum;
 import lyy.pg.orcl.util.DBEnum.DBObject;
 import lyy.pg.orcl.util.DBEnum.DataMode;
 import lyy.pg.orcl.util.DBEnum.TableMode;
-import lyy.pg.orcl.util.ReportUtil;
+import lyy.pg.orcl.util.HTMLReportUtil;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
@@ -826,7 +826,7 @@ public class MainView extends JFrame
         logger.debug(e.getActionCommand());
 
 //        List<String[]> migrateLog = new ArrayList<>();
-        String logRoot = ReportUtil.ReportRoot;
+        String logRoot = HTMLReportUtil.ReportRoot;
         logger.debug("logRoot=" + logRoot);
         DBSource sourceDBInfo = getSourceDB();
         if (sourceDBInfo == null)
@@ -889,14 +889,14 @@ public class MainView extends JFrame
             logger.debug("RowCount=" + objModel.getRowCount());
             for (int i = 0; i < objModel.getRowCount(); i++)
             {
-                rows.append(ReportUtil.RowFormat
+                rows.append(HTMLReportUtil.RowFormat
                         .replace("no", String.valueOf(i + 1))
                         .replace("name", objModel.getValueAt(i, 1) == null ? "" : objModel.getValueAt(i, 1).toString())
                         .replace("migrateResult", objModel.getValueAt(i, 2) == null ? "" : objModel.getValueAt(i, 2).toString())
                         .replace("compareResult", objModel.getValueAt(i, 3) == null ? "" : objModel.getValueAt(i, 3).toString())
                         .replace("syncResult", objModel.getValueAt(i, 4) == null ? "" : objModel.getValueAt(i, 4).toString()));
             }
-            ReportUtil.createMigrateReport(getSourceDB().getUser(), rows.toString());
+            HTMLReportUtil.createMigrateReport(getSourceDB().getUser(), rows.toString());
         } catch (Exception ex)
         {
             logger.error(ex.getMessage());

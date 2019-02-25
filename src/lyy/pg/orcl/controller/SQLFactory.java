@@ -149,9 +149,7 @@ public class SQLFactory
                 oraDDL.append("CREATE OR REPLACE VIEW ").append(quotedSchemaAndName);
                 while (rs.next())
                 {
-                    //String query = rs.getString(3)
-                    //        .replaceAll("(?i)nvl", "coalesce")
-                    //        .replaceFirst("(?i)with read only", "").toLowerCase();
+                    //String query = rs.getString(3).replaceAll("(?i)nvl", "coalesce").replaceFirst("(?i)with read only", "").toLowerCase();
                     oraDDL.append(" AS ").append(rs.getString(3));
                 }
                 oraDDL.append(";");
@@ -185,8 +183,7 @@ public class SQLFactory
                 oraDDL = new StringBuilder(oraDDL.toString().replaceFirst("(?i)" + obj.getName(), quotedSchemaAndName));
             }
             pstmt.clearParameters();
-            pstmt.clearBatch();
-            
+            pstmt.clearBatch();            
             logger.debug("oraDDL=" + oraDDL.toString());
             
             //Main converterMain = new Main();
