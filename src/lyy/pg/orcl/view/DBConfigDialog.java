@@ -30,7 +30,7 @@ import org.apache.log4j.Logger;
 public class DBConfigDialog extends javax.swing.JDialog
 {
 
-    private Logger logger = LogManager.getLogger(getClass());
+    private final Logger logger = LogManager.getLogger(getClass());
     private final ResourceBundle constBundle = ResourceBundle.getBundle("constants");
 
     private final DBEnum type;

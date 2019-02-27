@@ -1029,7 +1029,7 @@ public class MainView extends JFrame
             if (sdb == null)
             {
                 cbbObjType.setSelectedIndex(-1);
-                throw new Exception(constBundle.getString("configDBSource"));                
+                throw new Exception(constBundle.getString("noSourceDBConfiged"));                
             }
             DBEnum.DBObject type = (DBEnum.DBObject) cbbObjType.getSelectedItem();
             if (type == null)
@@ -1060,7 +1060,7 @@ public class MainView extends JFrame
             DBSource sdb = getSourceDB();
             if (sdb == null)
             {
-                throw new Exception(constBundle.getString("configDBSource"));
+                throw new Exception(constBundle.getString("noSourceDBConfiged"));
             }
             ObjInfo obj = (ObjInfo) cbbObjects.getSelectedItem();
             if (obj == null)
@@ -1112,7 +1112,7 @@ public class MainView extends JFrame
             DBSource tdb = getTargetDB();
             if (tdb == null)
             {
-                throw new Exception(constBundle.getString("configDBSource"));
+                throw new Exception(constBundle.getString("noTargetDBConfiged"));
             }
             boolean success = SQLFactory.executeSQL(tdb, pgsql);
             if (success)
@@ -1150,11 +1150,11 @@ public class MainView extends JFrame
             DBSource tdb = getTargetDB();
             if (tdb == null)
             {
-                throw new Exception(constBundle.getString("configDBSource"));
+                throw new Exception(constBundle.getString("noTargetDBConfiged"));
             }
-            String result = CheckController.check(null, obj);
-            JOptionPane.showMessageDialog(this, result,
-                    constBundle.getString("info"), JOptionPane.INFORMATION_MESSAGE);
+            String result = CheckController.check(tdb, obj);
+            JOptionPane.showMessageDialog(this, result.isEmpty() ? constBundle.getString("cannotAutoCheck") : result,
+                    constBundle.getString("checkResult"), JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception ex)
         {
             logger.error(ex.getMessage());

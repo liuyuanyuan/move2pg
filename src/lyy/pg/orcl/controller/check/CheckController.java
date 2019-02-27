@@ -28,20 +28,28 @@ public class CheckController
             + "(pcf).\"position\", (pcf).query, (pcf).context\n"
             + " ,funcoid::varchar, funcschema::varchar, funcname::varchar, typname::varchar\n"
             + "FROM (  \n"
-            + "    SELECT plpgsql_check_function_tb(p.oid, COALESCE(trig.tgrelid, 0), fatal_errors:= false) pcf\n"
-            + "       , p.oid as funcoid ,nsp.nspname funcschema , p.proname as funcname, typ.typname\n"
-            + "    FROM pg_proc p        \n"
-            + "    JOIN pg_namespace nsp ON(nsp.oid = P.pronamespace )\n"
+            + "    SELECT public.plpgsql_check_function_tb(p.oid, COALESCE(trig.tgrelid, 0), fatal_errors:=false, others_warnings :=false, extra_warnings :=false) pcf\n"
+            + "    , p.oid as funcoid ,nsp.nspname funcschema , p.proname as funcname, typ.typname\n"
+            + "    FROM pg_proc p \n"
+            + "    JOIN pg_namespace nsp ON(nsp.oid = p.pronamespace )\n"
             + "    JOIN pg_language lang ON(lang.oid = p.prolang )\n"
             + "    JOIN pg_type typ ON(typ.oid = p.prorettype)\n"
             + "    LEFT JOIN pg_trigger trig ON (trig.tgfoid = p.oid) \n"
             + "    WHERE lang.lanname IN('plpgsql')\n"
             + "    AND nsp.nspname NOT IN('pg_catalog')\n"
             + "    AND (typ.typname NOT IN('trigger') OR trig.tgfoid IS NOT NULL) \n"
-            + "	AND nsp.nspname=? AND p.proname=?\n"
+            + "	   AND nsp.nspname=? AND p.proname=? \n"
             + "    OFFSET 0) cont\n"
             + "ORDER BY (pcf).functionid::regprocedure::text, (pcf).lineno;";
 
+    public static boolean preparePlsqlCheck(DBSource pgdb, ObjInfo obj)
+    {
+        boolean flag = false;
+        
+        
+        return flag;
+    }
+    
     public static String check(DBSource pgdb, ObjInfo obj) throws Exception
     {
         logger.info("Enter:obj = " + obj);
@@ -52,16 +60,18 @@ public class CheckController
         try
         {
             conn = JdbcUtil.getConnection(pgdb);
-            pstmt = conn.prepareStatement(CheckSQL);
-            pstmt.setString(1, obj.getSchema());
-            pstmt.setString(2, obj.getName());
+            logger.debug(CheckSQL);
+            pstmt = conn.prepareStatement(CheckSQL);            
+            pstmt.setString(1, obj.getSchema().toLowerCase());
+            pstmt.setString(2, obj.getName().toLowerCase());
             rs = pstmt.executeQuery();
             int col = rs.getMetaData().getColumnCount();
             while (rs.next())
             {
-                for (int i = 0; i < col; i++)
+                for (int i = 1; i <= col; i++)
                 {
-                    result.append(rs.getString(i + 1));
+                    result.append(rs.getMetaData().getColumnName(i)).append(" : ")
+                            .append(rs.getString(i)).append(System.lineSeparator());
                 }
                 result.append(System.lineSeparator());
             }
@@ -76,7 +86,7 @@ public class CheckController
             JdbcUtil.close(pstmt);
             JdbcUtil.close(conn);
         }
+        logger.debug("Return: " + result.toString());
         return result.toString();
     }
-
 }

@@ -215,7 +215,7 @@ public class SQLFactory
                 switch (obj)
                 {
                     case Schema:
-                        sql.append("SELECT DISTINCT user,user FROM user_objects");
+                        sql.append("SELECT DISTINCT user, user FROM user_objects");
                         break;
                     case Table:
                         // user_tab_column include tables and views

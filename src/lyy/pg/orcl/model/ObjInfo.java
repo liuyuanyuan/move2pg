@@ -14,6 +14,7 @@ import lyy.pg.orcl.util.DBEnum.DBObject;
 public class ObjInfo //implements Comparable
 {
     private DBObject type;
+    private long pgOid;
     private String schema;
     private String name;
     
@@ -33,16 +34,6 @@ public class ObjInfo //implements Comparable
         return schema + "." + name;
     }
     
-    public String getName()
-    {
-        return name;
-    }
-
-    public void setName(String name)
-    {
-        this.name = name;
-    }
-
     public DBObject getType()
     {
         return type;
@@ -52,6 +43,26 @@ public class ObjInfo //implements Comparable
     {
         this.type = type;
     }
+
+    public long getPgOid()
+    {
+        return pgOid;
+    }
+
+    public void setPgOid(long pgOid)
+    {
+        this.pgOid = pgOid;
+    }
+    
+    public String getName()
+    {
+        return name;
+    }
+
+    public void setName(String name)
+    {
+        this.name = name;
+    }    
 
     public String getSchema()
     {
