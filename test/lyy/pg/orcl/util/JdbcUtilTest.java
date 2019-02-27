@@ -6,10 +6,11 @@
 
 package lyy.pg.orcl.util;
 
+import lyy.pg.util.JdbcUtil;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import lyy.pg.orcl.model.DBSource;
+import lyy.pg.model.DBSource;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
