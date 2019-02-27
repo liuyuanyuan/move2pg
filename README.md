@@ -6,4 +6,4 @@ I want to do something in the 7 days before my expected date of confinement, so 
 
 Code commit or bug report are all welcomed. Thanks and Regards!
 
-Liu Yuanyuan :)
+Liu, Yuanyuan :)
