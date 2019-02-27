@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import lyy.pg.orcl.model.DBSource;
 import lyy.pg.orcl.model.ObjInfo;
 import lyy.pg.orcl.util.JdbcUtil;
@@ -23,6 +24,9 @@ public class CheckController
 {
 
     private static final Logger logger = LogManager.getLogger(CheckController.class);
+    
+    
+    
     private static final String CheckSQL = "SELECT (pcf).functionid::regprocedure, (pcf).lineno, (pcf).statement,   \n"
             + "(pcf).sqlstate, (pcf).message, (pcf).detail, (pcf).hint, (pcf).level,    \n"
             + "(pcf).\"position\", (pcf).query, (pcf).context\n"
@@ -42,12 +46,32 @@ public class CheckController
             + "    OFFSET 0) cont\n"
             + "ORDER BY (pcf).functionid::regprocedure::text, (pcf).lineno;";
 
-    public static boolean preparePlsqlCheck(DBSource pgdb, ObjInfo obj)
+    public static boolean hasPlsqlCheckExtension(DBSource pgdb) throws Exception
     {
-        boolean flag = false;
+        boolean has = false;
+                       
+        final String sql = "SELECT count(1) count FROM pg_extension WHERE extname IN('plpgsql', 'plpgsql_check');";        
+        Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        try
+        {
+            conn = JdbcUtil.getConnection(pgdb);
+            stmt = conn.createStatement();
+            logger.debug(sql);
+            rs = stmt.executeQuery(sql);
+            while (rs.next())
+            {
+                has = rs.getInt("count") == 2;
+            }
+        }catch(Exception ex)
+        {
+            logger.error(ex.getMessage());
+            throw ex;
+        }
         
-        
-        return flag;
+        logger.debug("Return:" + has);
+        return has;
     }
     
     public static String check(DBSource pgdb, ObjInfo obj) throws Exception

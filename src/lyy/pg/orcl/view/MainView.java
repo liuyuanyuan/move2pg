@@ -49,6 +49,8 @@ import lyy.pg.orcl.model.MigrateMode;
 import lyy.pg.orcl.model.ProgressDTO;
 import lyy.pg.orcl.util.DBEnum;
 import lyy.pg.orcl.util.DBEnum.DBObject;
+import static lyy.pg.orcl.util.DBEnum.DBObject.Function;
+import static lyy.pg.orcl.util.DBEnum.DBObject.Procedure;
 import lyy.pg.orcl.util.DBEnum.DataMode;
 import lyy.pg.orcl.util.DBEnum.TableMode;
 import lyy.pg.orcl.util.HTMLReportUtil;
@@ -1039,6 +1041,7 @@ public class MainView extends JFrame
             List<ObjInfo> objectList = SQLFactory.getTypedObjects(sdb, type);
             cbbObjects.setModel(new DefaultComboBoxModel(objectList.toArray()));
             cbbObjects.setSelectedIndex(-1);
+            //btnCheck.setEnabled(type == Function || type == Procedure);//check only support function and procedure
         } catch (Exception ex)
         {
             logger.error(ex.getMessage());
@@ -1082,6 +1085,23 @@ public class MainView extends JFrame
         logger.debug(e.getActionCommand());
         try
         {
+            if (cbbObjType.getSelectedIndex() == -1)
+            {
+                throw new Exception(constBundle.getString("noObjTypeSelected"));
+            }
+            DBObject objType = (DBObject) cbbObjType.getSelectedItem();
+            if (objType == DBObject.Package)
+            {
+                if (cbbObjects.getSelectedIndex() == -1)
+                {
+                    throw new Exception(constBundle.getString("noObjTypeSelected"));
+                }
+                ObjInfo proc = (ObjInfo) cbbObjects.getSelectedItem();
+                String hgddl = "CREATE SCHEMA " + proc.getName() + ";";
+                rstaPG.setText(hgddl);
+                return;
+            }
+            
             String sddl = rstaSource.getText();//epSource.getText();
             if(sddl.isEmpty())
             {
@@ -1141,7 +1161,7 @@ public class MainView extends JFrame
         ObjInfo obj = cbbObjects.getSelectedIndex() == -1 ? null : (ObjInfo) cbbObjects.getSelectedItem();
         if (obj == null)
         {
-            JOptionPane.showMessageDialog(this, constBundle.getString("noObjToCheck"),
+            JOptionPane.showMessageDialog(this, constBundle.getString("noObjSelected"),
                     constBundle.getString("info"), JOptionPane.INFORMATION_MESSAGE);
             return;
         }
@@ -1152,6 +1172,11 @@ public class MainView extends JFrame
             {
                 throw new Exception(constBundle.getString("noTargetDBConfiged"));
             }
+            boolean hasPlsqlCheck = CheckController.hasPlsqlCheckExtension(tdb);
+            if(!hasPlsqlCheck)
+            {
+                throw new Exception(constBundle.getString("noPlpgsqlCheckConfiged"));
+            }            
             String result = CheckController.check(tdb, obj);
             JOptionPane.showMessageDialog(this, result.isEmpty() ? constBundle.getString("cannotAutoCheck") : result,
                     constBundle.getString("checkResult"), JOptionPane.INFORMATION_MESSAGE);
