@@ -96,7 +96,7 @@ public class MainView extends JFrame
         initPnlWelcome();
         //datatype
         initPnlDatatype();
-        //migrate
+        //migrate/compare/sync
         initPnlMigrate();
         //convert
         initPnlConvert();
@@ -490,7 +490,7 @@ public class MainView extends JFrame
             epWelcome.setEditorKit(kit);
             kit.read(this.getClass().getClassLoader().getResourceAsStream("welcome.html") //new FileInputStream(new File("welcome.html")),
                     , (HTMLDocument) epWelcome.getDocument(), 0);
-            epWelcome.setPage("https://github.com/liuyuanyuan/move2pg");
+            //epWelcome.setPage("https://github.com/liuyuanyuan/move2pg");
         } catch (IOException | BadLocationException ex)
         {
             logger.error(ex.getMessage());
@@ -697,6 +697,14 @@ public class MainView extends JFrame
                 btnCompareActionPerformed(e);
             }
         });
+        btnSync.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                btnSyncActionPerformed(e);
+            }
+        });
         btnReport.addActionListener(new ActionListener()
         {
             @Override
@@ -787,7 +795,7 @@ public class MainView extends JFrame
     private void migrateTimerActionPerformed(ActionEvent e)
     {   
         backProgress = mc.getProgress();
-        logger.debug("Timer run..." + backProgress.getValue() + "/" + progressBar.getMaximum());
+        //logger.debug("Timer run..." + backProgress.getValue() + "/" + progressBar.getMaximum());
         
         progressBar.setValue(backProgress.getValue());
         Dimension d = progressBar.getSize();
@@ -869,6 +877,15 @@ public class MainView extends JFrame
     {
         logger.debug(e.getActionCommand());
         //todo
+        JOptionPane.showMessageDialog(this, constBundle.getString("notCompleted"),
+                    constBundle.getString("info"), JOptionPane.PLAIN_MESSAGE);
+    }
+    private void btnSyncActionPerformed(ActionEvent e)
+    {
+        logger.debug(e.getActionCommand());
+        //todo
+        JOptionPane.showMessageDialog(this, constBundle.getString("notCompleted"),
+                    constBundle.getString("info"), JOptionPane.PLAIN_MESSAGE);
     }
     private void btnReportActionPerformed(ActionEvent e)
     {
