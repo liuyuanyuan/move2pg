@@ -27,15 +27,15 @@ import org.apache.log4j.Logger;
 /**
  * @author Liu Yuanyuan
  *
- * property to make sql statement: schema:schema table:schema,table,column list
- * for table create sql and table select sql; index:schema,table,index name, is
- * unique,using method(likes btree...),column list for index create sql;
- * sequences:schema,sequence,increment,minimum value,maximum value,start,cache
- * for sequences create sql; view:schema,view,query for view create sql; Script
- * object(procedure,function,trigger,package):type,schema,name,text for object
- * defination sql; Script object(DBLink,Synonym): parameters for object
- * defination sql; Script object(MView):ddl function to get object defination
- * sql.
+ * property to make sql statement: 
+ * schema:schema;
+ * table:schema,table,column list for table create sql and table select sql; 
+ * index:schema,table,index name, isunique,using method(likes btree...),column list for index create sql;
+ * sequences:schema,sequence,increment,minimum value,maximum value,start,cache for sequences create sql;
+ * view:schema,view,query for view create sql; 
+ * Script object(procedure,function,trigger,package):type,schema,name,text for object defination sql; 
+ * Script object(DBLink,Synonym):parameters for object defination sql; 
+ * Script object(MView):ddl function to get object defination sql.
  */
 public class SQLFactory
 {
@@ -44,7 +44,7 @@ public class SQLFactory
 
     public static boolean executeSQL(DBSource pgdb, String pgsql) throws Exception
     {
-        logger.info("Enter:SQL = " + pgsql);
+        logger.debug("Enter:SQL = " + pgsql);
         boolean success = false;
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -144,7 +144,7 @@ public class SQLFactory
             
             String quotedSchemaAndName = KeywordFactory.getInstance().quotedName2Pg(obj.getSchema(), sourceDB.getDBType())
                     + "." + KeywordFactory.getInstance().quotedName2Pg(obj.getName(), sourceDB.getDBType());
-            if (obj.getType() == View)
+            if (null!= obj.getType() && obj.getType() == View)
             {
                 oraDDL.append("CREATE OR REPLACE VIEW ").append(quotedSchemaAndName);
                 while (rs.next())
@@ -207,7 +207,7 @@ public class SQLFactory
 
     private static String getShowObjSQL(DBEnum db, DBObject obj)
     {
-        logger.info("Enter:dbType = " + db + ",objType = " + obj.toString());
+        logger.debug("Enter:dbType = " + db + ",objType = " + obj.toString());
         StringBuilder sql = new StringBuilder();
         switch (db)
         {
@@ -269,7 +269,7 @@ public class SQLFactory
 
     public static String getSelectSQL(DBEnum db, DBObject obj)
     {
-        logger.info("Enter:dbType = " + db + ",objType = " + obj.toString());
+        logger.debug("Enter:dbType = " + db + ",objType = " + obj.toString());
         StringBuilder sql = new StringBuilder();
         switch (db)
         {
@@ -342,13 +342,13 @@ public class SQLFactory
                 logger.warn(db + " is not supported.");
                 break;
         }
-        logger.info("Return: sql = " + sql.toString());
+        logger.debug("Return: sql = " + sql.toString());
         return sql.toString();
     }
 
     public static String getSelectSQL(DBEnum db, TabObject obj)
     {
-        logger.info("Enter:dbType = " + db + ",objType = " + obj.toString());
+        logger.debug("Enter:dbType = " + db + ",objType = " + obj.toString());
         StringBuilder sql = new StringBuilder();
         switch (db)
         {
@@ -427,7 +427,7 @@ public class SQLFactory
                 logger.warn(db + " is not supported.");
                 break;
         }
-        logger.info("Return: " + obj + "=" + sql.toString());
+        logger.debug("Return: " + obj + "=" + sql.toString());
         return sql.toString();
     }
 

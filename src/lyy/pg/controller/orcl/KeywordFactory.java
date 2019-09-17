@@ -188,7 +188,7 @@ public class KeywordFactory
      */
     private List<String> getPGObjTabColNameKeyWords()
     {
-        List<String> keywords = new ArrayList<String>();
+        List<String> keywords = new ArrayList<>();
 
         getPGOverlapKeyWords(keywords);
         keywords.add("AUTHORIZATION");
@@ -225,7 +225,7 @@ public class KeywordFactory
 
     private List<String> getPgFunTypeNameKeywords()
     {
-        List<String> keywords = new ArrayList<String>();
+        List<String> keywords = new ArrayList<>();
 
         getPGOverlapKeyWords(keywords);
         keywords.add("BETWEEN");
@@ -381,7 +381,7 @@ public class KeywordFactory
      */
     private List<String> getOracleReservedKeyWords()
     {
-        List<String> keywords = new ArrayList<String>();
+        List<String> keywords = new ArrayList<>();
 
         // oracle sql reserved key words
         keywords.add("&");// to be decided

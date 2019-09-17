@@ -93,13 +93,12 @@ public class DatatypeFactory
             String sourceDataType, String dataPrecision, String dataScale, int charLength)
     {
         //logger.debug("sourceDataType=" + sourceDataType);
-
         String pgType = getPgTypeWithoutArgs(sourceDB, sourceDataType, datatypeMap);
         //logger.debug("PgTypeWithoutArgs=" + pgType);
         pgType = castDataType(sourceDB, schema, table, column,
                 pgType, dataPrecision, dataScale, charLength);
         
-        //logger.info("FinalPgType=" + pgType);
+        //logger.debug("FinalPgType=" + pgType);
         return pgType;
     }
 
@@ -113,7 +112,7 @@ public class DatatypeFactory
         {
             Pattern pattern = Pattern.compile(entry.getKey(), Pattern.CASE_INSENSITIVE);
             Matcher matcher = pattern.matcher(sourceDatatype);
-            //logger.debug(entry.getKey() + "*******************" + sourceDatatype + "***" + matcher.matches());
+            //logger.debug(entry.getKey() + "***" + sourceDatatype + "***" + matcher.matches());
             if (matcher.matches())
             {
                 pgType = entry.getValue();

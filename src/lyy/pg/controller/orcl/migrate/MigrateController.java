@@ -72,7 +72,7 @@ import org.postgresql.util.PGInterval;
 
 /**
  *
- * @author Liu Yuanyuan (unused)
+ * @author Liu Yuanyuan
  */
 public class MigrateController
 {
@@ -83,12 +83,11 @@ public class MigrateController
     private final String Migrating = "Migrating", Successed = "Successed", Failed = "Failed", Terminated = "Terminated";    
     private final SimpleDateFormat Time4FileName = new SimpleDateFormat("yyyyMMddHHmmss");
     private final String OID_DATA_FILENAME = new File("").getAbsolutePath()  + File.separator + "temp" + File.separator;
-    private final String HGSQLState_RelNotExist = "42P01";
+    //private final String HGSQLState_RelNotExist = "42P01";
     private final int CoreThread = Runtime.getRuntime().availableProcessors() * 3 / 4;            
        
     private ProgressDTO progress;
 
-    
     public MigrateController() {
     	logger.debug("--------init--------");
     	progress = new ProgressDTO();
@@ -100,16 +99,20 @@ public class MigrateController
     public void updateStatus(MigrateStatus status)
     {
         logger.debug("Enter: " + status);
-        if (MigrateStatus.Stop == status)
-        {
-            progress.setState(-1);
-        } else if (MigrateStatus.Suspend == status)
-        {
-            progress.setState(0);
-        } else if (MigrateStatus.Start == status
-                || MigrateStatus.Continue == status)
-        {
-            progress.setState(1);
+        if (null != status)
+        switch (status) {
+            case Stop:
+                progress.setState(-1);
+                break;
+            case Suspend:
+                progress.setState(0);
+                break;
+            case Start:
+            case Continue:
+                progress.setState(1);
+                break;
+            default:
+                break;
         }
         logger.debug("state=" + progress.getState());
     }
@@ -172,14 +175,10 @@ public class MigrateController
             logger.info(logRoot + " doesn't exist then create: " + file.mkdirs());
         }
         String str = Time4FileName.format(new Date());
-        // int str = Time.format(new Date()).hashCode(); str = str < 0 ? -str : str;     
-        //String pathScript = logRoot + File.separator + "manual_object_" + str + ".sql";
-        //logger.info("pathScript=" + pathScript);
         String pathError = logRoot + File.separator + "object_error_" + str + ".sql";
         logger.info("pathError=" + pathError);
         String pathResult = logRoot + File.separator + "migration_" + str + ".html";
         logger.info("pathResult=" + pathResult);
-        //BufferedWriter pwScript = null;
         BufferedWriter pwError = null;
         BufferedWriter pwResult = null;
 
@@ -189,16 +188,13 @@ public class MigrateController
         if (totalCount == 0)
         {
             logger.info("No Object Need To Migrate, Do Nothing, And Return.");
-//            migrateLog.add(new String[]
-//            {
-//                "Nothing to migrate.", Time.format(new Date())
-//            });
+            //migrateLog.add(new String[]{"Nothing to migrate.", Time.format(new Date())});
             try
             {
                 pwResult = new BufferedWriter(new FileWriter(pathResult));
                 writeLog(pwResult, " -- Result -- <br/><br/> Nothing to migrate.");
                 openFile(pathResult);
-            } catch (Exception ex)
+            } catch (IOException ex)
             {
                 logger.error(ex.getMessage());
                 ex.printStackTrace(System.out);
@@ -206,10 +202,10 @@ public class MigrateController
             return;
         }
 
-        List<FKConstrInfo> fkSqlList = new ArrayList<FKConstrInfo>();
+        List<FKConstrInfo> fkSqlList = new ArrayList<>();
         try
         {
-           // pwScript = new BufferedWriter(new FileWriter(pathScript));
+            //prepare 
             pwError = new BufferedWriter(new FileWriter(pathError));
             pwResult = new BufferedWriter(new FileWriter(pathResult));
             //writeLog(pwScript, " -- Trigger, Package, MView, DBLink, Synonym Names for " + sourceDBInfo.getUser() + " -- ");
@@ -218,11 +214,8 @@ public class MigrateController
 
             //migrate
             writeLog(pwResult, "<br/>Total Objects: " + totalCount + " <br/>" + Time.format(new Date()));
-//            migrateLog.add(new String[]
-//            {
-//                "Total Objects: " + totalCount, Time.format(new Date())
-//            });
-            
+            //migrateLog.add(new String[]{"Total Objects: " + totalCount, Time.format(new Date())});
+                    
             progress.setValue(0);
             AtomicInteger succObjs = new AtomicInteger(0);//LongAdder            
             migrateTableAndData(succObjs, choosedObjects, sourceDBInfo, hgDBInfo,
@@ -239,22 +232,13 @@ public class MigrateController
             migrateDefination(succObjs, DBObject.Index, choosedObjects.get(DBObject.Index), sourceDBInfo, hgDBInfo, pwResult, pwError, migrateLog);
             migrateDefination(succObjs, DBObject.Function, choosedObjects.get(DBObject.Function), sourceDBInfo, hgDBInfo, pwResult, pwError, migrateLog);
             migrateDefination(succObjs, DBObject.Procedure, choosedObjects.get(DBObject.Procedure), sourceDBInfo, hgDBInfo, pwResult, pwError, migrateLog);
-            //write name to file for trigger, package, mview, dblink, Synonym
-            writeObjectName(succObjs, DBObject.Trigger, choosedObjects.get(DBObject.Trigger), pwScript, pwResult, migrateLog);
-            writeObjectName(succObjs, DBObject.Package, choosedObjects.get(DBObject.Package), pwScript, pwResult, migrateLog);
-            writeObjectName(succObjs, DBObject.MView, choosedObjects.get(DBObject.MView), pwScript, pwResult, migrateLog);
-            writeObjectName(succObjs, DBObject.DBLink, choosedObjects.get(DBObject.DBLink), pwScript, pwResult, migrateLog);
-            writeObjectName(succObjs, DBObject.Synonym, choosedObjects.get(DBObject.Synonym), pwScript, pwResult, migrateLog);
             */
             
             writeLog(pwResult, "<br/>Objects: Successed(" + succObjs.get() + "), Failed("
                     + (totalCount - succObjs.get()) + ")<br/>" + Time.format(new Date()) + "<br/>");
-//            migrateLog.add(new String[]
-//            {
-//                "Finish Objects: Successed(" + succObjs.get() + "), Failed(" + (totalCount - succObjs.get()) + ")",
-//                Time.format(new Date())
-//            });
-
+            //migrateLog.add(new String[]{"Finish Objects: Successed(" + succObjs.get() 
+            //        + "), Failed(" + (totalCount - succObjs.get()) + ")", Time.format(new Date())});
+        
             //FK constraint
             if (migrateMode.getTableMode() != TableMode.OnlyData)
             {
@@ -263,15 +247,12 @@ public class MigrateController
             {
                 progress.setFkCount(-1);// needn't migrate fk
             }
-        } catch (Exception ex)
+        } catch (IOException ex)
         {
             logger.error(ex.getMessage());
             ex.printStackTrace(System.out);
         } finally
         {
-            //StreamUtil.close(pwScript);
-            logger.debug("Close Resource");
-
             //migrate finish and open result.html
             progress.setState(2);
             writeLog(pwResult, "<br/><br/>-- Completed --");
@@ -295,7 +276,7 @@ public class MigrateController
         }
         System.gc();//to release unclose resource
         String[] tempList = file.list();
-        File temp = null;
+        File temp;
         for (int i = 0; i < tempList.length; i++)
         {
             if (OID_DATA_FILENAME.endsWith(File.separator))
@@ -336,12 +317,12 @@ public class MigrateController
                 break;
             }
 
-            String log = (progress.getValue() + 1) + "/" + progress.getTotalCount() + " Migrate " + obj.getType() + " : " + obj.getName();
-            String[] theLog = new String[]
-            {
-                log, Migrating
-            };
-//            migrateLog.add(theLog);
+            //String log = (progress.getValue() + 1) + "/" + progress.getTotalCount() + " Migrate " + obj.getType() + " : " + obj.getName();
+            //String[] theLog = new String[]
+            //{
+            //    log, Migrating
+            //};
+            //migrateLog.add(theLog);
 
             String result = migrateTable(obj.getSchema(), obj.getName(), sourceDBInfo, hgDBInfo,
                     datatypeMaps, fkSqlList, migrateMode,
@@ -349,8 +330,8 @@ public class MigrateController
 
             obj.setMigrateStatus(result);
             progress.setValue(progress.getValue() + 1);            
-            theLog[1] = result;
-            logger.debug(log + " " + result);
+            //theLog[1] = result;
+            //logger.debug(log + " " + result);
             if (Successed.equals(result))
             {
                 succObjs.incrementAndGet();
@@ -371,10 +352,8 @@ public class MigrateController
         logger.debug("Enter: FK(" + fkCount + ")");
 
         writeLog(pwResult, "<br/>Total Foreign Key Constraint: " + fkCount + "<br/>" + Time.format(new Date()));
-//        migrateLog.add(new String[]
-//        {
-//            "Total Foreign Key Constraint: " + fkCount, Time.format(new Date())
-//        });
+        //migrateLog.add(new String[]{"Total Foreign Key Constraint: " 
+        // + fkCount, Time.format(new Date())});
 
         if (fkSqlList == null || fkSqlList.isEmpty())
         {
@@ -399,19 +378,19 @@ public class MigrateController
                     break;
                 }
 
-                String log = (progress.getValue() + 1) + "/" + progress.getFkCount() + " Create FK Constraint : "
-                        + fkConstr.getConstraint() + "(" + fkConstr.getSchema() + "." + fkConstr.getTable() + ")";
-                String[] theLog = new String[]
-                {
-                    log, Migrating
-                };
-//                migrateLog.add(theLog);
+                //String log = (progress.getValue() + 1) + "/" + progress.getFkCount() + " Create FK Constraint : "
+                //        + fkConstr.getConstraint() + "(" + fkConstr.getSchema() + "." + fkConstr.getTable() + ")";
+                //String[] theLog = new String[]
+                //{
+                //    log, Migrating
+                //};
+                //migrateLog.add(theLog);
 
                 String result = addFKConstrList(pwResult, pwError, conn, fkConstr);
-
+                
                 progress.setValue(progress.getValue() + 1);
-                theLog[1] = result;
-                logger.debug(log + " " + result);
+                //theLog[1] = result;
+                //logger.debug(log + " " + result);
                 if (Successed.equals(result))
                 {
                     succFK.incrementAndGet();
@@ -419,7 +398,8 @@ public class MigrateController
             }
         } catch (Exception ex)
         {
-            writeLog(pwError, Time.format(new Date()) + " Error Create Foreign Key Constraints:" + ex.getMessage());
+            writeLog(pwError, Time.format(new Date()) 
+                    + " Error Create Foreign Key Constraints:" + ex.getMessage());
             logger.error(ex.getMessage());
             ex.printStackTrace(System.out);
         } finally
@@ -429,11 +409,9 @@ public class MigrateController
 
         writeLog(pwResult, "<br/>Foreign Key Constraint: Successed(" + succFK.get() + ") Failed("
                 + (fkCount - succFK.get()) + ")<br/>" + Time.format(new Date()));
-//        migrateLog.add(new String[]
-//        {
-//            "Finish Foreign Key Constraint: Successed(" + succFK.get() + "), Failed("
-//            + (fkCount - succFK.get()) + ")", Time.format(new Date())
-//        });
+        //migrateLog.add(new String[]{
+        //    "Finish Foreign Key Constraint: Successed(" + succFK.get() + "), Failed("
+        //    + (fkCount - succFK.get()) + ")", Time.format(new Date())});
 
         logger.debug("Return");
     }
@@ -459,7 +437,7 @@ public class MigrateController
             pstmt = conn.createStatement();
             pstmt.execute(fkSQL);
             isSuccess = Successed;
-        } catch (Exception ex)
+        } catch (SQLException ex)
         {
             isSuccess = Failed;
             writeLog(pwError, Time.format(new Date()) + " Error Add FKey Constraint:" + fkSQL + "\n" + ex.getMessage());
@@ -471,7 +449,7 @@ public class MigrateController
             JdbcUtil.close(pstmt);
         }
 
-        logger.info("Return:" + isSuccess);
+        logger.debug("Return:" + isSuccess);
         return isSuccess;
     }
     
@@ -481,14 +459,14 @@ public class MigrateController
             HashMap<String, String> datatypeMaps, List<FKConstrInfo> fkSqlList, MigrateMode migrateMode,
             BufferedWriter pwResult, BufferedWriter pwError)
     {
-        logger.info("Enter: table=" + schema + "." + table + ",copyBatch=" + migrateMode.getCopyBatch() + ",insertBatch=" + migrateMode.getInsertBatch());
+        logger.info("Enter: table=" + schema + "." + table + ", copyBatch=" + migrateMode.getCopyBatch() + ",insertBatch=" + migrateMode.getInsertBatch());
 
         String isSuccess = Successed;
 
         StringBuilder tabSelectSQL = new StringBuilder();
         StringBuilder tabCreateSQL = new StringBuilder();
-        String schema4create = KeywordFactory.getInstance().getInstance().quotedName2Pg(schema, sourceDBInfo.getDBType());
-        String table4create = KeywordFactory.getInstance().getInstance().quotedName2Pg(table, sourceDBInfo.getDBType());
+        String schema4create = KeywordFactory.getInstance().quotedName2Pg(schema, sourceDBInfo.getDBType());
+        String table4create = KeywordFactory.getInstance().quotedName2Pg(table, sourceDBInfo.getDBType());
 
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -496,7 +474,7 @@ public class MigrateController
         try
         {
             conn = JdbcUtil.getConnection(sourceDBInfo);
-            logger.info("Connected");
+            logger.debug("Connected");
 
             String tabColumnSQL = SQLFactory.getSelectSQL(sourceDBInfo.getDBType(), TabObject.COLUMN);
             pstmt = conn.prepareStatement(tabColumnSQL);
@@ -600,7 +578,7 @@ public class MigrateController
             String dataPrecision = rtset.getString(6);
             String dataScale = rtset.getString(7);
             int charLength = rtset.getInt(8);
-            boolean nullable = "N".equals(rtset.getString(9)) ? false : true;
+            var nullable = !"N".equals(rtset.getString(9));
 
             if (isFirst)
             {
@@ -611,7 +589,7 @@ public class MigrateController
                 tabSelectSQL.append(",");
             }
             //for tabCreateSQL
-            String colName4Create = KeywordFactory.getInstance().getInstance().quotedName2Pg(colName, sourceDBInfo.getDBType());
+            String colName4Create = KeywordFactory.getInstance().quotedName2Pg(colName, sourceDBInfo.getDBType());
             //logger.debug("cource dataType=" + dataType);
             dataType = DatatypeFactory.getInstance().getPgTypeWithArgs(sourceDBInfo.getDBType(), datatypeMap,
                     schema, table, colName, dataType, dataPrecision, dataScale, charLength);
@@ -624,9 +602,9 @@ public class MigrateController
                 if (dataDefault.toUpperCase().startsWith("SYSTIMESTAMP")
                         || dataDefault.equalsIgnoreCase("sysdate"))
                 {
-                    dataDefault = "current_timestamp"; //dataDefault = "SYSTIMESTAMP()";// SYSTIMESTAMP() only in HG
+                    dataDefault = "current_timestamp"; 
                 }
-                tabCreateSQL.append(" DEFAULT ").append(dataDefault); //oracle SYSTIMESTAMP == hgdb systimestamp()
+                tabCreateSQL.append(" DEFAULT ").append(dataDefault); 
             }
             if (!nullable)
             {
@@ -634,7 +612,7 @@ public class MigrateController
             }
 
             //for tabSelectSQL
-            String colName4Select = KeywordFactory.getInstance().getInstance().quotedName4Oracle(colName);
+            String colName4Select = KeywordFactory.getInstance().quotedName4Oracle(colName);
             tabSelectSQL.append(colName4Select);
         }
         //for tabCreateSQL
@@ -642,11 +620,11 @@ public class MigrateController
         logger.debug("tabCreateSQL=" + tabCreateSQL.toString());
 
         //for tabSelectSQL
-        String schema4select = KeywordFactory.getInstance().getInstance().quotedName4Oracle(schema);
-        String table4select = KeywordFactory.getInstance().getInstance().quotedName4Oracle(table);
-        tabSelectSQL.append(" FROM ").append(schema4select).append(".").append(table4select);//oracle select statement couldn't have ';' 
-        // + " ORDER BY ROWID";
-        //omit OREDER BY ROWID,because Lu Jian said oracle select default order by rowid,add adding ORDER BY ROWID will lower select speed  
+        String schema4select = KeywordFactory.getInstance().quotedName4Oracle(schema);
+        String table4select = KeywordFactory.getInstance().quotedName4Oracle(table);
+        tabSelectSQL.append(" FROM ").append(schema4select).append(".").append(table4select);
+        //oracle select statement couldn't have ';' 
+        // + " ORDER BY ROWID"; //oracle select default order by rowid,add adding ORDER BY ROWID will lower select speed  
     }
     private void commentTabAndColumn(BufferedWriter pwError, DBObject Type, DBSource sourceDBInfo, DBSource hgDBInfo, String schema, String table, Connection sconn, PreparedStatement pstmt, ResultSet rtset) throws Exception
     {
@@ -657,8 +635,8 @@ public class MigrateController
         pstmt.setString(1, schema);
         pstmt.setString(2, table);
         rtset = pstmt.executeQuery();
-        String quotedSchema = KeywordFactory.getInstance().getInstance().quotedName2Pg(schema, sourceDBInfo.getDBType());
-        String quotedTable = KeywordFactory.getInstance().getInstance().quotedName2Pg(table, sourceDBInfo.getDBType());
+        String quotedSchema = KeywordFactory.getInstance().quotedName2Pg(schema, sourceDBInfo.getDBType());
+        String quotedTable = KeywordFactory.getInstance().quotedName2Pg(table, sourceDBInfo.getDBType());
         while (rtset.next())
         {
             if (monitorStatus())
@@ -669,7 +647,7 @@ public class MigrateController
             if (rtset.getString("COMMENTS") != null)
             {
                 String colComment = "COMMENT ON COLUMN " + quotedSchema + "." + quotedTable + "."
-                        + KeywordFactory.getInstance().getInstance().quotedName2Pg(rtset.getString("COLUMN_NAME"), sourceDBInfo.getDBType())
+                        + KeywordFactory.getInstance().quotedName2Pg(rtset.getString("COLUMN_NAME"), sourceDBInfo.getDBType())
                         + " IS '" + rtset.getString("COMMENTS").replaceAll("'", "''") + "';";
                 //logger.debug("colComment=" + colComment);
                 try
@@ -723,7 +701,7 @@ public class MigrateController
             DBSource sourceDBInfo, DBSource hgDBInfo,
             List<FKConstrInfo> fkSQLList, String schema, String table) throws Exception
     {
-        logger.info("Enter");
+        logger.debug("Enter");
 
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -733,7 +711,7 @@ public class MigrateController
         {
             String mainSql = SQLFactory.getSelectSQL(sourceDBInfo.getDBType(), TabObject.CONSTRAINT_MAIN);
             conn = JdbcUtil.getConnection(sourceDBInfo);
-            logger.info("Connected");
+            logger.debug("Connected");
             pstmt = conn.prepareStatement(mainSql);
             pstmt.setString(1, schema);
             pstmt.setString(2, table);
@@ -793,9 +771,8 @@ public class MigrateController
             JdbcUtil.close(rs);
             JdbcUtil.close(pstmt);
             JdbcUtil.close(conn);
-            logger.info("Close Resource");
         }
-        logger.info("Return");
+        logger.debug("Return");
         return fkSQLList;
     }
     //get constrain columns for PK,FK,UK;like (col1,col2...).
@@ -810,7 +787,7 @@ public class MigrateController
         try
         {
             conn = JdbcUtil.getConnection(sourceDBInfo);
-            logger.info("Connected");
+            //logger.debug("Connected");
             pstmt = conn.prepareStatement(colSQL);
             pstmt.setString(1, constrInfo.getConstrType());
             pstmt.setString(2, constrInfo.getSchema());
@@ -838,14 +815,13 @@ public class MigrateController
             pstmt.clearParameters();
         } catch (Exception ex)
         {
-            logger.error("Error: " + ex.getMessage());
+            logger.error( ex.getMessage());
             ex.printStackTrace(System.out);
         } finally
         {
             JdbcUtil.close(rtset);
             JdbcUtil.close(pstmt);
             JdbcUtil.close(conn);
-            logger.info("Close Resource");
         }
 
         return constrColSQL.toString();
@@ -860,7 +836,7 @@ public class MigrateController
         try
         {
             conn = JdbcUtil.getConnection(sourceDBInfo);
-            logger.info("Connected");
+            //logger.debug("Connected");
             pstmt = conn.prepareStatement(checkSQL);
             pstmt.setString(1, constrInfoDTO.getSchema());
             pstmt.setString(2, constrInfoDTO.getTabName());
@@ -886,7 +862,6 @@ public class MigrateController
             JdbcUtil.close(rtset);
             JdbcUtil.close(pstmt);
             JdbcUtil.close(conn);
-            logger.info("Close Resource");
         }
 
         return sbSCondition;
@@ -894,7 +869,7 @@ public class MigrateController
     //get references table and columns for FK, likes schema.table(col1,col2...).
     private String getConstrRTabColSQL(ConstrInfo constrInfo, DBSource sourceDBInfo, String rColumnSQL)
     {
-        logger.info("Enter");
+        logger.debug("Enter");
         String rColSQL = null;
 
         Connection conn = null;
@@ -903,7 +878,6 @@ public class MigrateController
         try
         {
             conn = JdbcUtil.getConnection(sourceDBInfo);
-            logger.info("Connected");
             pstmt = conn.prepareStatement(rColumnSQL);
             pstmt.setString(1, constrInfo.getSchema());
             pstmt.setString(2, constrInfo.getRConstrName());
@@ -935,22 +909,21 @@ public class MigrateController
             pstmt.clearBatch();
         } catch (Exception ex)
         {
-            logger.error("Error:" + ex.getMessage());
+            logger.error(ex.getMessage());
             ex.printStackTrace(System.out);
         } finally
         {
             JdbcUtil.close(rtset);
             JdbcUtil.close(pstmt);
             JdbcUtil.close(conn);
-            logger.info("Close Resource");
         }
-        logger.info("Return:rColSQL=" + rColSQL);
+        logger.debug("Return:rColSQL=" + rColSQL);
         return rColSQL;
     }
     //for all kind of constraint
     private String getConstrAddSQL(DBEnum sourceDB, ConstrInfo constrInfo)
     {
-        logger.info("Enter");
+        logger.debug("Enter");
         StringBuilder constrSQL = new StringBuilder();
         constrSQL.append("ALTER TABLE ")
                 .append(KeywordFactory.getInstance().quotedName2Pg(constrInfo.getSchema(), sourceDB)).append(".")
@@ -973,7 +946,7 @@ public class MigrateController
         {
             constrSQL.append(" CHECK(").append(constrInfo.getSearchCondition().toLowerCase()).append(");");
         }
-        //logger.info("Return:constrSQL=" + constrSQL.toString());
+        //logger.debug("Return:constrSQL=" + constrSQL.toString());
         return constrSQL.toString();
     }
 
@@ -982,7 +955,7 @@ public class MigrateController
     private boolean insertDataToPG(BufferedWriter pwError, DBSource sourceDBInfo, DBSource hgDBInfo,
             String tabSelectSQL, String schema, String table, HashMap<String, String> datatypeMaps, MigrateMode migrateMode)
     {
-        logger.info("Enter:" + schema + "." + table);
+        logger.debug("Enter:" + schema + "." + table);
         long start = System.currentTimeMillis();
 
         AtomicInteger errorFlag = new AtomicInteger(0);
@@ -1033,7 +1006,7 @@ public class MigrateController
                 allThread, allThread, 0L, TimeUnit.SECONDS,
                 new LinkedBlockingQueue<Runnable>());
         CountDownLatch doneSignal = new CountDownLatch(allThread);
-        BlockingQueue<Integer> orderQueue = new LinkedBlockingQueue<Integer>();
+        BlockingQueue<Integer> orderQueue = new LinkedBlockingQueue<>();
         for (int i = 1; i <= allThread; i++)
         {
             orderQueue.offer(i);
@@ -1065,7 +1038,7 @@ public class MigrateController
             logger.error("Error waiting threadPoolExecutor shutdown:" + e.getMessage());
         }
 
-        logger.info("Return");
+        logger.debug("Return");
         return errorFlag.get() == 0;
     }
     private int getRowCount(AtomicInteger errorFlag, String tableWithSchmea)//DruidHelper helper,
@@ -1085,7 +1058,7 @@ public class MigrateController
                 rowCount = rs.getInt(1);
                 break;
             }
-        } catch (Exception ex)
+        } catch (SQLException ex)
         {
             errorFlag.incrementAndGet();
             logger.error(ex.getMessage());
@@ -1095,7 +1068,6 @@ public class MigrateController
             JdbcUtil.close(rs);
             JdbcUtil.close(stmt);
             JdbcUtil.close(conn);
-            //logger.debug("close resource");
         }
         //logger.debug("Return:" + rowCount);
         return rowCount;
@@ -1119,7 +1091,7 @@ public class MigrateController
             int colCount = metaData.getColumnCount() - 1;//ROWNUM at last
             logger.debug("colCount=" + colCount);
             insertSQL = makeHGTabInsertSQL(sourceDB, rs, colCount, quotedSchema, quotedTable);
-        } catch (Exception ex)
+        } catch (SQLException ex)
         {
             errorFlag.incrementAndGet();
             logger.error(ex.getMessage());
@@ -1146,10 +1118,12 @@ public class MigrateController
                 .append(quotedSchema)//KeywordFactory.getInstance().quotedName2Pg(schema, sourceDbType)
                 .append(".")
                 .append(quotedTable)//KeywordFactory.getInstance().quotedName2Pg(table, sourceDbType)
-                .append("(").append(KeywordFactory.getInstance().quotedName2Pg(rtset.getMetaData().getColumnName(1), sourceDbType));
+                .append("(").append(KeywordFactory.getInstance()
+                        .quotedName2Pg(rtset.getMetaData().getColumnName(1), sourceDbType));
         for (int k = 2; k <= colCount; k++)
         {
-            insertSQL.append(",").append(KeywordFactory.getInstance().quotedName2Pg(rtset.getMetaData().getColumnName(k), sourceDbType));
+            insertSQL.append(",").append(KeywordFactory.getInstance()
+                    .quotedName2Pg(rtset.getMetaData().getColumnName(k), sourceDbType));
         }
         insertSQL.append(") values(?");
         for (int k = 2; k <= colCount; k++)
@@ -1191,7 +1165,7 @@ public class MigrateController
             logger.debug("doneSignal=" + doneSignal.getCount());
             return;
         }
-		//logger.debug("BatchNum=" + BatchNum);
+	//logger.debug("BatchNum=" + BatchNum);
 
         DruidPooledConnection conn = null;
         Statement stmt = null;
@@ -1206,12 +1180,12 @@ public class MigrateController
             final int Start = THREAD_BATCH * (BatchNum - 1);
             final int End = THREAD_BATCH * BatchNum;
             String sql = null;
-			//if(num==AllThread){
+	    //if(num==AllThread){
             //	sql = "SELECT * FROM (SELECT A.*, ROWNUM RN FROM (" + tabSelectSQL +") A " + ") WHERE RN>" + Start;
             //}else{
             sql = "SELECT * FROM (SELECT A.*, ROWNUM RN FROM (" + tabSelectSQL
                     + ") A WHERE ROWNUM <= " + End + ") WHERE RN>" + Start;
-			//}
+	    //}
             //logger.debug("Select Sql=" + sql);
             rs = stmt.executeQuery(sql);
             //logger.debug(BatchNum + "Get data");
@@ -1325,7 +1299,8 @@ public class MigrateController
         {
             try
             {
-                hgconn.setAutoCommit(true);
+                if(hgconn != null)
+                    hgconn.setAutoCommit(true);
             } catch (SQLException e)
             {
                 //logger.error(e.getSQLState() + " " + e.getMessage());
@@ -1350,7 +1325,7 @@ public class MigrateController
             hgpstmt.executeBatch();
             hgconn.commit();//commit
             isSuccess = true;
-        } catch (Exception ex)
+        } catch (SQLException ex)
         {
             isSuccess = false;
             try
@@ -1490,7 +1465,7 @@ public class MigrateController
             JdbcUtil.close(rs);
             JdbcUtil.close(rs);
         }
-        logger.info("errorFlag = " + errorFlag);
+        logger.debug("errorFlag = " + errorFlag);
         return errorFlag == 0;
     }
     private boolean appandDataStrb(StringBuilder strb, int colCount, ResultSet rtset,ResultSetMetaData metaData
@@ -1500,7 +1475,7 @@ public class MigrateController
         for (int k = 1; k <= colCount; k++)
         {
             String type = metaData.getColumnTypeName(k);
-            logger.info("type = " + type);
+            logger.debug("type = " + type);
             switch(type)
             {
                 case "CLOB":
@@ -1833,7 +1808,7 @@ public class MigrateController
                 ops.flush();
             }
             bfile.closeFile();
-        } catch (Exception ex)
+        } catch (IOException | SQLException ex)
         {
             logger.error(ex.getMessage());
             ex.printStackTrace(System.out);
@@ -1870,7 +1845,7 @@ public class MigrateController
                 ops.write(buffer, 0, i);
                 ops.flush();
             }
-        } catch (Exception ex)
+        } catch (IOException ex)
         {
             logger.error(ex.getMessage());
             ex.printStackTrace(System.out);
@@ -1909,7 +1884,7 @@ public class MigrateController
                 outstream.write(data, 0, i);
                 outstream.flush();
             }
-        } catch (Exception ex)
+        } catch (IOException ex)
         {
             logger.error(ex.getMessage());
             ex.printStackTrace(System.out);
@@ -1946,7 +1921,7 @@ public class MigrateController
                 //tl += s;
             }
             obj.close();
-        } catch (Exception ex)
+        } catch (IOException | SQLException ex)
         {
             logger.error(ex.getMessage());
             ex.printStackTrace(System.out);
@@ -1970,7 +1945,7 @@ public class MigrateController
         try
         {
             long fileSize = file.length();
-            logger.info("BFile Length = " + file.length());
+            logger.debug("BFile Length = " + file.length());
             if (fileSize > Integer.MAX_VALUE)
             {
                 logger.error(file.getAbsolutePath() + " file too big, and return null.");
@@ -1989,7 +1964,7 @@ public class MigrateController
             {
                 throw new IOException("Could not completely read file " + file.getAbsolutePath());
             }
-        } catch (Exception ex)
+        } catch (IOException ex)
         {
             throw ex;
         } finally
@@ -2086,7 +2061,7 @@ public class MigrateController
             pw.write(content);
             pw.newLine();// pw.println();
             pw.flush();
-        } catch (Exception ex)
+        } catch (IOException ex)
         {
             logger.error(ex.getMessage());
             ex.printStackTrace(System.out);
